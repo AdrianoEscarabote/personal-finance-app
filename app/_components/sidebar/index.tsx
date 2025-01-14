@@ -1,0 +1,120 @@
+"use client"
+
+import IconMinimizeMenu from "@/app/_icons/icon-minimize-menu"
+import IconNavBudgets from "@/app/_icons/icon-nav-budgets"
+import IconNavOverview from "@/app/_icons/icon-nav-overview"
+import IconNavPots from "@/app/_icons/icon-nav-pots"
+import IconNavRecurringBills from "@/app/_icons/icon-nav-recurring-bills"
+import IconNavTransactions from "@/app/_icons/icon-nav-transactions"
+import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
+
+const icons = {
+  overview: IconNavOverview,
+  transactions: IconNavTransactions,
+  budgets: IconNavBudgets,
+  pots: IconNavPots,
+  "recurring-bills": IconNavRecurringBills,
+}
+
+type RouteName = keyof typeof icons
+
+const routes: { name: RouteName; path: string }[] = [
+  { name: "overview", path: "/" },
+  { name: "transactions", path: "/transactions" },
+  { name: "budgets", path: "/budgets" },
+  { name: "pots", path: "/pots" },
+  { name: "recurring-bills", path: "/recurring-bills" },
+]
+
+const Sidebar = () => {
+  const [isMinimized, setIsMinimized] = useState(false)
+  const pathName = usePathname()
+
+  useEffect(() => {
+    console.log(pathName)
+  }, [pathName])
+
+  return (
+    <header
+      className={`${isMinimized ? "max-w-[88px]" : "max-w-[300px]"} min-h-screen rounded-e-2xl bg-grey-900 transition-all`}
+    >
+      <div
+        className={`flex h-full min-h-screen flex-col justify-between py-6 ${isMinimized && ""}`}
+      >
+        <div>
+          {isMinimized ? (
+            <div className="mb-6 flex flex-col items-center justify-center px-8 py-4 pb-10">
+              <Image
+                alt=""
+                src={"/images/logo-small.svg"}
+                width={20}
+                height={20}
+              />
+            </div>
+          ) : (
+            <div className="flex flex-col items-start justify-center px-8 py-4 pb-10">
+              <Image
+                alt=""
+                src={"/images/logo-large.svg"}
+                width={120}
+                height={22}
+                className="mb-6"
+              />
+            </div>
+          )}
+          <nav>
+            <ul className="flex flex-col gap-2">
+              {routes.map((route) => {
+                const Icon = icons[route.name]
+
+                return (
+                  <li key={route.name}>
+                    <Link
+                      href={`${route.path}`}
+                      className={`text-preset-3 flex h-[56px] w-full max-w-[276px] items-center gap-3 ${
+                        pathName === `${route.path}`
+                          ? "rounded-e-xl border-l-4 border-green bg-beige-100 text-grey-900"
+                          : "text-grey-300 hover:text-white"
+                      } ${isMinimized ? "justify-center" : "justify-start pl-8"} `}
+                    >
+                      {Icon && (
+                        <Icon
+                          className={`${pathName === route.path && "text-green"}`}
+                          width={24}
+                          height={24}
+                        />
+                      )}
+                      {!isMinimized && (
+                        <span>
+                          {route.name.charAt(0).toUpperCase() +
+                            route.name.slice(1)}
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+        </div>
+        <button
+          className={`${isMinimized ? "justify-center" : "justify-start pl-8"} flex w-full items-center gap-3 p-4 text-grey-300 hover:text-white`}
+          onClick={() => setIsMinimized(!isMinimized)}
+        >
+          <IconMinimizeMenu
+            width={24}
+            height={24}
+            className={`${isMinimized && "rotate-180 transform"}`}
+          />
+
+          {!isMinimized && <span>Minimize Menu</span>}
+        </button>
+      </div>
+    </header>
+  )
+}
+
+export default Sidebar

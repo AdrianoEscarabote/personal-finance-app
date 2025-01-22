@@ -8,7 +8,7 @@ export default function getMockState() {
       },
       transactions: [
         {
-          avatar: "./assets/images/avatars/emma-richardson.jpg",
+          avatar: "/images/avatars/emma-richardson.jpg",
           name: "Emma Richardson",
           category: "General",
           date: "2024-08-19T14:23:11Z",
@@ -16,11 +16,35 @@ export default function getMockState() {
           recurring: false,
         },
         {
-          avatar: "./assets/images/avatars/savory-bites-bistro.jpg",
+          avatar: "/images/avatars/savory-bites-bistro.jpg",
           name: "Savory Bites Bistro",
           category: "Dining Out",
           date: "2024-08-19T20:23:11Z",
           amount: -55.5,
+          recurring: false,
+        },
+        {
+          avatar: "/images/avatars/daniel-carter.jpg",
+          name: "Daniel Carter",
+          category: "General",
+          date: "2024-08-18T09:45:32Z",
+          amount: -42.3,
+          recurring: false,
+        },
+        {
+          avatar: "/images/avatars/sun-park.jpg",
+          name: "Sun Park",
+          category: "General",
+          date: "2024-08-17T16:12:05Z",
+          amount: 120.0,
+          recurring: false,
+        },
+        {
+          avatar: "/images/avatars/urban-services-hub.jpg",
+          name: "Urban Services Hub",
+          category: "General",
+          date: "2024-08-17T21:08:09Z",
+          amount: -65.0,
           recurring: false,
         },
       ],
@@ -35,6 +59,16 @@ export default function getMockState() {
           maximum: 750.0,
           theme: "#82C9D7",
         },
+        {
+          category: "Dining Out",
+          maximum: 75.0,
+          theme: "#F2CDAC",
+        },
+        {
+          category: "Personal Care",
+          maximum: 100.0,
+          theme: "#626070",
+        },
       ],
       pots: [
         {
@@ -48,6 +82,24 @@ export default function getMockState() {
           target: 150.0,
           total: 110.0,
           theme: "#626070",
+        },
+        {
+          name: "Gift",
+          target: 150.0,
+          total: 110.0,
+          theme: "#82C9D7",
+        },
+        {
+          name: "New Laptop",
+          target: 1000.0,
+          total: 10.0,
+          theme: "#F2CDAC",
+        },
+        {
+          name: "Holiday",
+          target: 1440.0,
+          total: 531.0,
+          theme: "#826CB0",
         },
       ],
     },

@@ -12,6 +12,8 @@ export const EditBudget: StoryObj = {
     title: "Edit Budget",
     description:
       "As your budgets change, feel free to update your spending limits.",
+    showPotName: false,
+    showbudgetCategory: true,
   },
 }
 
@@ -20,5 +22,7 @@ export const EditPot: StoryObj = {
     title: "Edit Pot",
     description:
       "If your saving targets change, feel free to update your pots.",
+    showPotName: true,
+    showbudgetCategory: false,
   },
 }

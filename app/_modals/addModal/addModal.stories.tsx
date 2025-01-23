@@ -13,6 +13,10 @@ export const AddNewBudget: StoryObj = {
     description:
       "Choose a category to set a spending budget. These categories can help you monitor spending.",
     textButton: "Add Budget",
+    showBudgetCategory: true,
+    showPotName: false,
+    showMaximumSpend: true,
+    showTarget: false,
   },
 }
 
@@ -22,5 +26,9 @@ export const AddNewPot: StoryObj = {
     description:
       "Create a pot to set savings targets. These can help keep you on track as you save for special purchases.",
     textButton: "Add Pot",
+    showBudgetCategory: false,
+    showPotName: true,
+    showMaximumSpend: false,
+    showTarget: true,
   },
 }

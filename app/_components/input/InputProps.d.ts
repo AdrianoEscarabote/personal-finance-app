@@ -9,4 +9,5 @@ export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   name: string
   id: string
   colorTag?: string
+  showCaracterLeft?: boolean
 }

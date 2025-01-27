@@ -9,8 +9,14 @@ const DeleteModal = ({
   onConfirm,
 }: DeleteModalProps) => {
   return (
-    <div>
-      <article className="rounded-xl bg-white p-8 shadow-md">
+    <div
+      onClick={onCancel}
+      className="fixed left-0 top-0 z-40 flex h-full min-h-screen w-full items-center justify-center bg-black bg-opacity-50 p-4"
+    >
+      <article
+        onClick={(e) => e.stopPropagation()}
+        className="max-w-[35rem] rounded-xl bg-white p-8 shadow-md"
+      >
         <div className="mb-5 flex items-center justify-between">
           <h3 className="text-preset-1 text-grey-900">{title}</h3>
           <button className="rounded-full" onClick={onCancel}>
@@ -24,19 +30,13 @@ const DeleteModal = ({
         </div>
         <p className="text-preset-4 mb-5 text-grey-500">{description}</p>
 
-        <div className="flex flex-col gap-5">
+        <div className="mt-5 flex flex-col gap-5">
           <Button
             variant="destroy"
             label="Yes, Confirm Deletion"
             onClick={onConfirm}
-            className="mt-5"
           />
-          <Button
-            variant="tertiary"
-            label="No, Go Back"
-            onClick={onCancel}
-            className="mt-5"
-          />
+          <Button variant="tertiary" label="No, Go Back" onClick={onCancel} />
         </div>
       </article>
     </div>

@@ -5,12 +5,15 @@ import { useState } from "react"
 import { PotsCardProps } from "./potsCardProps"
 import EditModal from "@/app/_modals/editModal"
 import DeleteModal from "@/app/_modals/deleteModal"
+import AddMoney from "@/app/_modals/addMoney"
+import WithdrawMoney from "@/app/_modals/withdrawMoney"
+import { FocusTrap } from "focus-trap-react"
 
 const PotsCard = ({ pot }: PotsCardProps) => {
-  const [showEditModal, setShowEditModal] = useState(false)
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [showOptions, setShowOptions] = useState(false)
+  const [activeModal, setActiveModal] = useState<string | null>(null)
+  const closeModal = () => setActiveModal(null)
 
+  const [showOptions, setShowOptions] = useState(false)
   const progress = (pot.total / pot.target) * 100
 
   return (
@@ -47,7 +50,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                   tabIndex={!showOptions ? -1 : undefined}
                   onClick={() => {
                     setShowOptions(false)
-                    setShowEditModal(true)
+                    setActiveModal("edit")
                   }}
                 >
                   Edit Pot
@@ -58,7 +61,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                   tabIndex={!showOptions ? -1 : undefined}
                   onClick={() => {
                     setShowOptions(false)
-                    setShowDeleteModal(true)
+                    setActiveModal("delete")
                   }}
                 >
                   Delete Pot
@@ -92,28 +95,61 @@ const PotsCard = ({ pot }: PotsCardProps) => {
             </div>
 
             <div className="mt-8 flex items-center gap-4">
-              <Button variant="secondary" label="+ Add Money" />
-              <Button variant="secondary" label="Withdraw" />
+              <Button
+                variant="secondary"
+                label="+ Add Money"
+                onClick={() => setActiveModal("addMoney")}
+              />
+              <Button
+                variant="secondary"
+                label="Withdraw"
+                onClick={() => setActiveModal("withdraw")}
+              />
             </div>
           </div>
         </div>
       </article>
-      {showEditModal && (
-        <EditModal
-          title={pot.name}
-          description="If your saving targets change, feel free to update your pots."
-          showPotName
-          showbudgetCategory={false}
-          closeModal={() => setShowEditModal(!showEditModal)}
-        />
+      {activeModal === "addMoney" && (
+        <FocusTrap active={activeModal === "addMoney"}>
+          <div>
+            <AddMoney closeModal={closeModal} {...pot} />
+          </div>
+        </FocusTrap>
       )}
-      {showDeleteModal && (
-        <DeleteModal
-          title={pot.name}
-          description="Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will be removed forever."
-          onCancel={() => setShowDeleteModal(!setShowDeleteModal)}
-          onConfirm={() => {}}
-        />
+
+      {activeModal === "withdraw" && (
+        <FocusTrap active={activeModal === "withdraw"}>
+          <div>
+            <WithdrawMoney closeModal={closeModal} {...pot} />
+          </div>
+        </FocusTrap>
+      )}
+
+      {activeModal === "edit" && (
+        <FocusTrap active={activeModal === "edit"}>
+          <div>
+            <EditModal
+              title={pot.name}
+              description="If your saving targets change, feel free to update your pots."
+              showPotName
+              showbudgetCategory={false}
+              closeModal={closeModal}
+            />
+          </div>
+        </FocusTrap>
+      )}
+
+      {activeModal === "delete" && (
+        <FocusTrap active={activeModal === "delete"}>
+          <div>
+            <DeleteModal
+              title={pot.name}
+              description="Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will be removed forever."
+              onCancel={closeModal}
+              onConfirm={() => {}}
+            />
+          </div>
+        </FocusTrap>
       )}
     </>
   )

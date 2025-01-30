@@ -1,15 +1,39 @@
 import { render, screen } from "@testing-library/react"
 import EditModal from "."
+import { legacy_configureStore as configureStore } from "redux-mock-store"
+import getMockState from "@/utils/getMockState"
+import { Provider } from "react-redux"
+
+const mockStore = configureStore([])
 
 describe("EditModal", () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let store: any
+
+  beforeEach(() => {
+    const mockState = getMockState()
+    const state = mockStore(mockState)
+
+    store = state
+    store.dispatch = jest.fn()
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it("should render correctly with default props", () => {
     render(
-      <EditModal
-        title="Edit Budget"
-        description="As your budgets change, feel free to update your spending limits."
-        showPotName={false}
-        showbudgetCategory={true}
-      />,
+      <Provider store={store}>
+        <EditModal
+          title="Edit Budget"
+          description="As your budgets change, feel free to update your spending limits."
+          showPotName={false}
+          showbudgetCategory={true}
+          closeModal={() => {}}
+        />
+        ,
+      </Provider>,
     )
 
     expect(screen.getByText("Edit Budget")).toBeTruthy()
@@ -23,12 +47,16 @@ describe("EditModal", () => {
 
   it("should render the Pot Name input when showPotName is true", () => {
     render(
-      <EditModal
-        title="Edit Budget"
-        description="Update your pot name."
-        showPotName={true}
-        showbudgetCategory={false}
-      />,
+      <Provider store={store}>
+        <EditModal
+          title="Edit Budget"
+          description="Update your pot name."
+          showPotName={true}
+          showbudgetCategory={false}
+          closeModal={() => {}}
+        />
+        ,
+      </Provider>,
     )
 
     expect(screen.getByText("Pot Name")).toBeTruthy()
@@ -36,12 +64,16 @@ describe("EditModal", () => {
 
   it("should always render the Maximum Spend input", () => {
     render(
-      <EditModal
-        title="Edit Budget"
-        description="Set your spending limits."
-        showPotName={false}
-        showbudgetCategory={true}
-      />,
+      <Provider store={store}>
+        <EditModal
+          title="Edit Budget"
+          description="Set your spending limits."
+          showPotName={false}
+          showbudgetCategory={true}
+          closeModal={() => {}}
+        />
+        ,
+      </Provider>,
     )
 
     expect(screen.getByText("Maximum Spend")).toBeTruthy()
@@ -49,12 +81,15 @@ describe("EditModal", () => {
 
   it("should always render the ColorTag component", () => {
     render(
-      <EditModal
-        title="Edit Budget"
-        description="Choose a theme color."
-        showPotName={false}
-        showbudgetCategory={true}
-      />,
+      <Provider store={store}>
+        <EditModal
+          title="Edit Budget"
+          description="Choose a theme color."
+          showPotName={false}
+          showbudgetCategory={true}
+          closeModal={() => {}}
+        />
+      </Provider>,
     )
 
     expect(screen.getByText("Theme")).toBeTruthy()
@@ -62,12 +97,15 @@ describe("EditModal", () => {
 
   it("should render the close button", () => {
     render(
-      <EditModal
-        title="Edit Budget"
-        description="Update your spending limits."
-        showPotName={false}
-        showbudgetCategory={true}
-      />,
+      <Provider store={store}>
+        <EditModal
+          title="Edit Budget"
+          description="Update your spending limits."
+          showPotName={false}
+          showbudgetCategory={true}
+          closeModal={() => {}}
+        />
+      </Provider>,
     )
 
     const closeButton = screen.getByRole("button", { name: "" })

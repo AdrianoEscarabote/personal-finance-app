@@ -3,6 +3,7 @@ import { AddMoneyProps } from "./addMoneyProps"
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
 import { useForm } from "react-hook-form"
+import useEscClose from "@/hooks/useEscClose"
 
 const AddMoney = ({
   name,
@@ -11,6 +12,7 @@ const AddMoney = ({
   theme,
   closeModal,
 }: AddMoneyProps) => {
+  useEscClose(closeModal)
   const progress = (total / target) * 100
   const {
     register,

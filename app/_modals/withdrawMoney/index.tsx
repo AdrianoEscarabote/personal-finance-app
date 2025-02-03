@@ -4,6 +4,7 @@ import { withdrawMoneyProps } from "./withdrawMoneyProps"
 import Input from "@/app/_components/input"
 import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
+import useEscClose from "@/hooks/useEscClose"
 
 const WithdrawMoney = ({
   name,
@@ -11,6 +12,7 @@ const WithdrawMoney = ({
   total,
   closeModal,
 }: withdrawMoneyProps) => {
+  useEscClose(closeModal)
   const [amountCalculated, setAmountCalculated] = useState(total)
   const progress = (total / target) * 100
 
@@ -38,7 +40,10 @@ const WithdrawMoney = ({
       onClick={closeModal}
       className={`fixed left-0 top-0 z-40 flex h-full min-h-screen w-full items-center justify-center bg-black bg-opacity-50 p-5`}
     >
-      <article className="max-w-[560px] rounded-xl bg-white p-8 shadow-md">
+      <article
+        className="max-w-[560px] rounded-xl bg-white p-8 shadow-md"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="mb-5 flex items-center justify-between">
           <h3 className="text-preset-1 text-grey-900">
             Withdraw from ‘{name}’

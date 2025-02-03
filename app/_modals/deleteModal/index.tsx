@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { DeleteModalProps } from "./deleteModalProps"
 import Button from "@/app/_components/button"
+import useEscClose from "@/hooks/useEscClose"
 
 const DeleteModal = ({
   title,
@@ -8,6 +9,7 @@ const DeleteModal = ({
   onCancel,
   onConfirm,
 }: DeleteModalProps) => {
+  useEscClose(onCancel)
   return (
     <div
       onClick={onCancel}
@@ -18,7 +20,7 @@ const DeleteModal = ({
         className="max-w-[35rem] rounded-xl bg-white p-8 shadow-md"
       >
         <div className="mb-5 flex items-center justify-between">
-          <h3 className="text-preset-1 text-grey-900">{title}</h3>
+          <h3 className="text-preset-1 text-grey-900">Delete ‘{title}’?</h3>
           <button className="rounded-full" onClick={onCancel}>
             <Image
               src={"/images/icon-close-modal.svg"}

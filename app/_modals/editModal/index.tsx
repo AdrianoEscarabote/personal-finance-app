@@ -4,6 +4,7 @@ import ColorTag from "@/app/_components/colorTag"
 import SelectCategory from "@/app/_components/selectCategory"
 import Input from "@/app/_components/input"
 import { EditModalProps } from "./editModalProps"
+import useEscClose from "@/hooks/useEscClose"
 
 const EditModal = ({
   title,
@@ -12,6 +13,7 @@ const EditModal = ({
   showbudgetCategory,
   closeModal,
 }: EditModalProps) => {
+  useEscClose(closeModal)
   return (
     <div
       onClick={closeModal}

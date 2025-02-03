@@ -1,19 +1,47 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import SelectCategory from "."
+import getMockState from "@/utils/getMockState"
+import { legacy_configureStore as configureStore } from "redux-mock-store"
+import { Provider } from "react-redux"
+
+const mockStore = configureStore([])
 
 describe("SelectCategory", () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let store: any
+
+  beforeEach(() => {
+    const mockState = getMockState()
+    const state = mockStore(mockState)
+
+    store = state
+    store.dispatch = jest.fn()
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it("should render correctly", () => {
-    render(<SelectCategory label="Category" setCategory={() => {}} />)
+    render(
+      <Provider store={store}>
+        <SelectCategory label="Category" setCategory={() => {}} />
+      </Provider>,
+    )
   })
 
   it("should update the selected category when an option is clicked", () => {
     const setCategoryMock = jest.fn()
-    render(<SelectCategory label="Category" setCategory={setCategoryMock} />)
+    render(
+      <Provider store={store}>
+        <SelectCategory label="Category" setCategory={setCategoryMock} />
+      </Provider>,
+    )
 
     fireEvent.click(screen.getByTestId("select-category-btn"))
-    fireEvent.click(screen.getByText("Groceries"))
+    fireEvent.click(screen.getByText("Transportation"))
 
-    expect(screen.getAllByText("Groceries")).toBeTruthy()
-    expect(setCategoryMock).toHaveBeenCalledWith("Groceries")
+    expect(screen.getAllByText("Transportation")).toBeTruthy()
+    expect(setCategoryMock).toHaveBeenCalledWith("Transportation")
   })
 })

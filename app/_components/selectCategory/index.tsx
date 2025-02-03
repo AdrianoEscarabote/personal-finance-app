@@ -2,15 +2,35 @@ import IconCaretDown from "@/app/_icons/icon-caret-down"
 import { useEffect, useState } from "react"
 import { SelectCategoryProps } from "./selectCategoryProps"
 import { listCategories } from "@/utils/constants"
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/reduxTypes"
 
 const SelectCategory = ({ label, setCategory }: SelectCategoryProps) => {
+  const { budgets } = useSelector(
+    (rootState: RootState) => rootState.financeSlice,
+  )
   const [showColors, setShowColors] = useState<boolean>(false)
-  const [selectedCategory, setSelectedCategory] =
-    useState<string>("Entertainment")
+  const filteredCategories = listCategories.slice(1)
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    filteredCategories[0],
+  )
+
+  const isCategoryUsed = (category: string) =>
+    budgets.some((budget) => budget.category === category)
 
   useEffect(() => {
     setCategory(selectedCategory)
-  }, [])
+    if (isCategoryUsed(selectedCategory)) {
+      const availableCategory = filteredCategories.find(
+        (category) => !isCategoryUsed(category),
+      )
+
+      if (availableCategory) {
+        setSelectedCategory(availableCategory)
+        setCategory(availableCategory)
+      }
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="relative max-w-[31rem]">
@@ -39,23 +59,29 @@ const SelectCategory = ({ label, setCategory }: SelectCategoryProps) => {
         }}
       >
         <div className="px-5 py-3">
-          {listCategories.map((category, index, arr) => (
+          {filteredCategories.map((category, index, arr) => (
             <button
               type="button"
               key={category}
               className={`${
                 index === arr.length - 1
                   ? "pb-0 pt-3"
-                  : "border-b border-grey-100 py-3"
-              } text-preset-4 flex w-full items-center gap-3 text-grey-900`}
+                  : "relative border-b border-grey-100 py-3"
+              } text-preset-4 flex w-full items-center gap-3 text-grey-900 ${isCategoryUsed(category) ? "cursor-not-allowed opacity-50" : ""}`}
               tabIndex={!showColors ? -1 : undefined}
               onClick={() => {
                 setShowColors(false)
                 setSelectedCategory(category)
                 setCategory(category)
               }}
+              disabled={isCategoryUsed(category)}
             >
               <span className="text-preset-4 text-grey-900">{category}</span>
+              {isCategoryUsed(category) && (
+                <span className="text-preset-5 absolute right-0 text-grey-900">
+                  Already used
+                </span>
+              )}
             </button>
           ))}
         </div>

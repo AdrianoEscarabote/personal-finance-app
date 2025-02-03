@@ -29,51 +29,69 @@
   }
 }
 
+body::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background: #201f24;
+  border-radius: 0.25rem;
+  transition: 0.9s ease-in-out;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #141418;
+  transition: 0.3s ease-in-out;
+}
+
 .text-preset-1 {
-  font-size: 32px;
+  font-size: 2rem;
   line-height: 120%;
-  letter-spacing: 0px;
+  letter-spacing: 0rem;
   font-weight: 700;
 }
 
 .text-preset-2 {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 120%;
-  letter-spacing: 0px;
+  letter-spacing: 0rem;
   font-weight: 700;
 }
 
 .text-preset-3 {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 150%;
-  letter-spacing: 0px;
+  letter-spacing: 0rem;
   font-weight: 700;
 }
 
 .text-preset-4 {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 150%;
-  letter-spacing: 0px;
+  letter-spacing: 0rem;
   font-weight: 400;
 }
 
 .text-preset-4-bold {
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 150%;
-  letter-spacing: 0px;
+  letter-spacing: 0rem;
   font-weight: 700;
 }
 
 .text-preset-5 {
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 150%;
-  letter-spacing: 0px;
+  letter-spacing: 0rem;
   font-weight: 400;
 }
 
 .text-preset-5-bold {
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 150%;
-  letter-spacing: 0px;
+  letter-spacing: 0rem;
   font-weight: 700;
 }

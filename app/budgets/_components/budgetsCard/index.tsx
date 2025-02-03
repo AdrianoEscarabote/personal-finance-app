@@ -8,8 +8,12 @@ import { useState } from "react"
 import { BudgetsCardProps } from "./budgetsCardProps"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/reduxTypes"
+import EditModal from "@/app/_modals/editModal"
+import DeleteModal from "@/app/_modals/deleteModal"
 
 const BudgetsCard = ({ budget }: BudgetsCardProps) => {
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const { transactions } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
@@ -17,114 +21,164 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
   const transactionsFiltered = transactions.filter(
     (transaction) => transaction.category === budget.category,
   )
-  const totalSpend = transactionsFiltered.reduce(
-    (acc, transaction) => acc + transaction.amount,
-    0,
-  )
+  const totalSpend = transactionsFiltered
+    .filter((transaction) => transaction.amount < 0)
+    .reduce((acc, transaction) => acc + Math.abs(transaction.amount), 0)
+
   const progress = (totalSpend / budget.maximum) * 100
 
   return (
-    <article className="max-w-[608px]">
-      <div key={budget.category} className="rounded-xl bg-white p-8">
-        <div className="relative mb-5 flex w-full items-center justify-between">
-          <h2 className="text-preset-2 flex items-center gap-3 text-grey-900">
-            <div
-              style={{ backgroundColor: budget.theme }}
-              className="h-4 w-4 rounded-full"
-            ></div>
-            {budget.category}
-          </h2>
-          <button
-            className="relative grid h-6 w-6 place-content-center text-grey-900 transition hover:text-grey-300"
-            onClick={() => setShowOptions(!showOptions)}
-          >
-            <IconEllipsis className="text-inherit" />
-          </button>
-          <div
-            className={`absolute right-0 top-10 z-20 w-[152px] rounded-lg bg-white px-5 py-3 shadow-xl transition-all duration-300 ${showOptions ? "max-h-[127px] opacity-100" : "max-h-0 opacity-0"}`}
-            style={{
-              transition: "max-height 0.3s ease, opacity 0.3s ease",
-            }}
-          >
-            <button
-              className="mb-3 text-grey-900"
-              tabIndex={!showOptions ? -1 : undefined}
-            >
-              Edit Budget
-            </button>
-            <div className="h-[1px] w-full bg-grey-100"></div>
-            <button
-              className="mt-3 text-red"
-              tabIndex={!showOptions ? -1 : undefined}
-            >
-              Delete Budget
-            </button>
-          </div>
-        </div>
-        <div>
-          <p className="text-preset-4 text-grey-500">
-            Maximum of ${budget.maximum.toFixed(2)}
-          </p>
-
-          <div className="relative mt-2 h-6 w-full rounded-full bg-grey-100">
-            <div
-              style={{
-                width: `${progress}%`,
-                backgroundColor: budget.theme,
-              }}
-              data-testid="progress-bar"
-              className="absolute h-full rounded-[4px]"
-            ></div>
-          </div>
-        </div>
-
-        <div className="mt-5 rounded-xl bg-beige-100 p-5">
-          <div className="mb-3 flex w-full items-center justify-between">
-            <h3 className="text-preset-3 text-grey-900">Latest Spending</h3>
-
-            <Button
-              showIcon
-              variant="tertiary"
-              label="See All"
-              style={{ maxWidth: "71px" }}
-            />
-          </div>
-
-          <div>
-            {transactionsFiltered.slice(0, 3).map((transaction, index, arr) => (
+    <>
+      <article className="max-w-[608px]">
+        <div key={budget.category} className="rounded-xl bg-white p-8">
+          <div className="relative mb-5 flex w-full items-center justify-between">
+            <h2 className="text-preset-2 flex items-center gap-3 text-grey-900">
               <div
-                key={transaction.date}
-                className={` ${
-                  index === arr.length - 1
-                    ? "pb-0 pt-3"
-                    : "border-b border-[#E3DFDC] py-3"
-                } flex items-center justify-between`}
+                style={{ backgroundColor: budget.theme }}
+                className="h-4 w-4 rounded-full"
+              ></div>
+              {budget.category}
+            </h2>
+            <button
+              className="relative grid h-6 w-6 place-content-center text-grey-900 transition hover:text-grey-300"
+              onClick={() => setShowOptions(!showOptions)}
+            >
+              <IconEllipsis className="text-inherit" />
+            </button>
+            <div
+              className={`absolute right-0 top-10 z-20 w-[152px] rounded-lg bg-white px-5 py-3 shadow-xl transition-all duration-300 ${showOptions ? "max-h-[127px] opacity-100" : "max-h-0 opacity-0"}`}
+              style={{
+                transition: "max-height 0.3s ease, opacity 0.3s ease",
+              }}
+            >
+              <button
+                className="mb-3 text-grey-900"
+                tabIndex={!showOptions ? -1 : undefined}
+                onClick={() => {
+                  setShowOptions(false)
+                  setShowEditModal(!showEditModal)
+                }}
               >
-                <div className="flex items-center gap-4">
-                  <Image
-                    alt=""
-                    src={transaction.avatar}
-                    width={32}
-                    height={32}
-                    className="rounded-full"
-                  />
-                  <p className="text-preset-5-bold text-grey-900">
-                    {transaction.name}
-                  </p>
-                </div>
+                Edit Budget
+              </button>
+              <div className="h-[1px] w-full bg-grey-100"></div>
+              <button
+                className="mt-3 text-red"
+                tabIndex={!showOptions ? -1 : undefined}
+                onClick={() => {
+                  setShowOptions(false)
+                  setShowDeleteModal(!showDeleteModal)
+                }}
+              >
+                Delete Budget
+              </button>
+            </div>
+          </div>
+          <div>
+            <p className="text-preset-4 text-grey-500">
+              Maximum of ${budget.maximum.toFixed(2)}
+            </p>
 
-                <p className="text-preset-5 flex flex-col items-end gap-1 text-grey-500">
-                  <span className="text-preset-5-bold text-grey-900">
-                    -${Math.abs(transaction.amount).toFixed(2)}
-                  </span>
-                  {formatDate(transaction.date)}
-                </p>
-              </div>
-            ))}
+            <div className="relative mt-2 w-full rounded-[4px] bg-grey-100 p-1">
+              <div
+                style={{
+                  width: `${progress}%`,
+                  backgroundColor: budget.theme,
+                }}
+                data-testid="progress-bar"
+                className="h-6 max-w-[536px] rounded-[4px]"
+              ></div>
+            </div>
+          </div>
+
+          <div className="mt-5 flex justify-between">
+            <div className="flex w-full items-center gap-4">
+              <div className="h-[43px] w-1 rounded-full bg-green"></div>
+              <p className="text-preset-5 flex flex-col items-start text-grey-500">
+                <span className="text-preset-4-bold text-grey-900">
+                  ${budget.maximum.toFixed(2)}
+                </span>
+                Spent
+              </p>
+            </div>
+            <div className="flex w-full items-center gap-4">
+              <div className="h-[43px] w-1 rounded-full bg-beige-100"></div>
+              <p className="text-preset-5 flex flex-col items-start text-grey-500">
+                Remaining
+                <span className="text-preset-4-bold text-grey-900">
+                  ${Math.max(budget.maximum - totalSpend, 0).toFixed(2)}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 rounded-xl bg-beige-100 p-5">
+            <div className="mb-3 flex w-full items-center justify-between">
+              <h3 className="text-preset-3 text-grey-900">Latest Spending</h3>
+
+              <Button
+                showIcon
+                variant="tertiary"
+                label="See All"
+                style={{ maxWidth: "71px" }}
+              />
+            </div>
+
+            <div>
+              {transactionsFiltered
+                .slice(0, 3)
+                .map((transaction, index, arr) => (
+                  <div
+                    key={transaction.date}
+                    className={` ${
+                      index === arr.length - 1
+                        ? "pb-0 pt-3"
+                        : "border-b border-[#E3DFDC] py-3"
+                    } flex items-center justify-between`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <Image
+                        alt=""
+                        src={transaction.avatar}
+                        width={32}
+                        height={32}
+                        className="rounded-full"
+                      />
+                      <p className="text-preset-5-bold text-grey-900">
+                        {transaction.name}
+                      </p>
+                    </div>
+
+                    <p className="text-preset-5 flex flex-col items-end gap-1 text-grey-500">
+                      <span className="text-preset-5-bold text-grey-900">
+                        -${Math.abs(transaction.amount).toFixed(2)}
+                      </span>
+                      {formatDate(transaction.date)}
+                    </p>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
+      {showEditModal && (
+        <EditModal
+          title="Edit Budget"
+          description="As your budgets change, feel free to update your spending limits."
+          showbudgetCategory={true}
+          showPotName={false}
+          closeModal={() => setShowEditModal(false)}
+        />
+      )}
+      {showDeleteModal && (
+        <DeleteModal
+          title={budget.category}
+          description="Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever."
+          onCancel={() => setShowDeleteModal(!showDeleteModal)}
+          onConfirm={() => {}}
+        />
+      )}
+    </>
   )
 }
 

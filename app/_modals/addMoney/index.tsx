@@ -4,6 +4,8 @@ import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
 import { useForm } from "react-hook-form"
 import useEscClose from "@/hooks/useEscClose"
+import { useDispatch } from "react-redux"
+import { addMoney } from "@/redux/finance/reducer"
 
 const AddMoney = ({
   name,
@@ -12,6 +14,8 @@ const AddMoney = ({
   theme,
   closeModal,
 }: AddMoneyProps) => {
+  const dispatch = useDispatch()
+
   useEscClose(closeModal)
   const progress = (total / target) * 100
   const {
@@ -25,8 +29,9 @@ const AddMoney = ({
 
   const newProgress = ((total + Number(amount || 0)) / target) * 100
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
+  const onSubmit = handleSubmit(() => {
+    dispatch(addMoney({ pot_name: name, new_amount: Number(amount) }))
+    closeModal()
   })
 
   return (

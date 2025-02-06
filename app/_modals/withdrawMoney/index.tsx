@@ -5,6 +5,8 @@ import Input from "@/app/_components/input"
 import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
 import useEscClose from "@/hooks/useEscClose"
+import { useDispatch } from "react-redux"
+import { withdrawMoney } from "@/redux/finance/reducer"
 
 const WithdrawMoney = ({
   name,
@@ -12,6 +14,7 @@ const WithdrawMoney = ({
   total,
   closeModal,
 }: withdrawMoneyProps) => {
+  const dispatch = useDispatch()
   useEscClose(closeModal)
   const [amountCalculated, setAmountCalculated] = useState(total)
   const progress = (total / target) * 100
@@ -27,8 +30,9 @@ const WithdrawMoney = ({
 
   const newProgress = ((total - Number(amount || 0)) / target) * 100
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
+  const onSubmit = handleSubmit(() => {
+    dispatch(withdrawMoney({ pot_name: name, withdraw_amount: Number(amount) }))
+    closeModal()
   })
 
   useEffect(() => {
@@ -41,7 +45,7 @@ const WithdrawMoney = ({
       className={`fixed left-0 top-0 z-40 flex h-full min-h-screen w-full items-center justify-center bg-black bg-opacity-50 p-5`}
     >
       <article
-        className="max-w-[560px] rounded-xl bg-white p-8 shadow-md"
+        className="max-w-[35rem] rounded-xl bg-white p-8 shadow-md"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-5 flex items-center justify-between">

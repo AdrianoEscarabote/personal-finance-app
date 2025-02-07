@@ -26,13 +26,14 @@ describe("AddModal", () => {
     render(
       <Provider store={store}>
         <AddModal
-          title="Add New Pot"
-          description="Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
+          title="pot"
+          description="pot"
           textButton="Add Pot"
           showPotName={true}
           showMaximumSpend={false}
           showBudgetCategory={false}
           showTarget={true}
+          closeModal={() => {}}
         />
       </Provider>,
     )
@@ -41,13 +42,14 @@ describe("AddModal", () => {
     render(
       <Provider store={store}>
         <AddModal
-          title="Add New Pot"
-          description="Add a pot name."
+          title="pot"
+          description="pot"
           textButton="Add Pot"
           showPotName={true}
           showMaximumSpend={false}
           showBudgetCategory={false}
           showTarget={true}
+          closeModal={() => {}}
         />
       </Provider>,
     )
@@ -59,13 +61,14 @@ describe("AddModal", () => {
     render(
       <Provider store={store}>
         <AddModal
-          title="Add New Pot"
-          description="Add a pot name."
+          title="pot"
+          description="pot"
           textButton="Add Pot"
           showPotName={false}
           showMaximumSpend={false}
           showBudgetCategory={false}
           showTarget={true}
+          closeModal={() => {}}
         />
       </Provider>,
     )
@@ -77,13 +80,14 @@ describe("AddModal", () => {
     render(
       <Provider store={store}>
         <AddModal
-          title="Add New Pot"
-          description="Select a budget category."
+          title="pot"
+          description="pot"
           textButton="Add Pot"
           showBudgetCategory={true}
           showPotName={false}
           showMaximumSpend={false}
           showTarget={true}
+          closeModal={() => {}}
         />
       </Provider>,
     )
@@ -95,13 +99,14 @@ describe("AddModal", () => {
     render(
       <Provider store={store}>
         <AddModal
-          title="Add New Pot"
-          description="Select a theme color."
+          title="pot"
+          description="pot"
           textButton="Add Pot"
           showBudgetCategory={true}
           showPotName={false}
           showMaximumSpend={false}
           showTarget={true}
+          closeModal={() => {}}
         />
         ,
       </Provider>,

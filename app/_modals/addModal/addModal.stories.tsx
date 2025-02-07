@@ -1,17 +1,19 @@
 import { Meta, StoryObj } from "@storybook/react"
 import AddModal from "."
 import { addModalProps } from "./addModalProps"
+import { Provider } from "react-redux"
+import store from "@/.storybook/storybook-store"
 
 export default {
   title: "modals/addModal",
   component: AddModal,
+  decorators: [(Story) => <Provider store={store}>{Story()}</Provider>],
 } as Meta<addModalProps>
 
 export const AddNewBudget: StoryObj = {
   args: {
-    title: "Add New Budget",
-    description:
-      "Choose a category to set a spending budget. These categories can help you monitor spending.",
+    title: "budget",
+    description: "budget",
     textButton: "Add Budget",
     showBudgetCategory: true,
     showPotName: false,
@@ -22,9 +24,8 @@ export const AddNewBudget: StoryObj = {
 
 export const AddNewPot: StoryObj = {
   args: {
-    title: "Add New Pot",
-    description:
-      "Create a pot to set savings targets. These can help keep you on track as you save for special purchases.",
+    title: "pot",
+    description: "pot",
     textButton: "Add Pot",
     showBudgetCategory: false,
     showPotName: true,

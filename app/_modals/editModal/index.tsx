@@ -5,15 +5,67 @@ import SelectCategory from "@/app/_components/selectCategory"
 import Input from "@/app/_components/input"
 import { EditModalProps } from "./editModalProps"
 import useEscClose from "@/hooks/useEscClose"
+import { useForm } from "react-hook-form"
+import { useEffect, useState } from "react"
+import { editBudget, editPot } from "@/redux/finance/reducer"
+import { useDispatch } from "react-redux"
 
 const EditModal = ({
-  title,
-  description,
+  content,
   showPotName,
   showbudgetCategory,
   closeModal,
+  data_edit_pot,
+  data_edit_budget,
 }: EditModalProps) => {
+  const dispatch = useDispatch()
   useEscClose(closeModal)
+  const [theme, setTheme] = useState<string>("")
+  const [selectedCategory, setSelectedCategory] = useState<string>("")
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = handleSubmit((data) => {
+    if (content === "pot") {
+      dispatch(
+        editPot({
+          pot_name: data_edit_pot?.pot_name as string,
+          new_pot_name: data.name,
+          maximum_spend: data.maximum,
+          theme,
+        }),
+      )
+    }
+    if (content === "budget") {
+      dispatch(
+        editBudget({
+          category: data_edit_budget?.budget_category as string,
+          new_category: selectedCategory,
+          maximum: Number(data.maximum),
+          theme,
+        }),
+      )
+    }
+    closeModal()
+  })
+
+  useEffect(() => {
+    if (data_edit_pot) {
+      setValue("name", data_edit_pot.pot_name)
+      setValue("maximum", data_edit_pot.target)
+      setTheme(data_edit_pot.theme)
+    }
+    if (data_edit_budget) {
+      setSelectedCategory(data_edit_budget.budget_category)
+      setValue("maximum", Number(data_edit_budget.target))
+      setTheme(data_edit_budget.theme)
+    }
+  }, [])
+
   return (
     <div
       onClick={closeModal}
@@ -24,7 +76,9 @@ const EditModal = ({
         className={`w-full max-w-[35rem] rounded-xl bg-white p-5 shadow-md transition-transform duration-300 lg:p-8`}
       >
         <div className="mb-5 flex items-center justify-between">
-          <h3 className="text-preset-1 text-grey-900">{title}</h3>
+          <h3 className="text-preset-1 text-grey-900">
+            Edit {content === "pot" ? "Pot" : "Budget"}
+          </h3>
           <button
             className="rounded-full"
             onClick={closeModal}
@@ -38,33 +92,62 @@ const EditModal = ({
             />
           </button>
         </div>
-        <p className="text-preset-4 mb-5 text-grey-500">{description}</p>
-        <div className="flex w-full flex-col gap-4">
-          {showPotName && (
-            <Input
-              variant="basic"
-              errors={false}
-              id="name"
-              label="Pot Name"
-              name="name"
-              showCaracterLeft
+        <p className="text-preset-4 mb-5 text-grey-500">
+          {content === "pot" &&
+            "If your saving targets change, feel free to update your pots."}
+          {content === "budget" &&
+            "As your budgets change, feel free to update your spending limits."}
+        </p>
+        <form onSubmit={onSubmit}>
+          <fieldset>
+            <legend className="sr-only">
+              Enter your new pot details below to update your pot.
+            </legend>
+            <div className="flex w-full flex-col gap-4">
+              {showPotName && (
+                <Input
+                  variant="basic"
+                  id="name"
+                  label="Pot Name"
+                  showCaracterLeft
+                  errors={errors.name?.message ? true : false}
+                  errorMessage={errors.name?.message as string}
+                  {...register("name", {
+                    required: "This field is required.",
+                  })}
+                />
+              )}
+              {showbudgetCategory && (
+                <SelectCategory
+                  setCategory={setSelectedCategory}
+                  category={data_edit_budget?.budget_category}
+                  label="Budget Category"
+                />
+              )}
+              <Input
+                label="Maximum Spend"
+                variant="withPrefix"
+                id="maximum"
+                errors={errors.maximum?.message ? true : false}
+                errorMessage={errors.maximum?.message as string}
+                {...register("maximum", {
+                  required: "This field is required.",
+                })}
+              />
+              <ColorTag
+                theme={data_edit_budget?.theme}
+                setTheme={setTheme}
+                label={"Theme"}
+              />
+            </div>
+            <Button
+              variant="primary"
+              type="submit"
+              label="Save Changes"
+              style={{ marginTop: "1.25rem" }}
             />
-          )}
-          {showbudgetCategory && <SelectCategory label="Budget Category" />}
-          <Input
-            label="Maximum Spend"
-            variant="withPrefix"
-            errors={false}
-            id="maximum"
-            name="maximum"
-          />
-          <ColorTag label={"Theme"} />
-        </div>
-        <Button
-          variant="primary"
-          label="Save Changes"
-          style={{ marginTop: "1.25rem" }}
-        />
+          </fieldset>
+        </form>
       </article>
     </div>
   )

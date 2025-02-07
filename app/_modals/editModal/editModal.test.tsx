@@ -26,8 +26,7 @@ describe("EditModal", () => {
     render(
       <Provider store={store}>
         <EditModal
-          title="Edit Budget"
-          description="As your budgets change, feel free to update your spending limits."
+          content="budget"
           showPotName={false}
           showbudgetCategory={true}
           closeModal={() => {}}
@@ -49,8 +48,7 @@ describe("EditModal", () => {
     render(
       <Provider store={store}>
         <EditModal
-          title="Edit Budget"
-          description="Update your pot name."
+          content="budget"
           showPotName={true}
           showbudgetCategory={false}
           closeModal={() => {}}
@@ -66,8 +64,7 @@ describe("EditModal", () => {
     render(
       <Provider store={store}>
         <EditModal
-          title="Edit Budget"
-          description="Set your spending limits."
+          content="budget"
           showPotName={false}
           showbudgetCategory={true}
           closeModal={() => {}}
@@ -83,8 +80,7 @@ describe("EditModal", () => {
     render(
       <Provider store={store}>
         <EditModal
-          title="Edit Budget"
-          description="Choose a theme color."
+          content="budget"
           showPotName={false}
           showbudgetCategory={true}
           closeModal={() => {}}
@@ -99,8 +95,7 @@ describe("EditModal", () => {
     render(
       <Provider store={store}>
         <EditModal
-          title="Edit Budget"
-          description="Update your spending limits."
+          content="budget"
           showPotName={false}
           showbudgetCategory={true}
           closeModal={() => {}}

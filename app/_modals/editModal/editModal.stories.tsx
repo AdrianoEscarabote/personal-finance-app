@@ -1,17 +1,18 @@
 import { Meta, StoryObj } from "@storybook/react"
 import EditModal from "."
 import { EditModalProps } from "./editModalProps"
+import { Provider } from "react-redux"
+import store from "@/.storybook/storybook-store"
 
 export default {
   title: "modals/editModal",
   component: EditModal,
+  decorators: [(Story) => <Provider store={store}>{Story()}</Provider>],
 } as Meta<EditModalProps>
 
 export const EditBudget: StoryObj = {
   args: {
-    title: "Edit Budget",
-    description:
-      "As your budgets change, feel free to update your spending limits.",
+    content: "budget",
     showPotName: false,
     showbudgetCategory: true,
   },
@@ -19,9 +20,7 @@ export const EditBudget: StoryObj = {
 
 export const EditPot: StoryObj = {
   args: {
-    title: "Edit Pot",
-    description:
-      "If your saving targets change, feel free to update your pots.",
+    content: "pot",
     showPotName: true,
     showbudgetCategory: false,
   },

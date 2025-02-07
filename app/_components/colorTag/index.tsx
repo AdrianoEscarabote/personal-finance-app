@@ -6,34 +6,31 @@ import { RootState } from "@/redux/reduxTypes"
 import IconBillPaid from "@/app/_icons/icon-bill-paid"
 import { listColors } from "@/utils/constants"
 
-const ColorTag = ({ label, setTheme }: ColorTagProps) => {
+const ColorTag = ({ label, theme, setTheme }: ColorTagProps) => {
   const { budgets } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
   const [showColors, setShowColors] = useState<boolean>(false)
+
+  const filteredColors = listColors
+
+  const initialColor =
+    typeof theme === "string"
+      ? filteredColors.find((color) => color.hex === theme) || filteredColors[0]
+      : filteredColors[0]
+
   const [selectedColor, setSelectedColor] = useState<{
     name: string
     hex: string
-  }>({ name: "Green", hex: "#277C78" })
-
-  useEffect(() => {
-    setTheme(selectedColor.hex)
-  }, [selectedColor, setTheme])
+  }>(initialColor)
 
   const isColorUsed = (hex: string) =>
-    budgets.some((budget) => budget.theme === hex)
+    hex !== theme && budgets.some((budget) => budget.theme === hex)
 
   useEffect(() => {
-    if (isColorUsed(selectedColor.hex)) {
-      const availableColor = listColors.find((color) => !isColorUsed(color.hex))
-
-      if (availableColor) {
-        setSelectedColor(availableColor)
-        setTheme(availableColor.hex)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    setTheme(initialColor.hex)
+    setSelectedColor(initialColor)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="relative max-w-[31rem]">

@@ -5,31 +5,29 @@ import { listCategories } from "@/utils/constants"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/reduxTypes"
 
-const SelectCategory = ({ label, setCategory }: SelectCategoryProps) => {
+const SelectCategory = ({
+  label,
+  setCategory,
+  category,
+}: SelectCategoryProps) => {
   const { budgets } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
-  const [showColors, setShowColors] = useState<boolean>(false)
+  const [showCategory, setShowCategory] = useState<boolean>(false)
   const filteredCategories = listCategories.slice(1)
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    filteredCategories[0],
-  )
 
-  const isCategoryUsed = (category: string) =>
-    budgets.some((budget) => budget.category === category)
+  const initialCategory = category || filteredCategories[0]
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>(initialCategory)
+
+  const isCategoryUsed = (categoryParam: string) =>
+    categoryParam !== category &&
+    budgets.some((budget) => budget.category === categoryParam)
 
   useEffect(() => {
-    setCategory(selectedCategory)
-    if (isCategoryUsed(selectedCategory)) {
-      const availableCategory = filteredCategories.find(
-        (category) => !isCategoryUsed(category),
-      )
-
-      if (availableCategory) {
-        setSelectedCategory(availableCategory)
-        setCategory(availableCategory)
-      }
-    }
+    console.log(category)
+    setCategory(initialCategory)
+    setSelectedCategory(initialCategory)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -38,19 +36,19 @@ const SelectCategory = ({ label, setCategory }: SelectCategoryProps) => {
 
       <button
         type="button"
-        onClick={() => setShowColors(!showColors)}
-        className={`flex h-[2.8125rem] w-full items-center justify-between rounded-lg border border-beige-500 px-5 transition-all ${showColors && "border-grey-900"}`}
+        onClick={() => setShowCategory(!showCategory)}
+        className={`flex h-[2.8125rem] w-full items-center justify-between rounded-lg border border-beige-500 px-5 transition-all ${showCategory && "border-grey-900"}`}
         data-testid="select-category-btn"
       >
         <span className="text-preset-4 text-grey-900">{selectedCategory}</span>
         <IconCaretDown
-          className={`text-grey-900 ${showColors && "rotate-180"} transition-all`}
+          className={`text-grey-900 ${showCategory && "rotate-180"} transition-all`}
         />
       </button>
 
       <div
         className={`absolute right-0 top-[5rem] z-50 w-full max-w-[31rem] overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 ${
-          showColors
+          showCategory
             ? "max-h-[18.625rem] overflow-y-scroll opacity-100 scrollbar-thin scrollbar-track-grey-100 scrollbar-thumb-grey-300"
             : "max-h-0 opacity-0"
         }`}
@@ -68,9 +66,9 @@ const SelectCategory = ({ label, setCategory }: SelectCategoryProps) => {
                   ? "pb-0 pt-3"
                   : "relative border-b border-grey-100 py-3"
               } text-preset-4 flex w-full items-center gap-3 text-grey-900 ${isCategoryUsed(category) ? "cursor-not-allowed opacity-50" : ""}`}
-              tabIndex={!showColors ? -1 : undefined}
+              tabIndex={!showCategory ? -1 : undefined}
               onClick={() => {
-                setShowColors(false)
+                setShowCategory(false)
                 setSelectedCategory(category)
                 setCategory(category)
               }}

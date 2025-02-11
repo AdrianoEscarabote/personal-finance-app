@@ -10,10 +10,12 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/reduxTypes"
 import EditModal from "@/app/_modals/editModal"
 import DeleteModal from "@/app/_modals/deleteModal"
+import useDisableScroll from "@/hooks/useDisableScroll"
 
 const BudgetsCard = ({ budget }: BudgetsCardProps) => {
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  useDisableScroll(showEditModal || showDeleteModal)
   const { transactions } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
@@ -29,7 +31,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
 
   return (
     <>
-      <article className="max-w-[608px]">
+      <article className="w-full max-w-[38rem]">
         <div key={budget.category} className="rounded-xl bg-white p-8">
           <div className="relative mb-5 flex w-full items-center justify-between">
             <h2 className="text-preset-2 flex items-center gap-3 text-grey-900">
@@ -46,7 +48,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
               <IconEllipsis className="text-inherit" />
             </button>
             <div
-              className={`absolute right-0 top-10 z-20 w-[152px] rounded-lg bg-white px-5 py-3 shadow-xl transition-all duration-300 ${showOptions ? "max-h-[127px] opacity-100" : "max-h-0 opacity-0"}`}
+              className={`absolute right-0 top-10 z-20 w-[9.5rem] rounded-lg bg-white px-5 py-3 shadow-xl transition-all duration-300 ${showOptions ? "max-h-[7.9375rem] opacity-100" : "max-h-0 opacity-0"}`}
               style={{
                 transition: "max-height 0.3s ease, opacity 0.3s ease",
               }}
@@ -58,10 +60,11 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
                   setShowOptions(false)
                   setShowEditModal(!showEditModal)
                 }}
+                disabled={!showOptions && true}
               >
                 Edit Budget
               </button>
-              <div className="h-[1px] w-full bg-grey-100"></div>
+              <div className="h-[0.0625rem] w-full bg-grey-100"></div>
               <button
                 className="mt-3 text-red"
                 tabIndex={!showOptions ? -1 : undefined}
@@ -69,6 +72,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
                   setShowOptions(false)
                   setShowDeleteModal(!showDeleteModal)
                 }}
+                disabled={!showOptions && true}
               >
                 Delete Budget
               </button>
@@ -79,21 +83,24 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
               Maximum of ${budget.maximum.toFixed(2)}
             </p>
 
-            <div className="relative mt-2 w-full rounded-[4px] bg-grey-100 p-1">
+            <div className="relative mt-2 w-full rounded-[0.25rem] bg-grey-100 p-1">
               <div
                 style={{
                   width: `${progress}%`,
                   backgroundColor: budget.theme,
                 }}
                 data-testid="progress-bar"
-                className="h-6 max-w-[536px] rounded-[4px]"
+                className="h-6 max-w-[33.5rem] rounded-[0.25rem]"
               ></div>
             </div>
           </div>
 
           <div className="mt-5 flex justify-between">
             <div className="flex w-full items-center gap-4">
-              <div className="h-[43px] w-1 rounded-full bg-green"></div>
+              <div
+                className="h-[2.6875rem] w-1 rounded-full"
+                style={{ backgroundColor: budget.theme }}
+              ></div>
               <p className="text-preset-5 flex flex-col items-start text-grey-500">
                 <span className="text-preset-4-bold text-grey-900">
                   ${budget.maximum.toFixed(2)}
@@ -102,7 +109,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
               </p>
             </div>
             <div className="flex w-full items-center gap-4">
-              <div className="h-[43px] w-1 rounded-full bg-beige-100"></div>
+              <div className="h-[2.6875rem] w-1 rounded-full bg-beige-100"></div>
               <p className="text-preset-5 flex flex-col items-start text-grey-500">
                 Remaining
                 <span className="text-preset-4-bold text-grey-900">
@@ -120,7 +127,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
                 showIcon
                 variant="tertiary"
                 label="See All"
-                style={{ maxWidth: "71px" }}
+                style={{ maxWidth: "4.4375rem" }}
               />
             </div>
 
@@ -163,8 +170,12 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
       </article>
       {showEditModal && (
         <EditModal
-          title="Edit Budget"
-          description="As your budgets change, feel free to update your spending limits."
+          data_edit_budget={{
+            budget_category: budget.category,
+            target: budget.maximum,
+            theme: budget.theme,
+          }}
+          content="budget"
           showbudgetCategory={true}
           showPotName={false}
           closeModal={() => setShowEditModal(false)}

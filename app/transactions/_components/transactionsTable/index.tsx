@@ -2,16 +2,18 @@
 
 import Input from "@/app/_components/input"
 import SortBy from "@/app/_components/sortBy"
-import IconCaretDown from "@/app/_icons/icon-caret-down"
+import SortCategory from "@/app/_components/sortCategory"
 import IconCaretLeft from "@/app/_icons/icon-caret-left"
 import IconCaretRight from "@/app/_icons/icon-caret-right"
-import { RootState } from "@/redux/reduxTypes"
+import { RootState, transactions } from "@/redux/reduxTypes"
 import { formatDate } from "@/utils/formatDate"
 import Image from "next/image"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
 const TransactionsTable = () => {
+  const [search, setSearch] = useState<string>("")
+  const [category, setCategory] = useState<string>("All Transactions")
   const [showSortBy, setShowSortBy] = useState(false)
   const [sortBy, setSortBy] = useState<string>("Latest")
 
@@ -23,11 +25,49 @@ const TransactionsTable = () => {
 
   const [currentPage, setCurrentPage] = useState(1)
 
-  const totalPages = Math.ceil(transactions.length / itemsPerPage)
+  const filteredTransactions = transactions.filter((transaction) => {
+    const matchesSearch = transaction.name
+      .trim()
+      .toLowerCase()
+      .startsWith(search.trim().toLowerCase())
 
+    if (category === "All Transactions") {
+      return matchesSearch
+    }
+    const matchesCategory = category ? transaction.category === category : true
+
+    return matchesSearch && matchesCategory
+  })
+
+  const sortTransactions = (transactions: transactions[], sortBy: string) => {
+    return [...transactions].sort((a, b) => {
+      if (sortBy === "Latest") {
+        return new Date(b.date).getTime() - new Date(a.date).getTime()
+      }
+      if (sortBy === "Oldest") {
+        return new Date(a.date).getTime() - new Date(b.date).getTime()
+      }
+      if (sortBy === "Highest") {
+        return a.amount - b.amount
+      }
+      if (sortBy === "Lowest") {
+        return b.amount - a.amount
+      }
+      if (sortBy === "A to Z") {
+        return a.name.localeCompare(b.name)
+      }
+      if (sortBy === "Z to A") {
+        return b.name.localeCompare(a.name)
+      }
+      return 0
+    })
+  }
+
+  const sortedTransactions = sortTransactions(filteredTransactions, sortBy)
+
+  const totalPages = Math.ceil(sortedTransactions.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
-
-  const paginatedTransactions = transactions.slice(
+  const paginatedTransactions = sortedTransactions.slice(
     startIndex,
     startIndex + itemsPerPage,
   )
@@ -55,22 +95,19 @@ const TransactionsTable = () => {
             name="search"
             label=""
             placeholder="Search transaction"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
-        <div className="z-50 flex items-center gap-4">
+        <div className="z-50 flex w-full max-w-[438px] items-center gap-4">
           <SortBy
             setSortBy={setSortBy}
             sortBy={sortBy}
             showSortBy={showSortBy}
             setShowSortBy={setShowSortBy}
           />
-          <div className="relative flex items-center gap-4">
-            <span>Category</span>
-            <button className="text-preset-4 text-grey-900">
-              <IconCaretDown className="text-inherit" />
-            </button>
-          </div>
+          <SortCategory category={category} setCategory={setCategory} />
         </div>
       </div>
       <div className="mb-6 grid grid-cols-4 gap-0">

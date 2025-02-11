@@ -1,3 +1,5 @@
+"use client"
+
 import { selectFinanceStats } from "@/redux/finance/financeSelectors"
 import { useSelector } from "react-redux"
 

@@ -30,7 +30,7 @@ const SortCategory = ({ category, setCategory }: SortCategoryProps) => {
       </button>
 
       <div
-        className={`absolute right-0 top-[5rem] z-50 w-full overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 ${
+        className={`absolute right-0 top-[3.25rem] z-50 w-full overflow-hidden rounded-lg bg-white shadow-xl transition-all duration-300 ${
           showCategory
             ? "max-h-[18.625rem] overflow-y-scroll opacity-100 scrollbar-thin scrollbar-track-grey-100 scrollbar-thumb-grey-300"
             : "max-h-0 opacity-0"

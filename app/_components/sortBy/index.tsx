@@ -17,11 +17,13 @@ const SortBy = ({
         className="text-preset-4 flex h-[2.8125rem] min-w-[7.125rem] items-center justify-center gap-4 rounded-lg border border-beige-500 px-4 text-grey-900"
       >
         {sortBy}
-        <IconCaretDown className="text-inherit" />
+        <IconCaretDown
+          className={`text-grey-900 ${showSortBy && "rotate-180"} transition-all`}
+        />
       </button>
 
       <div
-        className={`absolute right-0 top-14 w-full max-w-[7.125rem] overflow-hidden rounded-lg bg-white px-5 pb-3 shadow-md transition-all duration-300 ${
+        className={`absolute right-0 top-14 w-full max-w-[7.125rem] overflow-hidden rounded-lg bg-white px-5 pb-3 shadow-xl transition-all duration-300 ${
           showSortBy
             ? "z-0 max-h-[17.1875rem] opacity-100"
             : "-z-50 max-h-0 opacity-0"

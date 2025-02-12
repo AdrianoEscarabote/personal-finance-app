@@ -16,7 +16,7 @@ const Budgets = () => {
             variant="tertiary"
             style={{ maxWidth: "6.125rem", maxHeight: "1.3125rem" }}
             showIcon
-            href="/pots"
+            href="/budgets"
             label="See Details"
           />
         </div>

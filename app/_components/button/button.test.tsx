@@ -23,7 +23,7 @@ describe("Button", () => {
   })
 
   it("should render an image for tertiary variant", () => {
-    render(<Button variant="tertiary" label="With Icon" />)
+    render(<Button variant="tertiary" label="With Icon" showIcon={true} />)
     const img = screen.getByTestId("image")
     expect(img).toBeTruthy()
   })

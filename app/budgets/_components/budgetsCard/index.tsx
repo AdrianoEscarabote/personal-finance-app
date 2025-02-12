@@ -127,6 +127,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
                 showIcon
                 variant="tertiary"
                 label="See All"
+                href={`/transactions?category=${encodeURIComponent(budget.category)}`}
                 style={{ maxWidth: "4.4375rem" }}
               />
             </div>

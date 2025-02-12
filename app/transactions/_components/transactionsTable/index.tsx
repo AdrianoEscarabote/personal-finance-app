@@ -8,12 +8,15 @@ import IconCaretRight from "@/app/_icons/icon-caret-right"
 import { RootState, transactions } from "@/redux/reduxTypes"
 import { formatDate } from "@/utils/formatDate"
 import Image from "next/image"
+import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
 const TransactionsTable = () => {
+  const searchParams = useSearchParams()
+  const categoryFilter = searchParams?.get("category") || "All Transactions"
   const [search, setSearch] = useState<string>("")
-  const [category, setCategory] = useState<string>("All Transactions")
+  const [category, setCategory] = useState<string>(categoryFilter)
   const [showSortBy, setShowSortBy] = useState(false)
   const [sortBy, setSortBy] = useState<string>("Latest")
 

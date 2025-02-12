@@ -36,3 +36,16 @@ export interface pots {
   total: number
   theme: string
 }
+
+export interface NewPotPayload {
+  name: string
+  target: number
+  total: number
+  theme: string
+}
+
+export interface NewBudgetPayload {
+  category: string
+  maximum: number
+  theme: string
+}

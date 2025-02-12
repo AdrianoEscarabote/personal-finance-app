@@ -376,6 +376,22 @@ export default function getMockState() {
           recurring: true,
         },
         {
+          avatar: "/images/avatars/ella-phillips.jpg",
+          name: "Adriano",
+          category: "Dining Out",
+          date: "2025-02-14T19:22:51Z",
+          amount: -125.0,
+          recurring: true,
+        },
+        {
+          avatar: "/images/avatars/ella-phillips.jpg",
+          name: "Felipe",
+          category: "Personal Care",
+          date: "2025-02-21T19:22:51Z",
+          amount: -435.0,
+          recurring: true,
+        },
+        {
           avatar: "/images/avatars/serenity-spa-and-wellness.jpg",
           name: "Serenity Spa & Wellness",
           category: "Personal Care",

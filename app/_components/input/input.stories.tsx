@@ -3,7 +3,7 @@ import Input from "."
 import { InputProps } from "./InputProps"
 
 export default {
-  title: "Input",
+  title: "components/Input",
   component: Input,
 } as Meta<InputProps>
 

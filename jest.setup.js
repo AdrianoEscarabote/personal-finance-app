@@ -21,6 +21,7 @@ Object.defineProperty(window, "matchMedia", {
     media: query,
     onchange: null,
     addEventListener: jest.fn(),
+    addListener: jest.fn(),
     removeEventListener: jest.fn(),
     dispatchEvent: jest.fn(),
   })),

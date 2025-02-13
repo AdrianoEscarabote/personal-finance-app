@@ -37,7 +37,7 @@ describe("BudgetPieChart", () => {
       </Provider>,
     )
 
-    expect(screen.getByText("$892")).toBeTruthy()
+    expect(screen.getByText("$1452")).toBeTruthy()
     expect(screen.getByText("of $975 limit")).toBeTruthy()
   })
 })

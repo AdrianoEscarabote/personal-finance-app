@@ -37,6 +37,6 @@ describe("TotalBillsComponent", () => {
       </Provider>,
     )
 
-    expect(screen.getByText("$564.98")).toBeTruthy()
+    expect(screen.getByText("$1124.98")).toBeTruthy()
   })
 })

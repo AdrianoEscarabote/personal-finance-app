@@ -9,6 +9,7 @@ import AddModal from "../_modals/addModal"
 import { useState } from "react"
 import { FocusTrap } from "focus-trap-react"
 import useDisableScroll from "@/hooks/useDisableScroll"
+import { motion } from "framer-motion"
 
 const BudgetsPage = () => {
   const [showAddBugetModal, setShowAddBugetModal] = useState(false)
@@ -18,7 +19,12 @@ const BudgetsPage = () => {
   useDisableScroll(showAddBugetModal)
 
   return (
-    <main className="w-full px-10 py-8">
+    <motion.main
+      initial={{ opacity: 0, x: -3 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="w-full px-10 py-8"
+    >
       <div className="mb-8 flex w-full items-center justify-between">
         <h1 className="text-preset-1 text-grey-900">Budgets</h1>
         <Button
@@ -53,7 +59,7 @@ const BudgetsPage = () => {
           </div>
         </FocusTrap>
       )}
-    </main>
+    </motion.main>
   )
 }
 

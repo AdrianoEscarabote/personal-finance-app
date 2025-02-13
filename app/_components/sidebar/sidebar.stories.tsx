@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react"
 import Sidebar from "."
 
 export default {
-  title: "Sidebar",
+  title: "components/Sidebar",
   component: Sidebar,
 } as Meta
 

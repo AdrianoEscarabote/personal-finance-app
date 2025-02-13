@@ -21,12 +21,24 @@ const icons = {
 
 type RouteName = keyof typeof icons
 
-const routes: { name: RouteName; path: string }[] = [
-  { name: "overview", path: "/" },
-  { name: "transactions", path: "/transactions" },
-  { name: "budgets", path: "/budgets" },
-  { name: "pots", path: "/pots" },
-  { name: "recurring-bills", path: "/recurring-bills" },
+const routes: { name: RouteName; path: string; title: string }[] = [
+  { name: "overview", path: "/", title: "Personal finance app - Overview" },
+  {
+    name: "transactions",
+    path: "/transactions",
+    title: "Personal finance app - Transactions",
+  },
+  {
+    name: "budgets",
+    path: "/budgets",
+    title: "Personal finance app - Budgets",
+  },
+  { name: "pots", path: "/pots", title: "Personal finance app - Pots" },
+  {
+    name: "recurring-bills",
+    path: "/recurring-bills",
+    title: "Personal finance app - Recurring Bills",
+  },
 ]
 
 const Sidebar = () => {
@@ -34,15 +46,22 @@ const Sidebar = () => {
   const pathName = usePathname()
 
   useEffect(() => {
-    console.log(pathName)
+    const currentRoute = routes.find((route) => route.path === pathName)
+    if (currentRoute) {
+      document.title = currentRoute.title
+    }
   }, [pathName])
+
+  const isAuthPage = pathName === "/login" || pathName === "/signup"
+
+  if (isAuthPage) return null
 
   return (
     <header
-      className={`${isMinimized ? "max-w-[88px]" : "max-w-[300px]"} min-h-screen rounded-e-2xl bg-grey-900 transition-all`}
+      className={`${isMinimized ? "max-w-[5.5rem]" : "max-w-[18.75rem]"} min-h-screen w-full transition-all`}
     >
       <div
-        className={`flex h-full min-h-screen flex-col justify-between py-6 ${isMinimized && ""}`}
+        className={`fixed flex h-full min-h-screen w-full flex-col justify-between rounded-e-2xl bg-grey-900 py-6 ${isMinimized && ""} transition-all ${isMinimized ? "max-w-[5.5rem]" : "max-w-[18.75rem]"}`}
       >
         <div>
           {isMinimized ? (
@@ -74,7 +93,7 @@ const Sidebar = () => {
                   <li key={route.name}>
                     <Link
                       href={`${route.path}`}
-                      className={`text-preset-3 flex h-[56px] w-full max-w-[276px] items-center gap-3 ${
+                      className={`text-preset-3 flex h-[3.5rem] w-full max-w-[17.25rem] items-center gap-3 ${
                         pathName === `${route.path}`
                           ? "rounded-e-xl border-l-4 border-green bg-beige-100 text-grey-900"
                           : "text-grey-300 hover:text-white"

@@ -29,22 +29,24 @@ const IntroBanner = () => {
           />
         </div>
       ) : (
-        <div className="relative my-5 flex max-h-[920px] min-h-screen max-w-[560px] flex-col justify-between rounded-xl bg-grey-900 bg-[url('/images/illustration-authentication.svg')] bg-no-repeat p-10">
-          <Image
-            src={"/images/logo-large.svg"}
-            alt=""
-            width={121}
-            height={22}
-          />
+        <div className="flex min-h-full w-full">
+          <div className="relative my-5 flex min-h-full max-w-[35rem] flex-col justify-between rounded-xl bg-grey-900 bg-[url('/images/illustration-authentication.svg')] bg-no-repeat p-10">
+            <Image
+              src={"/images/logo-large.svg"}
+              alt=""
+              width={121}
+              height={22}
+            />
 
-          <div className="flex flex-col gap-4">
-            <h2 className="text-preset-1 text-white">
-              Keep track of your money and save for your future
-            </h2>
-            <p className="text-preset-4 text-white">
-              Personal finance app puts you in control of your spending. Track
-              transactions, set budgets, and add to savings pots easily.
-            </p>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-preset-1 text-white">
+                Keep track of your money and save for your future
+              </h2>
+              <p className="text-preset-4 text-white">
+                Personal finance app puts you in control of your spending. Track
+                transactions, set budgets, and add to savings pots easily.
+              </p>
+            </div>
           </div>
         </div>
       )}

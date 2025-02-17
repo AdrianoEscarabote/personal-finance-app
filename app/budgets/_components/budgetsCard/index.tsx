@@ -32,7 +32,10 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
   return (
     <>
       <article className="w-full max-w-[38rem]">
-        <div key={budget.category} className="rounded-xl bg-white p-8">
+        <div
+          key={budget.category}
+          className="rounded-xl bg-white px-5 py-6 md:p-8"
+        >
           <div className="relative mb-5 flex w-full items-center justify-between">
             <h2 className="text-preset-2 flex items-center gap-3 text-grey-900">
               <div
@@ -83,7 +86,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
               Maximum of ${budget.maximum.toFixed(2)}
             </p>
 
-            <div className="relative mt-2 w-full rounded-[0.25rem] bg-grey-100 p-1">
+            <div className="relative mt-2 w-full overflow-hidden rounded-[0.25rem] bg-grey-100 p-1">
               <div
                 style={{
                   width: `${progress}%`,

@@ -23,7 +23,7 @@ const BudgetsPage = () => {
       initial={{ opacity: 0, x: -3 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="w-full px-10 py-8"
+      className="mx:px-10 mb-[88px] w-full px-5 py-6 md:mb-0 md:py-8"
     >
       <div className="mb-8 flex w-full items-center justify-between">
         <h1 className="text-preset-1 text-grey-900">Budgets</h1>
@@ -35,7 +35,7 @@ const BudgetsPage = () => {
         />
       </div>
 
-      <div className="flex w-full items-start gap-6">
+      <div className="flex w-full flex-col items-start gap-6 md:flex-row">
         <BudgetsSpendingSummary />
         <div className="flex w-full flex-wrap items-start gap-6">
           {budgets.map((budget, index) => (

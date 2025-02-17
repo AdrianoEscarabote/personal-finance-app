@@ -14,14 +14,15 @@ const BudgetsSpendingSummary = () => {
   }
 
   return (
-    <div>
-      <article className="w-full max-w-[26.75rem] rounded-xl bg-white p-8">
-        <div>
-          <h3 className="text-preset-2 mb-6 text-grey-900">Budgets</h3>
-
+    <div className="w-full lg:max-w-[26.75rem]">
+      <article className="w-full rounded-xl bg-white p-8 px-5 md:py-6 lg:max-w-[26.75rem]">
+        <div className="flex flex-col sm:flex-col md:flex-row lg:flex-col">
           <BudgetPieChart width={296} height={280} />
 
-          <ul className="mt-4">
+          <ul className="mt-4 w-full">
+            <h3 className="text-preset-2 mb-6 text-grey-900">
+              Spending Summary
+            </h3>
             {budgets.map((budget, index, arr) => {
               const totalSpent = transactions
                 .filter(

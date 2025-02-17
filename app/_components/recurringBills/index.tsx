@@ -6,7 +6,7 @@ const RecurringBills = () => {
   const { paidBills, dueSoon, totalUpcoming } = useSelector(selectFinanceStats)
 
   return (
-    <article className="w-full max-w-[26.75rem] rounded-xl bg-white p-8">
+    <article className="w-full rounded-xl bg-white px-5 py-6 md:max-w-[26.75rem] md:p-8">
       <div className="mb-8 flex items-center justify-between">
         <h3 className="text-preset-2 text-grey-900">Recurring Bills</h3>
         <Button

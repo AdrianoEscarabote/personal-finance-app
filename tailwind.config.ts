@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "30.3125rem",
+      },
       colors: {
         white: "var(--white)",
         "beige-500": "var(--beige-500)",

@@ -7,7 +7,7 @@ const Summary = () => {
   const { dueSoon, paidBills, totalUpcoming } = useSelector(selectFinanceStats)
 
   return (
-    <article className="w-full max-w-[21.0625rem] rounded-xl bg-white p-5">
+    <article className="w-full rounded-xl bg-white p-5 sm:max-w-[21.0625rem]">
       <div>
         <h3 className="text-preset-3 mb-5 text-grey-900">Summary</h3>
         <div>

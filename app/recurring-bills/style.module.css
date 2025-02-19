@@ -1,0 +1,11 @@
+@media (min-width: 64.25rem) {
+  .container_bills {
+    flex-direction: column !important;
+  }
+}
+
+@media (max-width: 31.25rem) {
+  .container_bills {
+    flex-direction: column !important;
+  }
+}

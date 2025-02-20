@@ -1,10 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react"
-import Transactions from "."
 import { Provider } from "react-redux"
+
 import store from "@/.storybook/storybook-store"
 
+import Transactions from "."
+
 export default {
-  title: "Transactions",
+  title: "components/Transactions",
   component: Transactions,
   decorators: [(Story) => <Provider store={store}>{Story()}</Provider>],
 } as Meta

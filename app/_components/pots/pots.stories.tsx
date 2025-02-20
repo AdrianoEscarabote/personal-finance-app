@@ -1,10 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react"
-import Pots from "."
 import { Provider } from "react-redux"
+
 import store from "@/.storybook/storybook-store"
 
+import Pots from "."
+
 export default {
-  title: "Pots",
+  title: "components/Pots",
   component: Pots,
   decorators: [
     (Story) => {

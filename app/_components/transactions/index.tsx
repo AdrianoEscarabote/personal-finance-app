@@ -1,8 +1,10 @@
-import { useSelector } from "react-redux"
-import Button from "../button"
-import { RootState } from "@/redux/reduxTypes"
 import Image from "next/image"
+import { useSelector } from "react-redux"
+
+import { RootState } from "@/redux/reduxTypes"
 import { formatDate } from "@/utils/formatDate"
+
+import Button from "../button"
 
 const Transactions = () => {
   const { transactions } = useSelector(
@@ -10,7 +12,7 @@ const Transactions = () => {
   )
   return (
     <div>
-      <article className="w-full max-w-[38rem] rounded-xl bg-white p-8">
+      <article className="w-full max-w-[38rem] rounded-xl bg-white px-5 py-6 md:p-8">
         <div className="mb-3 flex items-center justify-between">
           <h3 className="text-preset-2 text-grey-900">Transactions</h3>
           <Button

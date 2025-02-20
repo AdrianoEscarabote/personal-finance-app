@@ -1,16 +1,18 @@
 "use client"
 
+import { motion } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
+
 import IconMinimizeMenu from "@/app/_icons/icon-minimize-menu"
 import IconNavBudgets from "@/app/_icons/icon-nav-budgets"
 import IconNavOverview from "@/app/_icons/icon-nav-overview"
 import IconNavPots from "@/app/_icons/icon-nav-pots"
 import IconNavRecurringBills from "@/app/_icons/icon-nav-recurring-bills"
 import IconNavTransactions from "@/app/_icons/icon-nav-transactions"
-import { motion } from "framer-motion"
-import Image from "next/image"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useIsMobile } from "@/hooks/useIsMobile"
 
 const icons = {
   overview: IconNavOverview,
@@ -43,18 +45,10 @@ const routes: { name: RouteName; path: string; title: string }[] = [
 ]
 
 const Sidebar = () => {
+  const isMobile = useIsMobile()
   const [isMinimized, setIsMinimized] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const pathName = usePathname()
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+  const pathName = usePathname()
 
   useEffect(() => {
     const currentRoute = routes.find((route) => route.path === pathName)
@@ -127,7 +121,7 @@ const Sidebar = () => {
                         />
                       )}
                       {!isMinimized && (
-                        <span className="hidden xs:block">
+                        <span className="hidden sm:block">
                           {route.name.charAt(0).toUpperCase() +
                             route.name.slice(1)}
                         </span>

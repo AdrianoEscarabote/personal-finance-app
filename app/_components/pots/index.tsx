@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux"
+
 import IconPot from "@/app/_icons/icon-pot"
 import { RootState } from "@/redux/reduxTypes"
-import { useSelector } from "react-redux"
+
 import Button from "../button"
 
 const Pots = () => {
@@ -11,7 +13,7 @@ const Pots = () => {
   const totalSaved = pots.reduce((acc, pot) => acc + pot.total, 0)
   return (
     <article>
-      <div className="max-w-[38rem] rounded-xl bg-white p-8">
+      <div className="w-full rounded-xl bg-white px-5 py-6 md:p-8 lg:max-w-[38rem]">
         <div className="items-cener flex justify-between">
           <h3 className="text-preset-2 mb-5 text-grey-900">Pots</h3>
           <Button
@@ -23,8 +25,8 @@ const Pots = () => {
           />
         </div>
 
-        <div className="flex max-h-[6.875rem] w-full flex-wrap gap-5">
-          <div className="flex w-full max-w-[15.4375rem] items-center gap-4 rounded-xl bg-beige-100 p-4">
+        <div className="flex w-full flex-col gap-5 sm:max-h-[6.875rem] sm:flex-row">
+          <div className="flex w-full items-center gap-4 rounded-xl bg-beige-100 p-4 sm:max-w-[15.4375rem]">
             <IconPot className="text-green" />
             <p className="text-preset-4 flex flex-col gap-2 text-grey-500">
               Total Saved
@@ -32,11 +34,11 @@ const Pots = () => {
             </p>
           </div>
 
-          <div className="flex h-[2.6875rem] max-w-[17.3125rem] flex-wrap gap-3">
+          <div className="grid w-full grid-cols-2 flex-wrap gap-3 sm:h-[2.6875rem] sm:max-w-[22.3125rem] md:flex lg:max-w-[17.3125rem]">
             {pots.slice(0, 4).map((pot) => (
               <div
                 key={pot.name}
-                className="flex w-full max-w-[8.125rem] items-center gap-4"
+                className="flex w-full items-center gap-4 md:max-w-[170px] lg:max-w-[130px]"
               >
                 <div
                   style={{ backgroundColor: pot.theme }}

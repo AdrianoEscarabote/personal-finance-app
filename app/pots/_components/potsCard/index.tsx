@@ -1,16 +1,23 @@
 "use client"
+import { FocusTrap } from "focus-trap-react"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+
 import Button from "@/app/_components/button"
 import IconEllipsis from "@/app/_icons/icon-ellipsis"
-import { useState } from "react"
-import { PotsCardProps } from "./potsCardProps"
-import EditModal from "@/app/_modals/editModal"
-import DeleteModal from "@/app/_modals/deleteModal"
 import AddMoney from "@/app/_modals/addMoney"
+import DeleteModal from "@/app/_modals/deleteModal"
+import EditModal from "@/app/_modals/editModal"
 import WithdrawMoney from "@/app/_modals/withdrawMoney"
-import { FocusTrap } from "focus-trap-react"
+import useDisableScroll from "@/hooks/useDisableScroll"
+import { deletePot } from "@/redux/finance/reducer"
+
+import { PotsCardProps } from "./potsCardProps"
 
 const PotsCard = ({ pot }: PotsCardProps) => {
+  const dispatch = useDispatch()
   const [activeModal, setActiveModal] = useState<string | null>(null)
+  useDisableScroll(activeModal !== null)
   const closeModal = () => setActiveModal(null)
 
   const [showOptions, setShowOptions] = useState(false)
@@ -18,11 +25,11 @@ const PotsCard = ({ pot }: PotsCardProps) => {
 
   return (
     <>
-      <article className="">
+      <article className="w-full sm:max-w-[32.375rem]">
         <div className="flex w-full flex-wrap gap-6">
           <div
             key={pot.name}
-            className="w-full max-w-[32.375rem] rounded-xl bg-white p-6"
+            className="w-full rounded-xl bg-white p-6 sm:max-w-[32.375rem]"
           >
             <div className="relative mb-8 flex items-center justify-between">
               <div className="flex max-h-6 items-center gap-3">
@@ -52,6 +59,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                     setShowOptions(false)
                     setActiveModal("edit")
                   }}
+                  disabled={!showOptions && true}
                 >
                   Edit Pot
                 </button>
@@ -63,6 +71,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                     setShowOptions(false)
                     setActiveModal("delete")
                   }}
+                  disabled={!showOptions && true}
                 >
                   Delete Pot
                 </button>
@@ -81,7 +90,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
             <div className="relative mt-2 h-2 w-full rounded-full bg-grey-100">
               <div
                 style={{ width: `${progress}%`, backgroundColor: pot.theme }}
-                className="absolute h-full rounded-full"
+                className="absolute h-full rounded-full transition-all duration-300"
               ></div>
             </div>
 
@@ -99,11 +108,15 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                 variant="secondary"
                 label="+ Add Money"
                 onClick={() => setActiveModal("addMoney")}
+                disabled={pot.total >= pot.target}
+                style={{ opacity: pot.total >= pot.target ? 0.5 : 1 }}
               />
               <Button
                 variant="secondary"
                 label="Withdraw"
                 onClick={() => setActiveModal("withdraw")}
+                disabled={pot.total === 0}
+                style={{ opacity: pot.total === 0 ? 0.5 : 1 }}
               />
             </div>
           </div>
@@ -129,8 +142,12 @@ const PotsCard = ({ pot }: PotsCardProps) => {
         <FocusTrap active={activeModal === "edit"}>
           <div>
             <EditModal
-              title={pot.name}
-              description="If your saving targets change, feel free to update your pots."
+              data_edit_pot={{
+                pot_name: pot.name,
+                target: pot.target,
+                theme: pot.theme,
+              }}
+              content="pot"
               showPotName
               showbudgetCategory={false}
               closeModal={closeModal}
@@ -146,7 +163,10 @@ const PotsCard = ({ pot }: PotsCardProps) => {
               title={pot.name}
               description="Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will be removed forever."
               onCancel={closeModal}
-              onConfirm={() => {}}
+              onConfirm={() => {
+                dispatch(deletePot({ name: pot.name }))
+                closeModal()
+              }}
             />
           </div>
         </FocusTrap>

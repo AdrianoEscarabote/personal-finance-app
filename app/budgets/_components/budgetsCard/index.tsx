@@ -1,16 +1,18 @@
 "use client"
 
-import Button from "@/app/_components/button"
-import IconEllipsis from "@/app/_icons/icon-ellipsis"
-import { formatDate } from "@/utils/formatDate"
 import Image from "next/image"
 import { useState } from "react"
-import { BudgetsCardProps } from "./budgetsCardProps"
 import { useSelector } from "react-redux"
-import { RootState } from "@/redux/reduxTypes"
-import EditModal from "@/app/_modals/editModal"
+
+import Button from "@/app/_components/button"
+import IconEllipsis from "@/app/_icons/icon-ellipsis"
 import DeleteModal from "@/app/_modals/deleteModal"
+import EditModal from "@/app/_modals/editModal"
 import useDisableScroll from "@/hooks/useDisableScroll"
+import { RootState } from "@/redux/reduxTypes"
+import { formatDate } from "@/utils/formatDate"
+
+import { BudgetsCardProps } from "./budgetsCardProps"
 
 const BudgetsCard = ({ budget }: BudgetsCardProps) => {
   const [showEditModal, setShowEditModal] = useState(false)
@@ -31,7 +33,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
 
   return (
     <>
-      <article className="w-full max-w-[38rem]">
+      <article className="w-full md:max-w-[38rem]">
         <div
           key={budget.category}
           className="rounded-xl bg-white px-5 py-6 md:p-8"

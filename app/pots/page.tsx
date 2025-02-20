@@ -1,13 +1,15 @@
 "use client"
 
-import { useSelector } from "react-redux"
-import Button from "../_components/button"
-import PotsCard from "./_components/potsCard"
-import { RootState } from "@/redux/reduxTypes"
-import { useState } from "react"
-import AddModal from "../_modals/addModal"
-import useDisableScroll from "@/hooks/useDisableScroll"
 import { motion } from "framer-motion"
+import { useState } from "react"
+import { useSelector } from "react-redux"
+
+import useDisableScroll from "@/hooks/useDisableScroll"
+import { RootState } from "@/redux/reduxTypes"
+
+import Button from "../_components/button"
+import AddModal from "../_modals/addModal"
+import PotsCard from "./_components/potsCard"
 
 const Pots = () => {
   const { pots } = useSelector((rootState: RootState) => rootState.financeSlice)
@@ -19,7 +21,7 @@ const Pots = () => {
         initial={{ opacity: 0, x: -3 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="w-full bg-beige-100 px-10 py-8"
+        className="mb-20 w-full bg-beige-100 px-5 py-6 md:mb-0 md:px-10 md:py-8"
       >
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-preset-1 text-grey-900">Pots page</h1>
@@ -27,12 +29,12 @@ const Pots = () => {
           <Button
             variant="primary"
             label="+ Add New Pot"
-            style={{ maxWidth: "129px" }}
+            style={{ maxWidth: "8.0625rem" }}
             onClick={() => setShowAddPotModal(true)}
           />
         </div>
 
-        <div className="flex w-full flex-wrap gap-6">
+        <div className="flex w-full flex-wrap justify-center gap-6 md:justify-start">
           {pots.map((pot, index) => (
             <PotsCard key={index} pot={pot} />
           ))}

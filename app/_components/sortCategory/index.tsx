@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react"
-import { SortCategoryProps } from "./sortCategoryProps"
+
 import IconCaretDown from "@/app/_icons/icon-caret-down"
+import IconFilterMobile from "@/app/_icons/icon-filter-mobile"
+import { useIsMobile } from "@/hooks/useIsMobile"
 import { listCategories } from "@/utils/constants"
 
+import { SortCategoryProps } from "./sortCategoryProps"
+
 const SortCategory = ({ category, setCategory }: SortCategoryProps) => {
+  const isMobile = useIsMobile()
   const [showCategory, setShowCategory] = useState<boolean>(false)
 
   const [selectedCategory, setSelectedCategory] = useState<string>(category)
@@ -14,20 +19,32 @@ const SortCategory = ({ category, setCategory }: SortCategoryProps) => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="relative flex w-full max-w-[245px] items-center gap-4">
-      <p className="text-preset-4 text-grey-500">Category</p>
-
-      <button
-        type="button"
-        onClick={() => setShowCategory(!showCategory)}
-        className={`flex h-[2.8125rem] w-full items-center justify-between rounded-lg border border-beige-500 px-5 transition-all ${showCategory && "border-grey-900"}`}
-        data-testid="sort-category-btn"
-      >
-        <span className="text-preset-4 text-grey-900">{selectedCategory}</span>
-        <IconCaretDown
-          className={`text-grey-900 ${showCategory && "rotate-180"} transition-all`}
-        />
-      </button>
+    <div className="relative flex w-full items-center gap-4 md:max-w-[15.3125rem]">
+      {!isMobile && <p className="text-preset-4 text-grey-500">Category</p>}
+      {isMobile ? (
+        <button
+          type="button"
+          onClick={() => setShowCategory(!showCategory)}
+          className={`flex h-[2.8125rem] w-[2.8125rem] items-center justify-center rounded-lg transition-all`}
+          data-testid="sort-category-btn"
+        >
+          <IconFilterMobile className={`text-grey-900`} />
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setShowCategory(!showCategory)}
+          className={`flex h-[2.8125rem] w-full items-center justify-between rounded-lg border border-beige-500 px-5 transition-all ${showCategory && "border-grey-900"}`}
+          data-testid="sort-category-btn"
+        >
+          <span className="text-preset-4 text-grey-900">
+            {selectedCategory}
+          </span>
+          <IconCaretDown
+            className={`text-grey-900 ${showCategory && "rotate-180"} transition-all`}
+          />
+        </button>
+      )}
 
       <div
         className={`absolute right-0 top-[3.25rem] z-50 w-full overflow-hidden rounded-lg bg-white shadow-xl transition-all duration-300 ${

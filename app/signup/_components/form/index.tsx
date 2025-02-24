@@ -1,9 +1,11 @@
 "use client"
 
-import Button from "@/app/_components/button"
-import Input from "@/app/_components/input"
+import { motion } from "framer-motion"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
+
+import Button from "@/app/_components/button"
+import Input from "@/app/_components/input"
 
 const Form = () => {
   const {
@@ -21,7 +23,12 @@ const Form = () => {
   })
 
   return (
-    <div className="mt-16 w-full max-w-[560px] rounded-xl bg-white p-8 shadow-md lg:mt-0">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="mt-16 w-full max-w-[35rem] rounded-xl bg-white p-8 shadow-md lg:mt-0"
+    >
       <h2 className="text-preset-1 mb-8 text-grey-900">Signup</h2>
       <form onSubmit={onSubmit}>
         <fieldset className="flex flex-col gap-4">
@@ -51,14 +58,21 @@ const Form = () => {
             })}
           />
 
-          <Input
-            variant="basic"
-            label="Password"
-            errors={errors.password?.message ? true : false}
-            errorMessage={errors.password?.message}
-            id="password"
-            {...register("password", { required: "Password is required" })}
-          />
+          <div className="flex w-full flex-col gap-1">
+            <Input
+              variant="basic"
+              label="Create Password"
+              errors={errors.password?.message ? true : false}
+              errorMessage={errors.password?.message}
+              id="password"
+              type="password"
+              {...register("password", { required: "Password is required" })}
+            />
+
+            <span className="text-preset-5 self-end text-grey-500">
+              Passwords must be at least 8 characters
+            </span>
+          </div>
 
           <div className="mt-4">
             <Button label="Create Account" type="submit" variant="primary" />
@@ -76,7 +90,7 @@ const Form = () => {
           Login
         </Link>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

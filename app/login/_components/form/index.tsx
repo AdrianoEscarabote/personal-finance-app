@@ -1,9 +1,11 @@
 "use client"
 
-import Button from "@/app/_components/button"
-import Input from "@/app/_components/input"
+import { motion } from "framer-motion"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
+
+import Button from "@/app/_components/button"
+import Input from "@/app/_components/input"
 
 const Form = () => {
   const {
@@ -20,7 +22,12 @@ const Form = () => {
   })
 
   return (
-    <div className="mt-16 w-full max-w-[560px] rounded-xl bg-white p-8 shadow-md lg:mt-0">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="mt-16 w-full max-w-[35rem] rounded-xl bg-white p-8 shadow-md lg:mt-0"
+    >
       <h2 className="text-preset-1 mb-8 text-grey-900">Login</h2>
       <form onSubmit={onSubmit} className="w-full">
         <fieldset className="flex w-full flex-col gap-4">
@@ -66,7 +73,7 @@ const Form = () => {
           Sign Up
         </Link>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

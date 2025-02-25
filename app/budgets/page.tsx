@@ -1,15 +1,17 @@
 "use client"
 
+import { FocusTrap } from "focus-trap-react"
+import { motion } from "framer-motion"
+import { useState } from "react"
 import { useSelector } from "react-redux"
+
+import useDisableScroll from "@/hooks/useDisableScroll"
+import { RootState } from "@/redux/reduxTypes"
+
 import BudgetsSpendingSummary from "../_components/budgetsSpendingSummary"
 import Button from "../_components/button"
-import BudgetsCard from "./_components/budgetsCard"
-import { RootState } from "@/redux/reduxTypes"
 import AddModal from "../_modals/addModal"
-import { useState } from "react"
-import { FocusTrap } from "focus-trap-react"
-import useDisableScroll from "@/hooks/useDisableScroll"
-import { motion } from "framer-motion"
+import BudgetsCard from "./_components/budgetsCard"
 
 const BudgetsPage = () => {
   const [showAddBugetModal, setShowAddBugetModal] = useState(false)
@@ -23,7 +25,7 @@ const BudgetsPage = () => {
       initial={{ opacity: 0, x: -3 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="mx:px-10 mb-[88px] w-full px-5 py-6 md:mb-0 md:py-8"
+      className="mx:px-10 mb-[5.5rem] w-full px-5 py-6 md:mb-0 md:px-10 md:py-8"
     >
       <div className="mb-8 flex w-full items-center justify-between">
         <h1 className="text-preset-1 text-grey-900">Budgets</h1>

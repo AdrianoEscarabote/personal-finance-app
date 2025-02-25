@@ -1,9 +1,11 @@
-import IconCaretDown from "@/app/_icons/icon-caret-down"
 import { useEffect, useState } from "react"
-import { SelectCategoryProps } from "./selectCategoryProps"
-import { listCategories } from "@/utils/constants"
 import { useSelector } from "react-redux"
+
+import IconCaretDown from "@/app/_icons/icon-caret-down"
 import { RootState } from "@/redux/reduxTypes"
+import { listCategories } from "@/utils/constants"
+
+import { SelectCategoryProps } from "./selectCategoryProps"
 
 const SelectCategory = ({
   label,
@@ -25,7 +27,6 @@ const SelectCategory = ({
     budgets.some((budget) => budget.category === categoryParam)
 
   useEffect(() => {
-    console.log(category)
     setCategory(initialCategory)
     setSelectedCategory(initialCategory)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps

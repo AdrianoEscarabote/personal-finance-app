@@ -5,4 +5,5 @@ export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   label: string
   href?: string
   showIcon?: boolean
+  loading?: boolean
 }

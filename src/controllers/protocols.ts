@@ -26,3 +26,18 @@ export interface IController {
     res: Response<unknown>,
   ): Promise<HttpResponse<unknown>>
 }
+
+export interface IControllerBudgets {
+  addBudget(HttpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>>
+  editBudget(HttpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>>
+}
+
+export interface IControllerPots {
+  addPot(HttpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>>
+  editPot(HttpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>>
+  deletePot(HttpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>>
+  addMoney(HttpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>>
+  withdrawMoney(
+    HttpRequest: HttpRequest<unknown>,
+  ): Promise<HttpResponse<unknown>>
+}

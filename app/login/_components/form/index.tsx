@@ -2,23 +2,60 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
+import useUserAuthenticated from "@/hooks/useUserAuthenticated"
 
 const Form = () => {
+  const { isAuthenticated } = useUserAuthenticated()
+  const router = useRouter()
+
+  if (isAuthenticated) {
+    router.push("/")
+  }
+
+  const [loading, setLoading] = useState(false)
+
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<{
     email: string
     password: string
   }>()
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setLoading(true)
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        },
+      )
+      const responseJson = await response.json()
+
+      if (response.status === 200) {
+        router.push("/")
+      } else {
+        setError("email", {
+          message: responseJson.error,
+        })
+      }
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
   })
 
   return (
@@ -58,7 +95,12 @@ const Form = () => {
           />
 
           <div className="mt-4">
-            <Button variant="primary" type="submit" label="Login" />
+            <Button
+              loading={loading}
+              variant="primary"
+              type="submit"
+              label="Login"
+            />
           </div>
         </fieldset>
       </form>

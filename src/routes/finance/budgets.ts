@@ -1,11 +1,12 @@
 import express from "express"
 
 import { BudgetController } from "@/controllers/finance-user/budget/budget"
+import { authMiddleware } from "@/middlewares/authMiddleware"
 import { BudgetRepository } from "@/repositories/finance/budget"
 
 const budgetsRoute = express.Router()
 
-budgetsRoute.post("/add_budget", async (req, res) => {
+budgetsRoute.post("/add_budget", authMiddleware, async (req, res) => {
   const budgetRepository = new BudgetRepository()
 
   const budgetController = new BudgetController(budgetRepository)
@@ -17,7 +18,7 @@ budgetsRoute.post("/add_budget", async (req, res) => {
   res.status(statusCode).send(body)
 })
 
-budgetsRoute.post("/edit_budget", async (req, res) => {
+budgetsRoute.post("/edit_budget", authMiddleware, async (req, res) => {
   const budgetRepository = new BudgetRepository()
 
   const budgetController = new BudgetController(budgetRepository)

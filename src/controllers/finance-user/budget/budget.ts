@@ -6,6 +6,7 @@ import {
 import {
   BudgetParams,
   budgetsReturnTypes,
+  EditBudgetParams,
   IBudgetsRepository,
 } from "./protocols"
 import { badRequest, ok, serverError } from "@/controllers/helpers"
@@ -39,32 +40,36 @@ export class BudgetController implements IControllerBudgets {
 
       return ok<budgetsReturnTypes>(result)
     } catch (error) {
+      console.log(error)
       return serverError()
     }
   }
 
   async editBudget(
-    HttpRequest: HttpRequest<BudgetParams>,
+    HttpRequest: HttpRequest<EditBudgetParams>,
   ): Promise<HttpResponse<budgetsReturnTypes | string>> {
     try {
       if (
         !HttpRequest.body?.id ||
         !HttpRequest.body?.budget_name ||
         !HttpRequest.body?.budget_value ||
-        !HttpRequest.body?.theme
+        !HttpRequest.body?.theme ||
+        !HttpRequest.body?.budget_id
       ) {
         return badRequest(
-          "Missing param: id, budget_name, theme or budget_value",
+          "Missing param: id, budget_name, theme, budget_id or budget_value",
         )
       }
 
-      const { id, budget_name, budget_value, theme } = HttpRequest.body
+      const { id, budget_name, budget_value, budget_id, theme } =
+        HttpRequest.body
 
       const result = await this.budgetsRepository.editBudget({
         id,
         budget_name,
         budget_value,
         theme,
+        budget_id,
       })
 
       return ok<budgetsReturnTypes>(result)

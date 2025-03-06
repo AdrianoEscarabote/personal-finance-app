@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  password String
+  finance  Finance?
+}
+
+model Finance {
+  id           String         @id @default(uuid())
+  userId       String         @unique
+  user         User           @relation(fields: [userId], references: [id])
+  balance      Balance?
+  transactions Transactions[]
+  budgets      Budgets[]
+  pots         Pots[]
+}
+
+model Balance {
+  id        String  @id @default(uuid())
+  financeId String  @unique
+  finance   Finance @relation(fields: [financeId], references: [id], onDelete: Cascade)
+  current   Float   @default(0)
+  income    Float   @default(0)
+  expenses  Float   @default(0)
+}
+
+model Transactions {
+  id        String  @id @default(uuid())
+  financeId String
+  finance   Finance @relation(fields: [financeId], references: [id], onDelete: Cascade)
+  avatar    String
+  name      String
+  category  String
+  date      DateTime @default(now())
+  amount    Float
+  recurring Boolean
+}
+
+model Budgets {
+  id        String  @id @default(uuid())
+  financeId String
+  finance   Finance @relation(fields: [financeId], references: [id], onDelete: Cascade)
+  category  String
+  maximum   Float
+  theme     String
+}
+
+model Pots {
+  id        String  @id @default(uuid())
+  financeId String
+  finance   Finance @relation(fields: [financeId], references: [id], onDelete: Cascade)
+  name      String
+  target    Float
+  total     Float   @default(0)
+  theme     String
+}

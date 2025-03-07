@@ -1,6 +1,7 @@
 import {
   BudgetParams,
   budgetsReturnTypes,
+  EditBudgetParams,
   IBudgetsRepository,
 } from "@/controllers/finance-user/budget/protocols"
 import prisma from "@/database/prisma"
@@ -13,57 +14,64 @@ export class BudgetRepository implements IBudgetsRepository {
       throw new Error("Missing param: id, budget_name, theme or budget_value")
     }
 
-    const finance = await prisma.finance.findUnique({
-      where: {
-        userId: id,
-      },
+    const user = await prisma.user.findUnique({
+      where: { id },
+      include: { finance: true },
     })
 
-    if (!finance) {
-      throw new Error("Finance not found for this user")
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    let financeId = user.finance?.id
+
+    if (!financeId) {
+      const newFinance = await prisma.finance.create({
+        data: {
+          user: { connect: { id: user.id } },
+        },
+      })
+      financeId = newFinance.id
+      console.log("Created new finance", financeId)
     }
 
     await prisma.budgets.create({
       data: {
         category: budget_name,
         maximum: budget_value,
-        theme,
-        finance: {
-          connect: {
-            id: finance.id,
-          },
-        },
+        theme: theme,
+        financeId,
       },
     })
 
-    return {
-      success: true,
-    }
+    return { success: true }
   }
 
-  async editBudget(params: BudgetParams): Promise<budgetsReturnTypes> {
-    const { budget_name, budget_value, id, theme } = params
+  async editBudget(params: EditBudgetParams): Promise<budgetsReturnTypes> {
+    const { budget_name, budget_value, id, theme, budget_id } = params
 
-    if (!budget_name || !budget_value || !id || !theme) {
-      throw new Error("Missing param: id, budget_name, theme or budget_value")
+    if (!budget_name || !budget_value || !id || !theme || !budget_id) {
+      throw new Error(
+        "Missing param: id, budget_name, budget_id, theme or budget_value",
+      )
     }
 
-    const finance = await prisma.finance.findUnique({
-      where: {
-        userId: id,
-      },
+    const user = await prisma.user.findUnique({
+      where: { id },
+      include: { finance: true },
     })
 
-    if (!finance) {
+    if (!user?.finance) {
       throw new Error("Finance not found for this user")
     }
 
     await prisma.budgets.updateMany({
       where: {
-        category: budget_name,
-        financeId: finance.id,
+        id: budget_id,
+        financeId: user.finance.id,
       },
       data: {
+        category: budget_name,
         maximum: budget_value,
         theme: theme,
       },

@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"
 
-import { LoginUserController } from "@/controllers/login-user/login-user"
-import { LoginUserRepository } from "@/repositories/login-user"
+import { LoginUserController } from "../../controllers/login-user/login-user"
+import { LoginUserRepository } from "../../repositories/login-user"
 
 const loginRoute = express.Router()
 

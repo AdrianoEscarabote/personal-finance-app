@@ -14,6 +14,9 @@
     "https_dev": "nodemon api/index.js",
     "seed": "ts-node prisma/seed.ts"
   },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
   "keywords": [],
   "author": "AdrianoEscarabote",
   "license": "MIT",

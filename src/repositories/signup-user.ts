@@ -25,7 +25,9 @@ export class SignupUserRepository implements ISignupUserRepository {
       data: {
         email: params.email,
         password: passwordHash,
-        finance: {},
+        finance: {
+          create: {},
+        },
       },
     })
 

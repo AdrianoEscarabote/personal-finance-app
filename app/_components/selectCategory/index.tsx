@@ -11,6 +11,7 @@ const SelectCategory = ({
   label,
   setCategory,
   category,
+  dontFilter,
 }: SelectCategoryProps) => {
   const { budgets } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
@@ -24,6 +25,7 @@ const SelectCategory = ({
 
   const isCategoryUsed = (categoryParam: string) =>
     categoryParam !== category &&
+    !dontFilter &&
     budgets.some((budget) => budget.category === categoryParam)
 
   useEffect(() => {

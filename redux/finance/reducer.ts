@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+
 import {
   initialStateType,
   NewBudgetPayload,
@@ -99,6 +100,30 @@ const financeSlice = createSlice({
       if (!pot) return
       pot.total -= withdraw_amount
     },
+    addTransaction: (
+      state,
+      action: PayloadAction<{
+        name: string
+        date: string
+        category: string
+        amount: number
+        recurring: boolean
+        avatar: string
+      }>,
+    ) => {
+      const { name, date, amount, recurring, category, avatar } = action.payload
+
+      if (!name || !date || !amount || !category || !avatar) return
+
+      state.transactions.push({
+        name,
+        date,
+        amount,
+        recurring,
+        category,
+        avatar,
+      })
+    },
   },
 })
 
@@ -113,4 +138,5 @@ export const {
   editBudget,
   addMoney,
   withdrawMoney,
+  addTransaction,
 } = financeSlice.actions

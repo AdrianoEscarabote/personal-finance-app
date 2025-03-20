@@ -7,24 +7,36 @@ import { BudgetRepository } from "@/repositories/finance/budget"
 const budgetsRoute = express.Router()
 
 budgetsRoute.post("/add_budget", authMiddleware, async (req, res) => {
+  const id = req.cookies.id
+  const bodyFormated = {
+    ...req.body,
+    id,
+  }
+
   const budgetRepository = new BudgetRepository()
 
   const budgetController = new BudgetController(budgetRepository)
 
   const { body, statusCode } = await budgetController.addBudget({
-    body: req.body,
+    body: bodyFormated,
   })
 
   res.status(statusCode).send(body)
 })
 
 budgetsRoute.post("/edit_budget", authMiddleware, async (req, res) => {
+  const id = req.cookies.id
+  const bodyFormated = {
+    ...req.body,
+    id,
+  }
+
   const budgetRepository = new BudgetRepository()
 
   const budgetController = new BudgetController(budgetRepository)
 
   const { body, statusCode } = await budgetController.editBudget({
-    body: req.body,
+    body: bodyFormated,
   })
 
   res.status(statusCode).send(body)

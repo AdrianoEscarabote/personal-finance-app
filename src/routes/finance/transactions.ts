@@ -6,13 +6,19 @@ import { TransactionRepository } from "@/repositories/finance/transactions"
 const TransactionRoute = express.Router()
 
 TransactionRoute.post("/add_transaction", async (req, res) => {
+  const id = req.cookies.id
+  const bodyFormated = {
+    ...req.body,
+    id,
+  }
+
   const transactionRepository = new TransactionRepository()
 
   const transactionController = new TransactionController(transactionRepository)
 
   const { body, statusCode } = await transactionController.handle(
     {
-      body: req.body,
+      body: bodyFormated,
     },
     res,
   )

@@ -132,7 +132,7 @@ const TransactionsTable = () => {
                   : "relative border-b border-grey-100 py-3"
               }`}
             >
-              <div className="flex gap-3">
+              <div className="flex items-center gap-3">
                 <Image
                   src={transaction.avatar}
                   alt=""
@@ -286,30 +286,12 @@ const TransactionsTable = () => {
               </button>
             ))
           )}
-          {/*  {
-            isMobile && (
-
-            )
-          }
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index + 1)}
-              className={`text-preset-4 flex h-10 w-10 items-center justify-center rounded-lg transition duration-300 md:hover:bg-beige-500 md:hover:text-white ${
-                currentPage === index + 1
-                  ? "bg-black text-white"
-                  : "border border-gray-300 bg-white text-grey-900"
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))} */}
         </div>
 
         <button
           onClick={goToNextPage}
           disabled={currentPage === totalPages}
-          className={`text-preset-4 flex h-10 w-[3rem] items-center justify-center gap-4 rounded-lg border border-beige-500 bg-white text-grey-900 transition-all md:max-w-[5.875rem] md:hover:bg-beige-500 md:hover:text-white ${currentPage === totalPages && "pointer-events-none opacity-50"}`}
+          className={`text-preset-4 flex h-10 w-[3rem] items-center justify-center gap-4 rounded-lg border border-beige-500 bg-white text-grey-900 transition-all md:w-full md:max-w-[5.875rem] md:hover:bg-beige-500 md:hover:text-white ${currentPage === totalPages && "pointer-events-none opacity-50"}`}
         >
           {!isMobile && <span>Next</span>}
           <IconCaretRight className="text-inherit" />

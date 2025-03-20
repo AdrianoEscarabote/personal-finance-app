@@ -1,14 +1,16 @@
 import Image from "next/image"
-import { addModalProps } from "./addModalProps"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
+
 import Button from "@/app/_components/button"
+import ColorTag from "@/app/_components/colorTag"
 import Input from "@/app/_components/input"
 import SelectCategory from "@/app/_components/selectCategory"
-import ColorTag from "@/app/_components/colorTag"
-import { useForm } from "react-hook-form"
-import { useState } from "react"
 import useEscClose from "@/hooks/useEscClose"
-import { useDispatch } from "react-redux"
 import { addBudget, addNewPot } from "@/redux/finance/reducer"
+
+import { addModalProps } from "./addModalProps"
 
 const AddModal = ({
   title,
@@ -26,8 +28,20 @@ const AddModal = ({
   const [selectedCategory, setSelectedCategory] = useState<string>("")
   const { register, handleSubmit, watch } = useForm()
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     if (title === "pot") {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_pot`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pot_name: data.pot_name,
+          theme,
+          target: data.target,
+          total: 0,
+        }),
+      })
       dispatch(
         addNewPot({
           theme,
@@ -38,6 +52,20 @@ const AddModal = ({
       )
     }
     if (title === "budget") {
+      await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/add_budget`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            budget_name: selectedCategory,
+            theme,
+            budget_value: Number(data.maximum),
+          }),
+        },
+      )
       dispatch(
         addBudget({
           category: selectedCategory,

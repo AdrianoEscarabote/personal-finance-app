@@ -1,14 +1,16 @@
 import Image from "next/image"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
+
 import Button from "@/app/_components/button"
 import ColorTag from "@/app/_components/colorTag"
-import SelectCategory from "@/app/_components/selectCategory"
 import Input from "@/app/_components/input"
-import { EditModalProps } from "./editModalProps"
+import SelectCategory from "@/app/_components/selectCategory"
 import useEscClose from "@/hooks/useEscClose"
-import { useForm } from "react-hook-form"
-import { useEffect, useState } from "react"
 import { editBudget, editPot } from "@/redux/finance/reducer"
-import { useDispatch } from "react-redux"
+
+import { EditModalProps } from "./editModalProps"
 
 const EditModal = ({
   content,
@@ -29,8 +31,20 @@ const EditModal = ({
     formState: { errors },
   } = useForm()
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     if (content === "pot") {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/finance/pots/edit_pot`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pot_id: data_edit_pot?.pot_id,
+          name: data.name,
+          target: data.maximum,
+          theme,
+        }),
+      })
       dispatch(
         editPot({
           pot_name: data_edit_pot?.pot_name as string,
@@ -41,6 +55,21 @@ const EditModal = ({
       )
     }
     if (content === "budget") {
+      await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/edit_budget`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            budget_id: data_edit_budget?.budget_id,
+            budget_name: selectedCategory,
+            budget_value: Number(data.maximum),
+            theme,
+          }),
+        },
+      )
       dispatch(
         editBudget({
           category: data_edit_budget?.budget_category as string,

@@ -1,14 +1,17 @@
-import Button from "@/app/_components/button"
 import Image from "next/image"
-import { withdrawMoneyProps } from "./withdrawMoneyProps"
-import Input from "@/app/_components/input"
-import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
-import useEscClose from "@/hooks/useEscClose"
+import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
+
+import Button from "@/app/_components/button"
+import Input from "@/app/_components/input"
+import useEscClose from "@/hooks/useEscClose"
 import { withdrawMoney } from "@/redux/finance/reducer"
 
+import { withdrawMoneyProps } from "./withdrawMoneyProps"
+
 const WithdrawMoney = ({
+  pot_id,
   name,
   target,
   total,
@@ -30,7 +33,20 @@ const WithdrawMoney = ({
 
   const newProgress = ((total - Number(amount || 0)) / target) * 100
 
-  const onSubmit = handleSubmit(() => {
+  const onSubmit = handleSubmit(async () => {
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/withdraw_money`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pot_id: pot_id,
+          amount: Number(amount),
+        }),
+      },
+    )
     dispatch(withdrawMoney({ pot_name: name, withdraw_amount: Number(amount) }))
     closeModal()
   })

@@ -1,13 +1,16 @@
 import Image from "next/image"
-import { AddMoneyProps } from "./addMoneyProps"
+import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
+
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
-import { useForm } from "react-hook-form"
 import useEscClose from "@/hooks/useEscClose"
-import { useDispatch } from "react-redux"
 import { addMoney } from "@/redux/finance/reducer"
 
+import { AddMoneyProps } from "./addMoneyProps"
+
 const AddMoney = ({
+  pot_id,
   name,
   total,
   target,
@@ -29,7 +32,18 @@ const AddMoney = ({
 
   const newProgress = ((total + Number(amount || 0)) / target) * 100
 
-  const onSubmit = handleSubmit(() => {
+  const onSubmit = handleSubmit(async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_money`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        pot_id: pot_id,
+        new_amount: Number(amount),
+      }),
+    })
+
     dispatch(addMoney({ pot_name: name, new_amount: Number(amount) }))
     closeModal()
   })

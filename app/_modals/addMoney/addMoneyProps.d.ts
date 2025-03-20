@@ -4,4 +4,5 @@ export interface AddMoneyProps {
   target: number
   theme: string
   closeModal: () => void
+  pot_id?: string
 }

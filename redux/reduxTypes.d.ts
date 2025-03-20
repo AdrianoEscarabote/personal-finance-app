@@ -25,12 +25,14 @@ export interface transactions {
 }
 
 export interface budgets {
+  budget_id: string
   category: string
   maximum: number
   theme: string
 }
 
 export interface pots {
+  pot_id: string
   name: string
   target: number
   total: number

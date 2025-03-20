@@ -52,8 +52,25 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
   const name = watch("name", "")
   const recurring = watch("recurring") || false
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     const avatar = getAvatar(selectedCategory)
+
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/finance/transactions/add_transaction`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          category: selectedCategory,
+          date: formattedDate,
+          amount: parseFloat(data.amount),
+          recurring,
+        }),
+      },
+    )
     dispatch(
       addTransaction({
         amount: parseFloat(data.amount),

@@ -418,21 +418,25 @@ export default function getMockState() {
       ],
       budgets: [
         {
+          budget_id: "1",
           category: "Entertainment",
           maximum: 50.0,
           theme: "#277C78",
         },
         {
+          budget_id: "2",
           category: "Bills",
           maximum: 750.0,
           theme: "#82C9D7",
         },
         {
+          budget_id: "3",
           category: "Dining Out",
           maximum: 75.0,
           theme: "#F2CDAC",
         },
         {
+          budget_id: "4",
           category: "Personal Care",
           maximum: 100.0,
           theme: "#626070",
@@ -440,30 +444,35 @@ export default function getMockState() {
       ],
       pots: [
         {
+          pot_id: "1",
           name: "Savings",
           target: 2000.0,
           total: 159.0,
           theme: "#277C78",
         },
         {
+          pot_id: "2",
           name: "Concert Ticket",
           target: 150.0,
           total: 110.0,
           theme: "#626070",
         },
         {
+          pot_id: "3",
           name: "Gift",
           target: 150.0,
           total: 110.0,
           theme: "#82C9D7",
         },
         {
+          pot_id: "4",
           name: "New Laptop",
           target: 1000.0,
           total: 10.0,
           theme: "#F2CDAC",
         },
         {
+          pot_id: "5",
           name: "Holiday",
           target: 1440.0,
           total: 531.0,

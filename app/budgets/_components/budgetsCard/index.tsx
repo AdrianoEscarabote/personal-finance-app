@@ -177,6 +177,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
       {showEditModal && (
         <EditModal
           data_edit_budget={{
+            budget_id: budget.budget_id,
             budget_category: budget.category,
             target: budget.maximum,
             theme: budget.theme,

@@ -1,7 +1,8 @@
-import type { Preview } from "@storybook/react";
-import { themes } from "@storybook/theming";
 // global css
-import "../app/globals.css";
+import "../app/globals.css"
+
+import type { Preview } from "@storybook/react"
+import { themes } from "@storybook/theming"
 
 const preview: Preview = {
   parameters: {
@@ -16,6 +17,6 @@ const preview: Preview = {
       theme: themes.dark,
     },
   },
-};
+}
 
-export default preview;
+export default preview

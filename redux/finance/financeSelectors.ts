@@ -1,5 +1,6 @@
-import { RootState } from "@/redux/reduxTypes"
 import { createSelector } from "@reduxjs/toolkit"
+
+import { RootState } from "@/redux/reduxTypes"
 
 export const selectTotalBills = (state: RootState) => {
   return state.financeSlice.transactions

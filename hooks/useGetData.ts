@@ -1,8 +1,9 @@
-import { setData } from "@/redux/finance/reducer"
-import { RootState } from "@/redux/reduxTypes"
 import axios from "axios"
 import { useEffect, useTransition } from "react"
 import { useDispatch, useSelector } from "react-redux"
+
+import { setData } from "@/redux/finance/reducer"
+import { RootState } from "@/redux/reduxTypes"
 
 const useGetData = () => {
   const dispatch = useDispatch()

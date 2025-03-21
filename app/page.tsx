@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <>
-      {isPending && <Loading />}
+      {isPending && <Loading theme="dark" />}
       <motion.div
         initial={{ opacity: 0, x: -3 }}
         animate={{ opacity: 1, x: 0 }}

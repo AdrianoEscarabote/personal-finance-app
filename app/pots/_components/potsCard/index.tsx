@@ -23,6 +23,21 @@ const PotsCard = ({ pot }: PotsCardProps) => {
   const [showOptions, setShowOptions] = useState(false)
   const progress = (pot.total / pot.target) * 100
 
+  const handleDelete = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/finance/pots/delete_pot`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        pot_id: pot.pot_id,
+      }),
+    })
+
+    dispatch(deletePot({ name: pot.name }))
+    closeModal()
+  }
+
   return (
     <>
       <article className="w-full sm:max-w-[32.375rem]">
@@ -143,6 +158,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
           <div>
             <EditModal
               data_edit_pot={{
+                pot_id: pot.pot_id,
                 pot_name: pot.name,
                 target: pot.target,
                 theme: pot.theme,
@@ -163,10 +179,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
               title={pot.name}
               description="Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will be removed forever."
               onCancel={closeModal}
-              onConfirm={() => {
-                dispatch(deletePot({ name: pot.name }))
-                closeModal()
-              }}
+              onConfirm={handleDelete}
             />
           </div>
         </FocusTrap>

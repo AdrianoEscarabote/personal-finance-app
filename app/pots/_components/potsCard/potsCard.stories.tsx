@@ -16,6 +16,7 @@ export default {
       target: 2000.0,
       total: 159.0,
       theme: "#277C78",
+      pot_id: "1",
     },
   },
 } as Meta<PotsCardProps>

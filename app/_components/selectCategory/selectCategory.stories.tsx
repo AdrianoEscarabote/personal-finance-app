@@ -1,8 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react"
+import { Provider } from "react-redux"
+
+import store from "@/.storybook/storybook-store"
+
 import SelectCategory from "."
 import { SelectCategoryProps } from "./selectCategoryProps"
-import store from "@/.storybook/storybook-store"
-import { Provider } from "react-redux"
 
 export default {
   title: "components/SelectCategory",

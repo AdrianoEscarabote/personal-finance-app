@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react"
-import { ButtonProps } from "./ButtonProps"
+
 import Button from "."
+import { ButtonProps } from "./ButtonProps"
 
 export default {
   title: "components/Button",

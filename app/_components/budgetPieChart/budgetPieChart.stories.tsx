@@ -1,7 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react"
-import BudgetPieChart from "."
 import { Provider } from "react-redux"
+
 import store from "@/.storybook/storybook-store"
+
+import BudgetPieChart from "."
 
 export default {
   title: "components/budgetPieChart",

@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux"
+
+import { RootState } from "@/redux/reduxTypes"
+
 import BudgetPieChart from "../budgetPieChart"
 import Button from "../button"
-import { RootState } from "@/redux/reduxTypes"
 
 const Budgets = () => {
   const { budgets } = useSelector(

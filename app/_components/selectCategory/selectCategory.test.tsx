@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react"
-import SelectCategory from "."
-import getMockState from "@/utils/getMockState"
-import { legacy_configureStore as configureStore } from "redux-mock-store"
 import { Provider } from "react-redux"
+import { legacy_configureStore as configureStore } from "redux-mock-store"
+
+import getMockState from "@/utils/getMockState"
+
+import SelectCategory from "."
 
 const mockStore = configureStore([])
 

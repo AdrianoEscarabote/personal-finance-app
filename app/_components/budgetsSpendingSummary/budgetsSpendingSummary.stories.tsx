@@ -1,7 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react"
-import BudgetsSpendingSummary from "."
 import { Provider } from "react-redux"
+
 import store from "@/.storybook/storybook-store"
+
+import BudgetsSpendingSummary from "."
 
 export default {
   title: "components/BudgetsSpendingSummary",

@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux"
-import Button from "../button"
+
 import { selectFinanceStats } from "@/redux/finance/financeSelectors"
+
+import Button from "../button"
 
 const RecurringBills = () => {
   const { paidBills, dueSoon, totalUpcoming } = useSelector(selectFinanceStats)

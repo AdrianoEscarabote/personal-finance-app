@@ -1,6 +1,7 @@
+import { useSelector } from "react-redux"
+
 import { RootState } from "@/redux/reduxTypes"
 import { formatNumber } from "@/utils/formatNumber"
-import { useSelector } from "react-redux"
 
 const FinancialSummary = () => {
   const { current, expenses, income } = useSelector(

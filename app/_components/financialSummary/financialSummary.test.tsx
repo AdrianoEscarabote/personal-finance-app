@@ -1,7 +1,9 @@
-import getMockState from "@/utils/getMockState"
 import { render, screen } from "@testing-library/react"
 import { Provider } from "react-redux"
 import { legacy_configureStore as configureStore } from "redux-mock-store"
+
+import getMockState from "@/utils/getMockState"
+
 import FinancialSummary from "."
 
 const mockStore = configureStore([])

@@ -1,10 +1,12 @@
-import IconCaretDown from "@/app/_icons/icon-caret-down"
 import { useEffect, useState } from "react"
-import { ColorTagProps } from "./colorTagProps"
 import { useSelector } from "react-redux"
-import { RootState } from "@/redux/reduxTypes"
+
 import IconBillPaid from "@/app/_icons/icon-bill-paid"
+import IconCaretDown from "@/app/_icons/icon-caret-down"
+import { RootState } from "@/redux/reduxTypes"
 import { listColors } from "@/utils/constants"
+
+import { ColorTagProps } from "./colorTagProps"
 
 const ColorTag = ({ label, theme, setTheme }: ColorTagProps) => {
   const { budgets } = useSelector(

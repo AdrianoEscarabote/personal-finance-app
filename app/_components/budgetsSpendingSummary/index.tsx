@@ -1,7 +1,9 @@
 "use client"
 
-import { RootState } from "@/redux/reduxTypes"
 import { useSelector } from "react-redux"
+
+import { RootState } from "@/redux/reduxTypes"
+
 import BudgetPieChart from "../budgetPieChart"
 
 const BudgetsSpendingSummary = () => {

@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react"
-import RecurringBills from "."
-import { legacy_configureStore as configureStore } from "redux-mock-store"
-import getMockState from "@/utils/getMockState"
 import { Provider } from "react-redux"
+import { legacy_configureStore as configureStore } from "redux-mock-store"
+
+import getMockState from "@/utils/getMockState"
+
+import RecurringBills from "."
 
 const mockStore = configureStore([])
 

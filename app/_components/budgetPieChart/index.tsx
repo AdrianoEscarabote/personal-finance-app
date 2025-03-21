@@ -1,6 +1,8 @@
-import { RootState } from "@/redux/reduxTypes"
 import { useSelector } from "react-redux"
 import { Cell, Pie, PieChart } from "recharts"
+
+import { RootState } from "@/redux/reduxTypes"
+
 import { BudgetPieChartProps } from "./budgetPieChartProps"
 
 const BudgetPieChart = ({ width, height }: BudgetPieChartProps) => {

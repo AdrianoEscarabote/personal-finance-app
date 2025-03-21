@@ -1,7 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react"
-import RecurringBills from "."
 import { Provider } from "react-redux"
+
 import store from "@/.storybook/storybook-store"
+
+import RecurringBills from "."
 
 export default {
   title: "components/RecurringBills",

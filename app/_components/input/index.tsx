@@ -1,8 +1,10 @@
 import { forwardRef, Ref, useState } from "react"
+
+import IconHidePassword from "@/app/_icons/icon-hide-password"
+import IconShowPassword from "@/app/_icons/icon-show-password"
+
 import { InputProps } from "./InputProps"
 import style from "./style.module.css"
-import IconShowPassword from "@/app/_icons/icon-show-password"
-import IconHidePassword from "@/app/_icons/icon-hide-password"
 
 const Input = (
   {

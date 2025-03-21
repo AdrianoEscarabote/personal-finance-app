@@ -1,7 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react"
-import WithdrawMoney from "."
 import { Provider } from "react-redux"
+
 import store from "@/.storybook/storybook-store"
+
+import WithdrawMoney from "."
 
 export default {
   title: "modals/withdrawMoney",

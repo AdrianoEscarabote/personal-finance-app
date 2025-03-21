@@ -1,8 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react"
+import { Provider } from "react-redux"
+
+import store from "@/.storybook/storybook-store"
+
 import AddModal from "."
 import { addModalProps } from "./addModalProps"
-import { Provider } from "react-redux"
-import store from "@/.storybook/storybook-store"
 
 export default {
   title: "modals/addModal",

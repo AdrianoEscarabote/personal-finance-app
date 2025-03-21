@@ -1,7 +1,9 @@
 import Image from "next/image"
-import { DeleteModalProps } from "./deleteModalProps"
+
 import Button from "@/app/_components/button"
 import useEscClose from "@/hooks/useEscClose"
+
+import { DeleteModalProps } from "./deleteModalProps"
 
 const DeleteModal = ({
   title,

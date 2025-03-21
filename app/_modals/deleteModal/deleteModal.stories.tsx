@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react"
+
 import DeleteModal from "."
 import { DeleteModalProps } from "./deleteModalProps"
 

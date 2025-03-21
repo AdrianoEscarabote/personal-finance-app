@@ -1,7 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react"
-import PotsCard from "."
 import { Provider } from "react-redux"
+
 import store from "@/.storybook/storybook-store"
+
+import PotsCard from "."
 import { PotsCardProps } from "./potsCardProps"
 
 export default {

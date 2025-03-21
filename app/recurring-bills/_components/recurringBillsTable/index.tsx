@@ -1,4 +1,8 @@
 "use client"
+import Image from "next/image"
+import { useState } from "react"
+import { useSelector } from "react-redux"
+
 import Input from "@/app/_components/input"
 import SortBy from "@/app/_components/sortBy"
 import IconBillDue from "@/app/_icons/icon-bill-due"
@@ -6,9 +10,6 @@ import IconBillPaid from "@/app/_icons/icon-bill-paid"
 import { useIsMobile } from "@/hooks/useIsMobile"
 import { RootState, transactions } from "@/redux/reduxTypes"
 import getOrdinalSuffix from "@/utils/getOrdinalSuffix"
-import Image from "next/image"
-import { useState } from "react"
-import { useSelector } from "react-redux"
 
 const RecurringBillsTable = () => {
   const isMobile = useIsMobile()

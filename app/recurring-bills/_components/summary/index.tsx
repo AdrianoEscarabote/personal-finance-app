@@ -1,7 +1,8 @@
 "use client"
 
-import { selectFinanceStats } from "@/redux/finance/financeSelectors"
 import { useSelector } from "react-redux"
+
+import { selectFinanceStats } from "@/redux/finance/financeSelectors"
 
 const Summary = () => {
   const { dueSoon, paidBills, totalUpcoming } = useSelector(selectFinanceStats)

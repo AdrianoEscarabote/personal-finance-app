@@ -1,7 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react"
-import BudgetsCard from "."
 import { Provider } from "react-redux"
+
 import store from "@/.storybook/storybook-store"
+
+import BudgetsCard from "."
 import { BudgetsCardProps } from "./budgetsCardProps"
 
 export default {

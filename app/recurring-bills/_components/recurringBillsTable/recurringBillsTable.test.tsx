@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react"
-import RecurringBillsTable from "."
-import { legacy_configureStore as configureStore } from "redux-mock-store"
-import getMockState from "@/utils/getMockState"
 import { Provider } from "react-redux"
+import { legacy_configureStore as configureStore } from "redux-mock-store"
+
+import getMockState from "@/utils/getMockState"
+
+import RecurringBillsTable from "."
 const mockStore = configureStore([])
 
 describe("RecurringBillsTable", () => {

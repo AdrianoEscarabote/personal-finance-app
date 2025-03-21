@@ -1,9 +1,10 @@
 "use client"
 
+import { motion } from "framer-motion"
+
 import RecurringBillsTable from "./_components/recurringBillsTable"
 import Summary from "./_components/summary"
 import TotalBills from "./_components/totalBills"
-import { motion } from "framer-motion"
 import style from "./style.module.css"
 
 const RecurringPage = () => {

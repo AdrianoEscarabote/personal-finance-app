@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react"
-import BudgetsCard from "."
 import { Provider } from "react-redux"
-import getMockState from "@/utils/getMockState"
 import { legacy_configureStore as configureStore } from "redux-mock-store"
+
+import getMockState from "@/utils/getMockState"
+
+import BudgetsCard from "."
 
 const mockStore = configureStore([])
 

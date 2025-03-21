@@ -1,8 +1,9 @@
 "use client"
 
+import { useSelector } from "react-redux"
+
 import IconRecurringBills from "@/app/_icons/icon-recurring-bills"
 import { selectTotalBills } from "@/redux/finance/financeSelectors"
-import { useSelector } from "react-redux"
 
 const TotalBills = () => {
   const totalBills = useSelector(selectTotalBills)

@@ -27,8 +27,8 @@ const financeSlice = createSlice({
       state.pots = action.payload.pots
     },
     addNewPot: (state, action: PayloadAction<NewPotPayload>) => {
-      const { name, target, theme, total } = action.payload
-      state.pots.push({ name, target, theme, total })
+      const { name, target, theme, total, pot_id } = action.payload
+      state.pots.push({ name, target, theme, total, pot_id })
     },
     editPot: (
       state,
@@ -59,9 +59,9 @@ const financeSlice = createSlice({
       state.pots = state.pots.filter((pot) => pot.name !== name)
     },
     addBudget: (state, action: PayloadAction<NewBudgetPayload>) => {
-      const { category, maximum, theme } = action.payload
+      const { category, maximum, theme, budget_id } = action.payload
 
-      state.budgets.push({ category, maximum, theme })
+      state.budgets.push({ category, maximum, theme, budget_id })
     },
     editBudget: (
       state,

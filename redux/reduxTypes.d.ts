@@ -40,6 +40,7 @@ export interface pots {
 }
 
 export interface NewPotPayload {
+  pot_id: string
   name: string
   target: number
   total: number
@@ -47,6 +48,7 @@ export interface NewPotPayload {
 }
 
 export interface NewBudgetPayload {
+  budget_id: string
   category: string
   maximum: number
   theme: string

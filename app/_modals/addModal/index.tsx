@@ -30,29 +30,37 @@ const AddModal = ({
 
   const onSubmit = handleSubmit(async (data) => {
     if (title === "pot") {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_pot`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_pot`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pot_name: data.pot_name,
+            theme,
+            target: data.target,
+            total: 0,
+          }),
         },
-        body: JSON.stringify({
-          pot_name: data.pot_name,
-          theme,
-          target: data.target,
-          total: 0,
-        }),
-      })
+      )
+
+      const responseJson = await response.json()
+      const pot_id = responseJson.pot_id
+
       dispatch(
         addNewPot({
           theme,
           total: 0,
           name: data.pot_name,
           target: data.target,
+          pot_id,
         }),
       )
     }
     if (title === "budget") {
-      await fetch(
+      const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/add_budget`,
         {
           method: "POST",
@@ -66,11 +74,16 @@ const AddModal = ({
           }),
         },
       )
+
+      const responseJson = await response.json()
+      const budget_id = responseJson.budget_id
+
       dispatch(
         addBudget({
           category: selectedCategory,
           theme,
           maximum: Number(data.maximum),
+          budget_id,
         }),
       )
     }

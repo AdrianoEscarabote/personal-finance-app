@@ -4,8 +4,10 @@ import "./globals.css"
 
 import { Public_Sans } from "next/font/google"
 import Head from "next/head"
+import { useRouter } from "next/navigation"
 import { Provider } from "react-redux"
 
+import useUserAuthenticated from "@/hooks/useUserAuthenticated"
 import store from "@/redux/store"
 
 import Sidebar from "./_components/sidebar"
@@ -19,6 +21,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const router = useRouter()
+  const { isAuthenticated } = useUserAuthenticated()
+
+  if (!isAuthenticated) {
+    router.push("/login")
+  }
+
   return (
     <html lang="en">
       <Head>

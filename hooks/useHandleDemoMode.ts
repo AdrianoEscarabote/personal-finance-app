@@ -1,0 +1,38 @@
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+
+import useGetData from "./useGetData"
+
+const useHandleDemoMode = () => {
+  const router = useRouter()
+  const [loadingDemo, setLoadingDemo] = useState(false)
+  useGetData()
+
+  const handleDemoMode = async () => {
+    try {
+      setLoadingDemo(true)
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/demo-login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      )
+
+      if (response.status === 200) {
+        router.push("/")
+      } else {
+        console.error("Failed to access demo mode")
+      }
+      setLoadingDemo(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return { loadingDemo, handleDemoMode }
+}
+
+export default useHandleDemoMode

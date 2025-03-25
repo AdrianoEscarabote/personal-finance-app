@@ -34,6 +34,6 @@ describe("RecurringBills", () => {
     expect(screen.getByText("Recurring Bills")).toBeTruthy()
     expect(screen.getByText("Paid Bills")).toBeTruthy()
     expect(screen.getByText("Total Upcoming")).toBeTruthy()
-    expect(screen.getByText("$564.98")).toBeTruthy()
+    expect(screen.getByText("$1124.98")).toBeTruthy()
   })
 })

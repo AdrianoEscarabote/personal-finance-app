@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
+import useDemoFetch from "@/hooks/useDemoFetch"
 import useEscClose from "@/hooks/useEscClose"
 import { addMoney } from "@/redux/finance/reducer"
 
@@ -18,7 +19,7 @@ const AddMoney = ({
   closeModal,
 }: AddMoneyProps) => {
   const dispatch = useDispatch()
-
+  const { demoFetch } = useDemoFetch()
   useEscClose(closeModal)
   const progress = (total / target) * 100
   const {
@@ -33,16 +34,19 @@ const AddMoney = ({
   const newProgress = ((total + Number(amount || 0)) / target) * 100
 
   const onSubmit = handleSubmit(async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_money`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    await demoFetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_money`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pot_id: pot_id,
+          new_amount: Number(amount),
+        }),
       },
-      body: JSON.stringify({
-        pot_id: pot_id,
-        new_amount: Number(amount),
-      }),
-    })
+    )
 
     dispatch(addMoney({ pot_name: name, new_amount: Number(amount) }))
     closeModal()

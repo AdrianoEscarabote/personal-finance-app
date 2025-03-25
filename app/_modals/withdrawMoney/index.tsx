@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
+import useDemoFetch from "@/hooks/useDemoFetch"
 import useEscClose from "@/hooks/useEscClose"
 import { withdrawMoney } from "@/redux/finance/reducer"
 
@@ -21,7 +22,7 @@ const WithdrawMoney = ({
   useEscClose(closeModal)
   const [amountCalculated, setAmountCalculated] = useState(total)
   const progress = (total / target) * 100
-
+  const { demoFetch } = useDemoFetch()
   const {
     register,
     watch,
@@ -34,7 +35,7 @@ const WithdrawMoney = ({
   const newProgress = ((total - Number(amount || 0)) / target) * 100
 
   const onSubmit = handleSubmit(async () => {
-    await fetch(
+    await demoFetch(
       `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/withdraw_money`,
       {
         method: "POST",

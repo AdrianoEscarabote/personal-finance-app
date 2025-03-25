@@ -7,6 +7,7 @@ import Button from "@/app/_components/button"
 import ColorTag from "@/app/_components/colorTag"
 import Input from "@/app/_components/input"
 import SelectCategory from "@/app/_components/selectCategory"
+import useDemoFetch from "@/hooks/useDemoFetch"
 import useEscClose from "@/hooks/useEscClose"
 import { addBudget, addNewPot } from "@/redux/finance/reducer"
 
@@ -27,10 +28,11 @@ const AddModal = ({
   const [theme, setTheme] = useState<string>("")
   const [selectedCategory, setSelectedCategory] = useState<string>("")
   const { register, handleSubmit, watch } = useForm()
+  const { demoFetch } = useDemoFetch()
 
   const onSubmit = handleSubmit(async (data) => {
     if (title === "pot") {
-      const response = await fetch(
+      const response = await demoFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_pot`,
         {
           method: "POST",
@@ -45,6 +47,10 @@ const AddModal = ({
           }),
         },
       )
+      if (!response) {
+        console.error("Failed to add new pot")
+        return
+      }
 
       const responseJson = await response.json()
       const pot_id = responseJson.pot_id
@@ -60,7 +66,7 @@ const AddModal = ({
       )
     }
     if (title === "budget") {
-      const response = await fetch(
+      const response = await demoFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/add_budget`,
         {
           method: "POST",
@@ -74,6 +80,11 @@ const AddModal = ({
           }),
         },
       )
+
+      if (!response) {
+        console.error("Failed to add new budget")
+        return
+      }
 
       const responseJson = await response.json()
       const budget_id = responseJson.budget_id

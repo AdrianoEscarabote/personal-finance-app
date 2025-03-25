@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import useDemoFetch from "@/hooks/useDemoFetch"
 import useEscClose from "@/hooks/useEscClose"
 import { addTransaction } from "@/redux/finance/reducer"
 import { cn } from "@/utils/cn"
@@ -35,6 +36,7 @@ interface formTypes {
 
 const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
   const dispatch = useDispatch()
+  const { demoFetch } = useDemoFetch()
   const [selectedCategory, setSelectedCategory] = useState("")
   const [date, setDate] = useState<Date | undefined>(new Date())
   const formattedDate = date ? date.toISOString() : ""
@@ -55,7 +57,7 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
   const onSubmit = handleSubmit(async (data) => {
     const avatar = getAvatar(selectedCategory)
 
-    await fetch(
+    await demoFetch(
       `${process.env.NEXT_PUBLIC_API_URL}/finance/transactions/add_transaction`,
       {
         method: "POST",

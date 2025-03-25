@@ -7,6 +7,7 @@ import Button from "@/app/_components/button"
 import ColorTag from "@/app/_components/colorTag"
 import Input from "@/app/_components/input"
 import SelectCategory from "@/app/_components/selectCategory"
+import useDemoFetch from "@/hooks/useDemoFetch"
 import useEscClose from "@/hooks/useEscClose"
 import { editBudget, editPot } from "@/redux/finance/reducer"
 
@@ -22,6 +23,7 @@ const EditModal = ({
 }: EditModalProps) => {
   const dispatch = useDispatch()
   useEscClose(closeModal)
+  const { demoFetch } = useDemoFetch()
   const [theme, setTheme] = useState<string>("")
   const [selectedCategory, setSelectedCategory] = useState<string>("")
   const {
@@ -33,18 +35,21 @@ const EditModal = ({
 
   const onSubmit = handleSubmit(async (data) => {
     if (content === "pot") {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/finance/pots/edit_pot`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      await demoFetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/edit_pot`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pot_id: data_edit_pot?.pot_id,
+            name: data.name,
+            target: data.maximum,
+            theme,
+          }),
         },
-        body: JSON.stringify({
-          pot_id: data_edit_pot?.pot_id,
-          name: data.name,
-          target: data.maximum,
-          theme,
-        }),
-      })
+      )
       dispatch(
         editPot({
           pot_name: data_edit_pot?.pot_name as string,
@@ -55,7 +60,7 @@ const EditModal = ({
       )
     }
     if (content === "budget") {
-      await fetch(
+      await demoFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/edit_budget`,
         {
           method: "POST",
@@ -93,6 +98,7 @@ const EditModal = ({
       setValue("maximum", Number(data_edit_budget.target))
       setTheme(data_edit_budget.theme)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

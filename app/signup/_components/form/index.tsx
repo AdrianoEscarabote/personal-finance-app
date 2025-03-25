@@ -5,13 +5,16 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
 
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
 import useHandleDemoMode from "@/hooks/useHandleDemoMode"
 import useUserAuthenticated from "@/hooks/useUserAuthenticated"
+import { setDemoMode } from "@/redux/demo/reducer"
 
 const Form = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const { isAuthenticated } = useUserAuthenticated()
 
@@ -31,7 +34,12 @@ const Form = () => {
     password: string
   }>()
 
-  const { handleDemoMode, loadingDemo } = useHandleDemoMode()
+  const { fetchAuthDemoMode, loadingDemo } = useHandleDemoMode()
+
+  const handleDemoMode = () => {
+    fetchAuthDemoMode()
+    dispatch(setDemoMode(true))
+  }
 
   const onSubmit = handleSubmit(async (data) => {
     try {

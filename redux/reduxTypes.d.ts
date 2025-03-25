@@ -1,5 +1,6 @@
 export interface RootState {
   financeSlice: initialStateType
+  demoMode: boolean
 }
 
 export interface initialStateType {

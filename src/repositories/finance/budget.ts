@@ -35,7 +35,7 @@ export class BudgetRepository implements IBudgetsRepository {
       console.log("Created new finance", financeId)
     }
 
-    await prisma.budgets.create({
+    const budget = await prisma.budgets.create({
       data: {
         category: budget_name,
         maximum: budget_value,
@@ -44,7 +44,7 @@ export class BudgetRepository implements IBudgetsRepository {
       },
     })
 
-    return { success: true }
+    return { success: true, budget_id: budget.id }
   }
 
   async editBudget(params: EditBudgetParams): Promise<budgetsReturnTypes> {

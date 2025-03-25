@@ -35,7 +35,7 @@ export class PotsRepository implements IPotRepository {
       financeId = newFinance.id
     }
 
-    await prisma.pots.create({
+    const pot = await prisma.pots.create({
       data: {
         name,
         target,
@@ -46,6 +46,7 @@ export class PotsRepository implements IPotRepository {
     })
 
     return {
+      pot_id: pot.id,
       success: true,
     }
   }

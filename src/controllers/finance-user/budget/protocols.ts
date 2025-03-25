@@ -7,6 +7,7 @@ export interface BudgetParams {
 
 export interface budgetsReturnTypes {
   success: boolean
+  budget_id?: string
 }
 
 export interface EditBudgetParams {

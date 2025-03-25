@@ -26,6 +26,7 @@ export interface withdrawMoneyParams {
 
 export interface PotReturnTypes {
   success: boolean
+  pot_id?: string
 }
 
 export interface IPotRepository {

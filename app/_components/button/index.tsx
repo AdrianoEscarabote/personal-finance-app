@@ -25,9 +25,9 @@ const Button = ({
       {variant === "secondary" && (
         <button
           {...props}
-          className="text-preset-4-bold grid h-[3.3125rem] w-full place-content-center rounded-lg border border-transparent bg-beige-100 text-grey-900 transition-all hover:border hover:border-beige-500 hover:bg-white"
+          className="text-preset-4-bold relative grid h-[3.3125rem] w-full place-content-center rounded-lg border border-transparent bg-beige-100 text-grey-900 transition-all hover:border hover:border-beige-500 hover:bg-white"
         >
-          {label}
+          {loading ? <Loading theme="dark" /> : label}
         </button>
       )}
       {variant === "tertiary" && (

@@ -8,7 +8,7 @@ const useHandleDemoMode = () => {
   const [loadingDemo, setLoadingDemo] = useState(false)
   useGetData()
 
-  const handleDemoMode = async () => {
+  const fetchAuthDemoMode = async () => {
     try {
       setLoadingDemo(true)
       const response = await fetch(
@@ -33,7 +33,7 @@ const useHandleDemoMode = () => {
     }
   }
 
-  return { loadingDemo, handleDemoMode }
+  return { loadingDemo, fetchAuthDemoMode }
 }
 
 export default useHandleDemoMode

@@ -41,7 +41,11 @@ describe("SignupForm", () => {
   })
 
   it("should show required field errors on submit with empty inputs", async () => {
-    render(<Form />)
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>,
+    )
     fireEvent.click(screen.getByRole("button", { name: /Create Account/i }))
 
     expect(await screen.findByText(/Name is required/i)).toBeTruthy()
@@ -50,7 +54,11 @@ describe("SignupForm", () => {
   })
 
   it("should show an error message if email is invalid", async () => {
-    render(<Form />)
+    render(
+      <Provider store={store}>
+        <Form />
+      </Provider>,
+    )
     fireEvent.input(screen.getByLabelText(/Email/i), {
       target: { value: "invalid-email" },
     })

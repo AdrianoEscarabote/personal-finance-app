@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form"
 
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
+import useHandleDemoMode from "@/hooks/useHandleDemoMode"
 import useUserAuthenticated from "@/hooks/useUserAuthenticated"
 
 const Form = () => {
@@ -29,6 +30,8 @@ const Form = () => {
     email: string
     password: string
   }>()
+
+  const { handleDemoMode, loadingDemo } = useHandleDemoMode()
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -113,12 +116,19 @@ const Form = () => {
             </span>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-4 space-y-4">
             <Button
               loading={loading}
               label="Create Account"
               type="submit"
               variant="primary"
+            />
+            <Button
+              loading={loadingDemo}
+              variant="secondary"
+              type="button"
+              onClick={handleDemoMode}
+              label="Demo Mode"
             />
           </div>
         </fieldset>

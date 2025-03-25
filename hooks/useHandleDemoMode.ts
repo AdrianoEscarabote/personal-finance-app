@@ -12,7 +12,7 @@ const useHandleDemoMode = () => {
     try {
       setLoadingDemo(true)
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/demo-login`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/auth-demo`,
         {
           method: "POST",
           headers: {

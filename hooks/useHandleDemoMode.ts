@@ -15,6 +15,7 @@ const useHandleDemoMode = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/auth/auth-demo`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

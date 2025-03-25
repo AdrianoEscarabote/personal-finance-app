@@ -40,6 +40,7 @@ const Form = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

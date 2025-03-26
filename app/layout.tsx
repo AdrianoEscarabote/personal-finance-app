@@ -4,13 +4,12 @@ import "./globals.css"
 
 import { Public_Sans } from "next/font/google"
 import Head from "next/head"
-import { useRouter } from "next/navigation"
 import { Provider } from "react-redux"
 
-import useUserAuthenticated from "@/hooks/useUserAuthenticated"
 import store from "@/redux/store"
 
 import Sidebar from "./_components/sidebar"
+import AppProvider from "./AppProvider"
 
 const PublicSans = Public_Sans({
   subsets: ["latin"],
@@ -21,13 +20,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const router = useRouter()
-  const { isAuthenticated } = useUserAuthenticated()
-
-  if (!isAuthenticated) {
-    router.push("/login")
-  }
-
   return (
     <html lang="en">
       <Head>
@@ -37,7 +29,9 @@ export default function RootLayout({
       <body className={`${PublicSans.className} antialiased`}>
         <div className="flex w-full bg-beige-100">
           <Sidebar />
-          <Provider store={store}>{children}</Provider>
+          <Provider store={store}>
+            <AppProvider>{children}</AppProvider>
+          </Provider>
         </div>
       </body>
     </html>

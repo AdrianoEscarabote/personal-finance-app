@@ -4,10 +4,10 @@ import { motion } from "framer-motion"
 
 import Budgets from "./_components/budgets"
 import FinancialSummary from "./_components/financialSummary"
+import LogoutButton from "./_components/logoutButton"
 import Pots from "./_components/pots"
 import RecurringBills from "./_components/recurringBills"
 import Transactions from "./_components/transactions"
-import IconLogout from "./_icons/icon-logout"
 
 export default function Home() {
   return (
@@ -20,10 +20,7 @@ export default function Home() {
       <div className="flex max-w-[69.375rem] items-center justify-between gap-8">
         <h1 className="text-preset-1 text-grey-900">Overview</h1>
 
-        <button className="text-preset-3 flex h-11 items-center gap-3 rounded-md bg-grey-900 px-5 py-2 text-grey-100 transition-all duration-300 hover:bg-grey-500">
-          <IconLogout className="w-full text-grey-100" />
-          Logout
-        </button>
+        <LogoutButton />
       </div>
 
       <FinancialSummary />

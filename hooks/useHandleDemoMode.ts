@@ -1,12 +1,9 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-import useGetData from "./useGetData"
-
 const useHandleDemoMode = () => {
   const router = useRouter()
   const [loadingDemo, setLoadingDemo] = useState(false)
-  useGetData()
 
   const fetchAuthDemoMode = async () => {
     try {
@@ -23,6 +20,7 @@ const useHandleDemoMode = () => {
       )
 
       if (response.status === 200) {
+        localStorage.setItem("demoMode", "true")
         router.push("/")
       } else {
         console.error("Failed to access demo mode")

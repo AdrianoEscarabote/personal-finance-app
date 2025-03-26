@@ -2,19 +2,21 @@
 
 import Image from "next/image"
 import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import Button from "@/app/_components/button"
 import IconEllipsis from "@/app/_icons/icon-ellipsis"
 import DeleteModal from "@/app/_modals/deleteModal"
 import EditModal from "@/app/_modals/editModal"
 import useDisableScroll from "@/hooks/useDisableScroll"
+import { deleteBudget } from "@/redux/finance/reducer"
 import { RootState } from "@/redux/reduxTypes"
 import { formatDate } from "@/utils/formatDate"
 
 import { BudgetsCardProps } from "./budgetsCardProps"
 
 const BudgetsCard = ({ budget }: BudgetsCardProps) => {
+  const dispatch = useDispatch()
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   useDisableScroll(showEditModal || showDeleteModal)
@@ -30,6 +32,23 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
     .reduce((acc, transaction) => acc + Math.abs(transaction.amount), 0)
 
   const progress = (totalSpend / budget.maximum) * 100
+
+  const handleDeleteBudget = async () => {
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/delete_bugdet`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          budget_id: budget.budget_id,
+        }),
+      },
+    )
+    dispatch(deleteBudget({ bugdet_id: budget.budget_id }))
+    setShowDeleteModal(false)
+  }
 
   return (
     <>
@@ -193,7 +212,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
           title={budget.category}
           description="Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever."
           onCancel={() => setShowDeleteModal(!showDeleteModal)}
-          onConfirm={() => {}}
+          onConfirm={handleDeleteBudget}
         />
       )}
     </>

@@ -10,14 +10,19 @@ logoutRoute.post("/", async (req, res) => {
       sameSite: "none",
       path: "/",
     })
+
     res.clearCookie("token", {
       httpOnly: true,
       secure: true,
       sameSite: "none",
       path: "/",
     })
+
+    return res.status(200).json({
+      msg: "success!",
+    })
   } catch (error) {
-    console.log(error)
+    return res.status(500).json({ msg: "server error!" })
   }
 })
 

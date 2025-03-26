@@ -10,17 +10,11 @@ import { useDispatch } from "react-redux"
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
 import useHandleDemoMode from "@/hooks/useHandleDemoMode"
-import useUserAuthenticated from "@/hooks/useUserAuthenticated"
 import { setDemoMode } from "@/redux/demo/reducer"
 
 const Form = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { isAuthenticated } = useUserAuthenticated()
-
-  if (isAuthenticated) {
-    router.push("/")
-  }
 
   const [loading, setLoading] = useState(false)
   const {
@@ -37,8 +31,9 @@ const Form = () => {
   const { fetchAuthDemoMode, loadingDemo } = useHandleDemoMode()
 
   const handleDemoMode = () => {
-    fetchAuthDemoMode()
+    localStorage.setItem("demoMode", "true")
     dispatch(setDemoMode(true))
+    fetchAuthDemoMode()
   }
 
   const onSubmit = handleSubmit(async (data) => {

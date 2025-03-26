@@ -42,4 +42,22 @@ budgetsRoute.post("/edit_budget", authMiddleware, async (req, res) => {
   res.status(statusCode).send(body)
 })
 
+budgetsRoute.delete("/delete_budget", authMiddleware, async (req, res) => {
+  const id = req.cookies.id
+  const bodyFormated = {
+    ...req.body,
+    id,
+  }
+
+  const budgetRepository = new BudgetRepository()
+
+  const budgetController = new BudgetController(budgetRepository)
+
+  const { body, statusCode } = await budgetController.deleteBudget({
+    body: bodyFormated,
+  })
+
+  res.status(statusCode).send(body)
+})
+
 export default budgetsRoute

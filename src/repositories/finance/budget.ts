@@ -81,4 +81,35 @@ export class BudgetRepository implements IBudgetsRepository {
       success: true,
     }
   }
+
+  async deleteBudget(params: {
+    budget_id: string
+    id: string
+  }): Promise<budgetsReturnTypes> {
+    const { budget_id, id } = params
+
+    if (!budget_id || !id) {
+      throw new Error("Missing param: id or budget_id")
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id },
+      include: { finance: true },
+    })
+
+    if (!user?.finance) {
+      throw new Error("Finance not found for this user")
+    }
+
+    await prisma.budgets.delete({
+      where: {
+        id: budget_id,
+        financeId: user.finance.id,
+      },
+    })
+
+    return {
+      success: true,
+    }
+  }
 }

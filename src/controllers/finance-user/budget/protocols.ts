@@ -10,6 +10,11 @@ export interface budgetsReturnTypes {
   budget_id?: string
 }
 
+export interface DeleteBudgetParams {
+  budget_id: string
+  id: string
+}
+
 export interface EditBudgetParams {
   budget_id: string
   id: string
@@ -21,4 +26,5 @@ export interface EditBudgetParams {
 export interface IBudgetsRepository {
   addBudget(params: BudgetParams): Promise<budgetsReturnTypes>
   editBudget(params: EditBudgetParams): Promise<budgetsReturnTypes>
+  deleteBudget(params: DeleteBudgetParams): Promise<budgetsReturnTypes>
 }

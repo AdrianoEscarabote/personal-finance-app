@@ -6,6 +6,7 @@ import {
 import {
   BudgetParams,
   budgetsReturnTypes,
+  DeleteBudgetParams,
   EditBudgetParams,
   IBudgetsRepository,
 } from "./protocols"
@@ -69,6 +70,27 @@ export class BudgetController implements IControllerBudgets {
         budget_name,
         budget_value,
         theme,
+        budget_id,
+      })
+
+      return ok<budgetsReturnTypes>(result)
+    } catch (error) {
+      return serverError()
+    }
+  }
+
+  async deleteBudget(
+    HttpRequest: HttpRequest<DeleteBudgetParams>,
+  ): Promise<HttpResponse<budgetsReturnTypes | string>> {
+    try {
+      if (!HttpRequest.body?.id || !HttpRequest.body?.budget_id) {
+        return badRequest("Missing param: id or budget_id")
+      }
+
+      const { id, budget_id } = HttpRequest.body
+
+      const result = await this.budgetsRepository.deleteBudget({
+        id,
         budget_id,
       })
 

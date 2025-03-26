@@ -30,6 +30,9 @@ export interface IController {
 export interface IControllerBudgets {
   addBudget(HttpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>>
   editBudget(HttpRequest: HttpRequest<unknown>): Promise<HttpResponse<unknown>>
+  deleteBudget(
+    HttpRequest: HttpRequest<unknown>,
+  ): Promise<HttpResponse<unknown>>
 }
 
 export interface IControllerPots {

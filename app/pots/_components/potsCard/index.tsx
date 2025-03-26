@@ -34,7 +34,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
       }),
     })
 
-    dispatch(deletePot({ name: pot.name }))
+    dispatch(deletePot({ pot_id: pot.pot_id }))
     closeModal()
   }
 

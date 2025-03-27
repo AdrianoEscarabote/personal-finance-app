@@ -80,7 +80,7 @@ const useAuthAndData = () => {
     }
   }, [isAuthenticated, isPending, pathName, router])
 
-  return { isAuthenticated, isPending }
+  return { isAuthenticated, isPending, handleGetData }
 }
 
 export default useAuthAndData

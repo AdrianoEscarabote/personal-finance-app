@@ -3,11 +3,13 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/reduxTypes"
 
 const useDemoFetch = () => {
-  const demoMode = useSelector((state: RootState) => state.demoMode)
+  const demoModeState = useSelector((state: RootState) => state.demoMode)
+  const isDemoMode =
+    typeof window !== "undefined" ? localStorage.getItem("demoMode") : null
 
   const demoFetch = async (url: string, options?: RequestInit) => {
-    if (demoMode) {
-      console.log("Demo Mode: No requests allowed to backend.")
+    if (demoModeState || isDemoMode === "true") {
+      console.log("Demo mode active, skipping fetch")
       return null
     }
 
@@ -15,7 +17,7 @@ const useDemoFetch = () => {
     return response
   }
 
-  return { demoFetch }
+  return { demoFetch, isDemoMode }
 }
 
 export default useDemoFetch

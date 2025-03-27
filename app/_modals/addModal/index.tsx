@@ -28,32 +28,39 @@ const AddModal = ({
   const [theme, setTheme] = useState<string>("")
   const [selectedCategory, setSelectedCategory] = useState<string>("")
   const { register, handleSubmit, watch } = useForm()
-  const { demoFetch } = useDemoFetch()
+  const { demoFetch, isDemoMode } = useDemoFetch()
+  const demoMode = isDemoMode
 
   const onSubmit = handleSubmit(async (data) => {
     if (title === "pot") {
-      const response = await demoFetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_pot`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            pot_name: data.pot_name,
-            theme,
-            target: data.target,
-            total: 0,
-          }),
-        },
-      )
-      if (!response) {
-        console.error("Failed to add new pot")
-        return
-      }
+      let pot_id = ""
 
-      const responseJson = await response.json()
-      const pot_id = responseJson.pot_id
+      if (demoMode !== "true") {
+        const response = await demoFetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_pot`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              pot_name: data.pot_name,
+              theme,
+              target: data.target,
+              total: 0,
+            }),
+          },
+        )
+        if (!response) {
+          console.error("Failed to add new pot")
+          return
+        }
+
+        const responseJson = await response.json()
+        pot_id = responseJson.pot_id
+      } else {
+        pot_id = crypto.randomUUID()
+      }
 
       dispatch(
         addNewPot({
@@ -66,28 +73,34 @@ const AddModal = ({
       )
     }
     if (title === "budget") {
-      const response = await demoFetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/add_budget`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+      let budget_id = ""
+
+      if (demoMode !== "true") {
+        const response = await demoFetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/add_budget`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              budget_name: selectedCategory,
+              theme,
+              budget_value: Number(data.maximum),
+            }),
           },
-          body: JSON.stringify({
-            budget_name: selectedCategory,
-            theme,
-            budget_value: Number(data.maximum),
-          }),
-        },
-      )
+        )
 
-      if (!response) {
-        console.error("Failed to add new budget")
-        return
+        if (!response) {
+          console.error("Failed to add new budget")
+          return
+        }
+
+        const responseJson = await response.json()
+        budget_id = responseJson?.budget_id || ""
+      } else {
+        budget_id = crypto.randomUUID()
       }
-
-      const responseJson = await response.json()
-      const budget_id = responseJson.budget_id
 
       dispatch(
         addBudget({

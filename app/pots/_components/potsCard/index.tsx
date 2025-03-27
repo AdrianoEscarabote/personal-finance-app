@@ -9,6 +9,7 @@ import AddMoney from "@/app/_modals/addMoney"
 import DeleteModal from "@/app/_modals/deleteModal"
 import EditModal from "@/app/_modals/editModal"
 import WithdrawMoney from "@/app/_modals/withdrawMoney"
+import useDemoFetch from "@/hooks/useDemoFetch"
 import useDisableScroll from "@/hooks/useDisableScroll"
 import { deletePot } from "@/redux/finance/reducer"
 
@@ -16,6 +17,7 @@ import { PotsCardProps } from "./potsCardProps"
 
 const PotsCard = ({ pot }: PotsCardProps) => {
   const dispatch = useDispatch()
+  const { demoFetch } = useDemoFetch()
   const [activeModal, setActiveModal] = useState<string | null>(null)
   useDisableScroll(activeModal !== null)
   const closeModal = () => setActiveModal(null)
@@ -24,15 +26,18 @@ const PotsCard = ({ pot }: PotsCardProps) => {
   const progress = (pot.total / pot.target) * 100
 
   const handleDelete = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/finance/pots/delete_pot`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    await demoFetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/delete_pot`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pot_id: pot.pot_id,
+        }),
       },
-      body: JSON.stringify({
-        pot_id: pot.pot_id,
-      }),
-    })
+    )
 
     dispatch(deletePot({ pot_id: pot.pot_id }))
     closeModal()

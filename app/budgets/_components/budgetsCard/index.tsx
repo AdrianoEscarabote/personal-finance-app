@@ -8,6 +8,7 @@ import Button from "@/app/_components/button"
 import IconEllipsis from "@/app/_icons/icon-ellipsis"
 import DeleteModal from "@/app/_modals/deleteModal"
 import EditModal from "@/app/_modals/editModal"
+import useDemoFetch from "@/hooks/useDemoFetch"
 import useDisableScroll from "@/hooks/useDisableScroll"
 import { deleteBudget } from "@/redux/finance/reducer"
 import { RootState } from "@/redux/reduxTypes"
@@ -17,6 +18,7 @@ import { BudgetsCardProps } from "./budgetsCardProps"
 
 const BudgetsCard = ({ budget }: BudgetsCardProps) => {
   const dispatch = useDispatch()
+  const { demoFetch } = useDemoFetch()
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   useDisableScroll(showEditModal || showDeleteModal)
@@ -34,7 +36,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
   const progress = (totalSpend / budget.maximum) * 100
 
   const handleDeleteBudget = async () => {
-    await fetch(
+    await demoFetch(
       `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/delete_bugdet`,
       {
         method: "DELETE",

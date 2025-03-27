@@ -26,6 +26,16 @@ const financeSlice = createSlice({
       state.budgets = action.payload.budgets
       state.pots = action.payload.pots
     },
+    clearData: (state) => {
+      state.balance = {
+        current: 0,
+        income: 0,
+        expenses: 0,
+      }
+      state.transactions = []
+      state.budgets = []
+      state.pots = []
+    },
     addNewPot: (state, action: PayloadAction<NewPotPayload>) => {
       const { name, target, theme, total, pot_id } = action.payload
       state.pots.push({ name, target, theme, total, pot_id })
@@ -139,6 +149,7 @@ export default financeSlice.reducer
 
 export const {
   setData,
+  clearData,
   addNewPot,
   editPot,
   deletePot,

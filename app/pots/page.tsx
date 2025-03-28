@@ -23,8 +23,8 @@ const Pots = () => {
         transition={{ duration: 0.4, ease: "easeOut" }}
         className="mb-20 w-full bg-beige-100 px-5 py-6 md:mb-0 md:px-10 md:py-8"
       >
-        <div className="mb-8 flex items-center justify-between">
-          <h1 className="text-preset-1 text-grey-900">Pots page</h1>
+        <div className="mx-auto mb-8 flex max-w-[69.375rem] items-center justify-between">
+          <h1 className="text-preset-1 text-grey-900">Pots</h1>
 
           <Button
             variant="primary"
@@ -34,7 +34,7 @@ const Pots = () => {
           />
         </div>
 
-        <div className="flex w-full flex-wrap justify-center gap-6 md:justify-start">
+        <div className="mx-auto flex w-full max-w-[69.375rem] flex-wrap justify-center gap-6 md:justify-start">
           {pots.map((pot, index) => (
             <PotsCard key={index} pot={pot} />
           ))}

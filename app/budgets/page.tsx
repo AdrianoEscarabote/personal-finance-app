@@ -27,7 +27,7 @@ const BudgetsPage = () => {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="mx:px-10 mb-[5.5rem] w-full px-5 py-6 md:mb-0 md:px-10 md:py-8"
     >
-      <div className="mb-8 flex w-full items-center justify-between">
+      <div className="mx-auto mb-8 flex w-full max-w-[69.375rem] items-center justify-between">
         <h1 className="text-preset-1 text-grey-900">Budgets</h1>
         <Button
           variant="primary"
@@ -37,7 +37,7 @@ const BudgetsPage = () => {
         />
       </div>
 
-      <div className="flex w-full flex-col items-start gap-6 md:flex-row">
+      <div className="mx-auto flex w-full max-w-[69.375rem] flex-col items-start gap-6 md:flex-row">
         <BudgetsSpendingSummary />
         <div className="flex w-full flex-wrap items-start gap-6">
           {budgets.map((budget, index) => (

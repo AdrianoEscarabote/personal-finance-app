@@ -9,7 +9,7 @@ const FinancialSummary = () => {
   )
 
   return (
-    <article className="flex w-full flex-col items-center gap-6 md:flex-row">
+    <article className="mx-auto flex w-full max-w-[69.375rem] flex-col items-center gap-6 md:flex-row">
       <div className="w-full md:max-w-[21.0625rem]">
         <div className="flex w-full flex-col gap-3 rounded-xl bg-grey-900 p-6 text-white md:max-w-[21.0625rem]">
           <h3 className="text-preset-4">Current Balance</h3>

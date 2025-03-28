@@ -15,7 +15,7 @@ const RecurringPage = () => {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="mb-[5.5rem] w-full bg-beige-100 md:mb-0"
     >
-      <div className="w-full px-5 py-6 md:px-10 md:py-8">
+      <div className="mx-auto w-full max-w-[69.375rem] px-5 py-6 md:px-10 md:py-8">
         <h1 className="text-preset-1 mb-8 text-grey-900">Recurring Bills</h1>
         <div className="flex w-full flex-col items-start justify-start gap-6 lg:flex-row">
           <div

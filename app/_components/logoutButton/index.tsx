@@ -17,23 +17,32 @@ const LogoutButton = () => {
 
   useEffect(() => {
     const handleLogout = async () => {
-      setLoading(true)
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
-        {
-          method: "POST",
-          credentials: "include",
-        },
-      )
-      if (response.status === 200) {
-        localStorage.removeItem("demoMode")
-        dispatch(clearData())
-        router.push("/login")
+      try {
+        setLoading(true)
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+          {
+            method: "POST",
+            credentials: "include",
+          },
+        )
+
+        if (response.ok) {
+          localStorage.removeItem("demoMode")
+          dispatch(clearData())
+          router.push("/login")
+        }
+      } catch (error) {
+        console.error("Error in logout request:", error)
+      } finally {
+        setLoading(false)
       }
     }
+
     if (logout) {
       handleLogout()
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logout])
 

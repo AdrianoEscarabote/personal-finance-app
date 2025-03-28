@@ -20,6 +20,7 @@ const WithdrawMoney = ({
 }: withdrawMoneyProps) => {
   const dispatch = useDispatch()
   useEscClose(closeModal)
+  const [loading, setLoading] = useState(false)
   const [amountCalculated, setAmountCalculated] = useState(total)
   const progress = (total / target) * 100
   const { demoFetch } = useDemoFetch()
@@ -35,6 +36,7 @@ const WithdrawMoney = ({
   const newProgress = ((total - Number(amount || 0)) / target) * 100
 
   const onSubmit = handleSubmit(async () => {
+    setLoading(true)
     await demoFetch(
       `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/withdraw_money`,
       {
@@ -150,7 +152,12 @@ const WithdrawMoney = ({
               }}
             />
 
-            <Button variant="primary" label="Confirm Withdrawal" />
+            <Button
+              variant="primary"
+              loading={loading}
+              disabled={loading}
+              label="Confirm Withdrawal"
+            />
           </fieldset>
         </form>
       </article>

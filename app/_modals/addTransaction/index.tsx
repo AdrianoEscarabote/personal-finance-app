@@ -36,6 +36,7 @@ interface formTypes {
 
 const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
   const { demoFetch } = useDemoFetch()
   const [selectedCategory, setSelectedCategory] = useState("")
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -55,6 +56,7 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
   const recurring = watch("recurring") || false
 
   const onSubmit = handleSubmit(async (data) => {
+    setLoading(true)
     const avatar = getAvatar(selectedCategory)
 
     await demoFetch(
@@ -202,6 +204,8 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
 
             <Button
               type="submit"
+              loading={loading}
+              disabled={loading}
               variant="primary"
               label="Add Transaction"
               style={{ marginTop: "1.25rem" }}

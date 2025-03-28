@@ -25,6 +25,7 @@ const AddModal = ({
 }: addModalProps) => {
   const dispatch = useDispatch()
   useEscClose(closeModal)
+  const [loading, setLoading] = useState(false)
   const [theme, setTheme] = useState<string>("")
   const [selectedCategory, setSelectedCategory] = useState<string>("")
   const { register, handleSubmit, watch } = useForm()
@@ -32,6 +33,7 @@ const AddModal = ({
   const demoMode = isDemoMode
 
   const onSubmit = handleSubmit(async (data) => {
+    setLoading(true)
     if (title === "pot") {
       let pot_id = ""
 
@@ -213,6 +215,8 @@ const AddModal = ({
               type="submit"
               variant="primary"
               label={textButton}
+              loading={loading}
+              disabled={loading}
               style={{ marginTop: "1.25rem" }}
             />
           </fieldset>

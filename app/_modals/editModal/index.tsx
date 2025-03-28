@@ -23,6 +23,7 @@ const EditModal = ({
 }: EditModalProps) => {
   const dispatch = useDispatch()
   useEscClose(closeModal)
+  const [loading, setLoading] = useState(false)
   const { demoFetch } = useDemoFetch()
   const [theme, setTheme] = useState<string>("")
   const [selectedCategory, setSelectedCategory] = useState<string>("")
@@ -34,6 +35,7 @@ const EditModal = ({
   } = useForm()
 
   const onSubmit = handleSubmit(async (data) => {
+    setLoading(true)
     if (content === "pot") {
       await demoFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/edit_pot`,
@@ -178,6 +180,8 @@ const EditModal = ({
             <Button
               variant="primary"
               type="submit"
+              loading={loading}
+              disabled={loading}
               label="Save Changes"
               style={{ marginTop: "1.25rem" }}
             />

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 
@@ -19,6 +20,7 @@ const AddMoney = ({
   closeModal,
 }: AddMoneyProps) => {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
   const { demoFetch } = useDemoFetch()
   useEscClose(closeModal)
   const progress = (total / target) * 100
@@ -34,6 +36,7 @@ const AddMoney = ({
   const newProgress = ((total + Number(amount || 0)) / target) * 100
 
   const onSubmit = handleSubmit(async () => {
+    setLoading(true)
     await demoFetch(
       `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_money`,
       {
@@ -145,7 +148,13 @@ const AddMoney = ({
               }}
             />
 
-            <Button type="submit" variant="primary" label="Confirm Addition" />
+            <Button
+              type="submit"
+              loading={loading}
+              disabled={loading}
+              variant="primary"
+              label="Confirm Addition"
+            />
           </fieldset>
         </form>
       </article>

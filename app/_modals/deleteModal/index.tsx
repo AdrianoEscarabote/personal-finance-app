@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useState } from "react"
 
 import Button from "@/app/_components/button"
 import useEscClose from "@/hooks/useEscClose"
@@ -12,6 +13,13 @@ const DeleteModal = ({
   onConfirm,
 }: DeleteModalProps) => {
   useEscClose(onCancel)
+  const [loading, setLoading] = useState(false)
+
+  const handleDelete = () => {
+    setLoading(true)
+    onConfirm()
+  }
+
   return (
     <div
       onClick={onCancel}
@@ -38,7 +46,9 @@ const DeleteModal = ({
           <Button
             variant="destroy"
             label="Yes, Confirm Deletion"
-            onClick={onConfirm}
+            loading={loading}
+            disabled={loading}
+            onClick={handleDelete}
           />
           <Button variant="tertiary" label="No, Go Back" onClick={onCancel} />
         </div>

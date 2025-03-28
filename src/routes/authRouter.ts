@@ -1,7 +1,5 @@
 import express from "express"
 
-import { authMiddleware } from "@/middlewares/authMiddleware"
-
 import authDemoRoute from "./auth/auth-demo"
 import loginRoute from "./auth/login"
 import logoutRoute from "./auth/logout"
@@ -14,6 +12,6 @@ authRouter.use("/signup", signupRoute)
 authRouter.use("/login", loginRoute)
 authRouter.use("/user-authenticated", userAuthenticatedRoute)
 authRouter.use("/auth-demo", authDemoRoute)
-authRouter.use("/logout", authMiddleware, logoutRoute)
+authRouter.use("/logout", logoutRoute)
 
 export default authRouter

@@ -105,12 +105,14 @@ const Form = () => {
           <div className="mt-4 space-y-4">
             <Button
               loading={loading}
+              disabled={loadingDemo}
               variant="primary"
               type="submit"
               label="Login"
             />
             <Button
               loading={loadingDemo}
+              disabled={loading}
               variant="secondary"
               type="button"
               onClick={handleDemoMode}

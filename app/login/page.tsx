@@ -12,7 +12,10 @@ const LoginPage = () => {
       <div className="mx-auto h-full w-full max-w-[90rem] px-5">
         <section className="flex h-full w-full flex-col items-center justify-between lg:flex-row">
           <IntroBanner />
-          <Form />
+
+          <div className="mt-20 w-full max-w-[35rem] lg:mt-0">
+            <Form />
+          </div>
         </section>
       </div>
     </main>

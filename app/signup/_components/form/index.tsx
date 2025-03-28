@@ -123,12 +123,14 @@ const Form = () => {
           <div className="mt-4 space-y-4">
             <Button
               loading={loading}
+              disabled={loadingDemo}
               label="Create Account"
               type="submit"
               variant="primary"
             />
             <Button
               loading={loadingDemo}
+              disabled={loading}
               variant="secondary"
               type="button"
               onClick={handleDemoMode}

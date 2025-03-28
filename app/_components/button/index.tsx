@@ -54,9 +54,9 @@ const Button = ({
       {variant === "destroy" && (
         <button
           {...props}
-          className="text-preset-4-bold grid h-[3.3125rem] w-full place-content-center rounded-lg bg-red text-white transition-all hover:opacity-80"
+          className="text-preset-4-bold relative grid h-[3.3125rem] w-full place-content-center rounded-lg bg-red text-white transition-all hover:opacity-80"
         >
-          {label}
+          {loading ? <Loading theme="light" /> : label}
         </button>
       )}
     </>

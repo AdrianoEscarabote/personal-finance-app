@@ -1,9 +1,12 @@
 import { LoadingProps } from "./loadingProps"
 import style from "./style.module.css"
 
-const Loading = ({ theme }: LoadingProps) => {
+const Loading = ({ theme, align }: LoadingProps) => {
   return (
-    <svg className={style.spinner} viewBox="0 0 50 50">
+    <svg
+      className={`${style.spinner} ${align === "center" ? "top-1/2" : "top-[70%]"}`}
+      viewBox="0 0 50 50"
+    >
       <circle
         className={style.path}
         cx="25"

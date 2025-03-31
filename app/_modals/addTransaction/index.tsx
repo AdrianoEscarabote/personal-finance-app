@@ -171,17 +171,13 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
               errorMessage={errors.amount?.message as string}
               onInput={(e) => {
                 const input = e.target as HTMLInputElement
-                input.value = input.value.replace(/[^0-9]/g, "")
+                input.value = input.value.replace(/(?!^-)[^0-9.]/g, "")
               }}
               {...register("amount", {
                 required: "This field is required",
                 pattern: {
-                  value: /^[0-9]+(\.[0-9]{1,2})?$/,
+                  value: /^-?[0-9]+(\.[0-9]{1,2})?$/,
                   message: "Only numbers are allowed",
-                },
-                min: {
-                  value: 0.01,
-                  message: "Amount must be greater than zero",
                 },
               })}
             />

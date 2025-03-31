@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
+import updateBalance from "@/utils/updateBalance"
+
 import {
   initialStateType,
   NewBudgetPayload,
@@ -141,6 +143,8 @@ const financeSlice = createSlice({
         category,
         avatar,
       })
+
+      updateBalance(state)
     },
   },
 })

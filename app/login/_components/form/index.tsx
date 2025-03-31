@@ -9,10 +9,14 @@ import { useDispatch } from "react-redux"
 
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
+import Loading from "@/app/_components/loading"
+import useAuthOnEntry from "@/hooks/useAuthOnEntry"
 import useHandleDemoMode from "@/hooks/useHandleDemoMode"
 import { setDemoMode } from "@/redux/demo/reducer"
 
 const Form = () => {
+  const { isLoading } = useAuthOnEntry()
+
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -64,6 +68,10 @@ const Form = () => {
       console.log(error)
     }
   })
+
+  if (isLoading) {
+    return <Loading theme="dark" align="center" />
+  }
 
   return (
     <motion.div

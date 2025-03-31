@@ -11,6 +11,7 @@ const useAuthAndData = () => {
   const router = useRouter()
   const pathName = usePathname()
   const dispatch = useDispatch()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPending, startTransition] = useTransition()
   const [isAuthenticated, setIsAuthenticated] = useState<null | boolean>(null)
 
@@ -51,13 +52,13 @@ const useAuthAndData = () => {
   useEffect(() => {
     const initialize = async () => {
       await checkUserAuthenticated()
-      startTransition(() => {
-        handleGetData()
-      })
+      if (isAuthenticated !== null) {
+        await handleGetData()
+      }
     }
     initialize()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isAuthenticated])
 
   useEffect(() => {
     const demoMode = localStorage.getItem("demoMode")

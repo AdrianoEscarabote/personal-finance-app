@@ -47,6 +47,39 @@ export class TransactionRepository implements ITransactionRepository {
       },
     })
 
+    await this.updateBalance(user.finance.id)
+
     return { success: true }
+  }
+
+  private async updateBalance(financeId: string) {
+    const transactions = await prisma.transactions.findMany({
+      where: { financeId },
+    })
+
+    const income = transactions
+      .filter((t) => t.amount > 0)
+      .reduce((acc, t) => acc + t.amount, 0)
+
+    const expenses = transactions
+      .filter((t) => t.amount < 0)
+      .reduce((acc, t) => acc + Math.abs(t.amount), 0)
+
+    const current = income - expenses
+
+    await prisma.balance.upsert({
+      where: { financeId },
+      update: {
+        income,
+        expenses,
+        current,
+      },
+      create: {
+        financeId,
+        income,
+        expenses,
+        current,
+      },
+    })
   }
 }

@@ -9,10 +9,12 @@ import { useDispatch } from "react-redux"
 
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
+import useGetData from "@/hooks/useGetData"
 import useHandleDemoMode from "@/hooks/useHandleDemoMode"
 import { setDemoMode } from "@/redux/demo/reducer"
 
 const Form = () => {
+  const { handleGetData } = useGetData()
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -57,6 +59,7 @@ const Form = () => {
 
       if (response.status === 200) {
         router.push("/")
+        await handleGetData()
       } else {
         setError("email", {
           message: responseJson.error,

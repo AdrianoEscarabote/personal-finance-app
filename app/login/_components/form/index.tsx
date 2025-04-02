@@ -11,10 +11,12 @@ import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
 import Loading from "@/app/_components/loading"
 import useAuthOnEntry from "@/hooks/useAuthOnEntry"
+import useGetData from "@/hooks/useGetData"
 import useHandleDemoMode from "@/hooks/useHandleDemoMode"
 import { setDemoMode } from "@/redux/demo/reducer"
 
 const Form = () => {
+  const { handleGetData } = useGetData()
   const { isLoading } = useAuthOnEntry()
 
   const dispatch = useDispatch()
@@ -58,6 +60,7 @@ const Form = () => {
 
       if (response.status === 200) {
         router.push("/")
+        await handleGetData()
       } else {
         setError("email", {
           message: responseJson.error,

@@ -47,7 +47,7 @@ describe("LoginForm", () => {
       </Provider>,
     )
 
-    fireEvent.click(screen.getByRole("button", { name: /login/i }))
+    fireEvent.click(await screen.findByRole("button", { name: /Login/i }))
 
     await waitFor(() => {
       expect(screen.getByText(/this field is required/i)).toBeTruthy()
@@ -62,10 +62,10 @@ describe("LoginForm", () => {
       </Provider>,
     )
 
-    fireEvent.input(screen.getByLabelText(/email/i), {
+    fireEvent.input(await screen.findByLabelText(/email/i), {
       target: { value: "invalid-email" },
     })
-    fireEvent.click(screen.getByRole("button", { name: /login/i }))
+    fireEvent.click(screen.getByRole("button", { name: /Login/i }))
 
     await waitFor(() => {
       expect(

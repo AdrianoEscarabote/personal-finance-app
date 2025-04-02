@@ -7,12 +7,12 @@ import { RootState } from "@/redux/reduxTypes"
 import BudgetPieChart from "../budgetPieChart"
 
 const BudgetsSpendingSummary = () => {
-  const { budgets, transactions } = useSelector(
+  const { budgets = [], transactions } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
 
   if (!budgets.length || !transactions.length) {
-    return <p>Loading...</p>
+    return null
   }
 
   return (

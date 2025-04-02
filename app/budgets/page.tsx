@@ -15,7 +15,7 @@ import BudgetsCard from "./_components/budgetsCard"
 
 const BudgetsPage = () => {
   const [showAddBugetModal, setShowAddBugetModal] = useState(false)
-  const { budgets } = useSelector(
+  const { budgets = [] } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
   useDisableScroll(showAddBugetModal)
@@ -40,9 +40,17 @@ const BudgetsPage = () => {
       <div className="mx-auto flex w-full max-w-[69.375rem] flex-col items-start gap-6 md:flex-row">
         <BudgetsSpendingSummary />
         <div className="flex w-full flex-wrap items-start gap-6">
-          {budgets.map((budget, index) => (
-            <BudgetsCard key={index} budget={budget} />
-          ))}
+          {budgets.length > 1 ? (
+            <>
+              {budgets.map((budget, index) => (
+                <BudgetsCard key={index} budget={budget} />
+              ))}
+            </>
+          ) : (
+            <h1 className="text-preset-4 text-grey-500">
+              You haven&apos;t set up any budgets yet.
+            </h1>
+          )}
         </div>
       </div>
       {showAddBugetModal && (

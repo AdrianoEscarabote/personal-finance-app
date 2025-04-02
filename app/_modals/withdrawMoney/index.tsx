@@ -41,6 +41,7 @@ const WithdrawMoney = ({
       `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/withdraw_money`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

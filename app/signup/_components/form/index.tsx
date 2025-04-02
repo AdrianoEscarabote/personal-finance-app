@@ -49,23 +49,21 @@ const Form = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-          }),
+          body: JSON.stringify(data),
         },
       )
-      const responseJson = await response.json()
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         router.push("/")
         await handleGetData()
-      } else {
+      }
+      if (response.status === 409) {
+        setLoading(false)
         setError("email", {
-          message: responseJson.error,
+          type: "manual",
+          message: "User already exists with this email",
         })
       }
-      setLoading(false)
     } catch (error) {
       console.log(error)
     }

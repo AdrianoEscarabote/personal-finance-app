@@ -56,17 +56,17 @@ const Form = () => {
           body: JSON.stringify(data),
         },
       )
-      const responseJson = await response.json()
 
       if (response.status === 200) {
         router.push("/")
         await handleGetData()
       } else {
+        setLoading(false)
         setError("email", {
-          message: responseJson.error,
+          type: "manual",
+          message: "User does not exist with this email",
         })
       }
-      setLoading(false)
     } catch (error) {
       console.log(error)
     }

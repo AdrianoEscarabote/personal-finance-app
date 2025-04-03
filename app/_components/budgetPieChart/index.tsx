@@ -6,13 +6,12 @@ import { RootState } from "@/redux/reduxTypes"
 import { BudgetPieChartProps } from "./budgetPieChartProps"
 
 const BudgetPieChart = ({ width, height }: BudgetPieChartProps) => {
-  const { budgets = [], transactions = [] } = useSelector(
+  const { budgets, transactions } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
 
-  // Evita execução se budgets ou transactions estiverem vazios
   if (!budgets.length || !transactions.length) {
-    return <p>Dados indisponíveis</p>
+    return <p>Data unavailable</p>
   }
 
   const data = budgets.map((budget) => {

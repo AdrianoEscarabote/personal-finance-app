@@ -30,6 +30,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
       `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/delete_pot`,
       {
         method: "DELETE",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

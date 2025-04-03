@@ -41,6 +41,7 @@ const EditModal = ({
         `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/edit_pot`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

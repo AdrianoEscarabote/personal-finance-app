@@ -41,6 +41,7 @@ const AddMoney = ({
       `${process.env.NEXT_PUBLIC_API_URL}/finance/pots/add_money`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

@@ -66,6 +66,7 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           name: data.name,
           category: selectedCategory,

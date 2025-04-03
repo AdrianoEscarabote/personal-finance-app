@@ -40,6 +40,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
       `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/delete_bugdet`,
       {
         method: "DELETE",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

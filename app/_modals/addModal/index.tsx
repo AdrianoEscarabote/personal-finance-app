@@ -45,6 +45,7 @@ const AddModal = ({
             headers: {
               "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({
               pot_name: data.pot_name,
               theme,

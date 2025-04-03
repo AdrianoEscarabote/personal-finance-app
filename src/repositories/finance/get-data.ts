@@ -56,7 +56,7 @@ export class GetDataRepository implements IGetDataRepository {
       date: transaction.date.toISOString(),
     }))
 
-    const budget = await prisma.budgets.findMany({
+    const budgets = await prisma.budgets.findMany({
       where: {
         financeId,
       },
@@ -80,7 +80,7 @@ export class GetDataRepository implements IGetDataRepository {
       success: true,
       finance: {
         transactions: transactions,
-        budget: budget,
+        budgets: budgets,
         pots: pots,
         balance: {
           current: current,

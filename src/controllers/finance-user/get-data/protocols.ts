@@ -18,7 +18,7 @@ export interface GetDataReturnTypes {
       amount: number
       recurring: boolean
     }[]
-    budget: {
+    budgets: {
       id: string
       category: string
       maximum: number

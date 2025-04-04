@@ -25,7 +25,7 @@ export class PotsController implements IControllerPots {
         !HttpRequest.body?.name ||
         !HttpRequest.body?.target ||
         !HttpRequest.body?.theme ||
-        !HttpRequest.body?.total
+        HttpRequest.body?.total === undefined
       ) {
         return badRequest("Missing param: id, name, target, theme or total")
       }

@@ -24,14 +24,25 @@ const SelectCategory = ({
     useState<string>(initialCategory)
 
   const isCategoryUsed = (categoryParam: string) =>
-    categoryParam !== category &&
-    !dontFilter &&
-    budgets.some((budget) => budget.category === categoryParam)
+    !dontFilter && budgets.some((budget) => budget.category === categoryParam)
 
   useEffect(() => {
-    setCategory(initialCategory)
-    setSelectedCategory(initialCategory)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    let availableCategory = initialCategory
+
+    if (!dontFilter) {
+      const firstAvailableCategory = filteredCategories.find(
+        (cat) => !budgets.some((budget) => budget.category === cat),
+      )
+
+      if (firstAvailableCategory) {
+        availableCategory = firstAvailableCategory
+      }
+    }
+
+    setCategory(availableCategory)
+    setSelectedCategory(availableCategory)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [budgets])
 
   return (
     <div className="relative max-w-[31rem]">

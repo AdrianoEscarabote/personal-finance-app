@@ -27,12 +27,22 @@ const ColorTag = ({ label, theme, setTheme }: ColorTagProps) => {
   }>(initialColor)
 
   const isColorUsed = (hex: string) =>
-    hex !== theme && budgets.some((budget) => budget.theme === hex)
+    budgets.some((budget) => budget.theme === hex)
+
+  const getAvailableColor = () => {
+    return (
+      filteredColors.find(
+        (color) => !budgets.some((budget) => budget.theme === color.hex),
+      ) || filteredColors[0]
+    )
+  }
 
   useEffect(() => {
-    setTheme(initialColor.hex)
-    setSelectedColor(initialColor)
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    const availableColor = getAvailableColor()
+    setTheme(availableColor.hex)
+    setSelectedColor(availableColor)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [budgets])
 
   return (
     <div className="relative max-w-[31rem]">
@@ -57,7 +67,7 @@ const ColorTag = ({ label, theme, setTheme }: ColorTagProps) => {
       </button>
 
       <div
-        className={`absolute right-0 top-[5rem] w-full max-w-[31rem] overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 ${
+        className={`absolute right-0 top-[5rem] z-10 w-full max-w-[31rem] overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 ${
           showColors
             ? "max-h-[18.625rem] overflow-y-scroll opacity-100 scrollbar-thin scrollbar-track-grey-100 scrollbar-thumb-grey-300"
             : "max-h-0 opacity-0"

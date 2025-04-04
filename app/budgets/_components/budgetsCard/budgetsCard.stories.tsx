@@ -15,7 +15,7 @@ export default {
       category: "Entertainment",
       maximum: 50.0,
       theme: "#277C78",
-      budget_id: "1",
+      id: "1",
     },
   },
 } as Meta<BudgetsCardProps>

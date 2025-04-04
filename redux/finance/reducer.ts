@@ -39,8 +39,8 @@ const financeSlice = createSlice({
       state.pots = []
     },
     addNewPot: (state, action: PayloadAction<NewPotPayload>) => {
-      const { name, target, theme, total, pot_id } = action.payload
-      state.pots.push({ name, target, theme, total, pot_id })
+      const { name, target, theme, total, id } = action.payload
+      state.pots.push({ name, target, theme, total, id })
     },
     editPot: (
       state,
@@ -65,15 +65,15 @@ const financeSlice = createSlice({
         return pot
       })
     },
-    deletePot: (state, action: PayloadAction<{ pot_id: string }>) => {
-      const { pot_id } = action.payload
-      if (!pot_id) return
-      state.pots = state.pots.filter((pot) => pot.pot_id !== pot_id)
+    deletePot: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload
+      if (!id) return
+      state.pots = state.pots.filter((pot) => pot.id !== id)
     },
     addBudget: (state, action: PayloadAction<NewBudgetPayload>) => {
-      const { category, maximum, theme, budget_id } = action.payload
+      const { category, maximum, theme, id } = action.payload
 
-      state.budgets.push({ category, maximum, theme, budget_id })
+      state.budgets.push({ category, maximum, theme, id })
     },
     editBudget: (
       state,
@@ -94,13 +94,11 @@ const financeSlice = createSlice({
         return budget
       })
     },
-    deleteBudget: (state, action: PayloadAction<{ bugdet_id: string }>) => {
-      const { bugdet_id } = action.payload
+    deleteBudget: (state, action: PayloadAction<{ id: string }>) => {
+      const { id } = action.payload
 
-      if (!bugdet_id) return
-      state.budgets = state.budgets.filter(
-        (budget) => budget.budget_id !== bugdet_id,
-      )
+      if (!id) return
+      state.budgets = state.budgets.filter((budget) => budget.id !== id)
     },
     addMoney: (
       state,

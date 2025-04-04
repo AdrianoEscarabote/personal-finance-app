@@ -37,7 +37,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
 
   const handleDeleteBudget = async () => {
     await demoFetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/delete_bugdet`,
+      `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/delete_budget`,
       {
         method: "DELETE",
         credentials: "include",
@@ -45,11 +45,11 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          budget_id: budget.budget_id,
+          budget_id: budget.id,
         }),
       },
     )
-    dispatch(deleteBudget({ bugdet_id: budget.budget_id }))
+    dispatch(deleteBudget({ id: budget.id }))
     setShowDeleteModal(false)
   }
 
@@ -199,7 +199,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
       {showEditModal && (
         <EditModal
           data_edit_budget={{
-            budget_id: budget.budget_id,
+            budget_id: budget.id,
             budget_category: budget.category,
             target: budget.maximum,
             theme: budget.theme,

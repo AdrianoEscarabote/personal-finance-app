@@ -35,12 +35,12 @@ const PotsCard = ({ pot }: PotsCardProps) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          pot_id: pot.pot_id,
+          pot_id: pot.id,
         }),
       },
     )
 
-    dispatch(deletePot({ pot_id: pot.pot_id }))
+    dispatch(deletePot({ id: pot.id }))
     closeModal()
   }
 
@@ -164,7 +164,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
           <div>
             <EditModal
               data_edit_pot={{
-                pot_id: pot.pot_id,
+                pot_id: pot.id,
                 pot_name: pot.name,
                 target: pot.target,
                 theme: pot.theme,

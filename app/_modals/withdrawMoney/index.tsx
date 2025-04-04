@@ -12,7 +12,7 @@ import { withdrawMoney } from "@/redux/finance/reducer"
 import { withdrawMoneyProps } from "./withdrawMoneyProps"
 
 const WithdrawMoney = ({
-  pot_id,
+  id,
   name,
   target,
   total,
@@ -46,7 +46,7 @@ const WithdrawMoney = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          pot_id: pot_id,
+          pot_id: id,
           amount: Number(amount),
         }),
       },

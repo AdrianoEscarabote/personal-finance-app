@@ -3,5 +3,5 @@ export interface withdrawMoneyProps {
   target: number
   total: number
   closeModal: () => void
-  pot_id?: string
+  id: string
 }

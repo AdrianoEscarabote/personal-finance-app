@@ -12,7 +12,7 @@ import { addMoney } from "@/redux/finance/reducer"
 import { AddMoneyProps } from "./addMoneyProps"
 
 const AddMoney = ({
-  pot_id,
+  id,
   name,
   total,
   target,
@@ -46,7 +46,7 @@ const AddMoney = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          pot_id: pot_id,
+          pot_id: id,
           new_amount: Number(amount),
         }),
       },

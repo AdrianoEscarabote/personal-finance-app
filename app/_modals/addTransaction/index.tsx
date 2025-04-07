@@ -5,7 +5,7 @@ import { CalendarIcon } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import Button from "@/app/_components/button"
 import Input from "@/app/_components/input"
@@ -21,6 +21,7 @@ import {
 import useDemoFetch from "@/hooks/useDemoFetch"
 import useEscClose from "@/hooks/useEscClose"
 import { addTransaction } from "@/redux/finance/reducer"
+import { RootState } from "@/redux/reduxTypes"
 import { cn } from "@/utils/cn"
 import { getAvatar } from "@/utils/getAvatar"
 
@@ -36,6 +37,9 @@ interface formTypes {
 
 const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
   const dispatch = useDispatch()
+  const { budgets, transactions } = useSelector(
+    (rootState: RootState) => rootState.financeSlice,
+  )
   const [loading, setLoading] = useState(false)
   const { demoFetch } = useDemoFetch()
   const [selectedCategory, setSelectedCategory] = useState("")
@@ -73,9 +77,11 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
           date: formattedDate,
           amount: parseFloat(data.amount),
           recurring,
+          avatar,
         }),
       },
     )
+
     dispatch(
       addTransaction({
         amount: parseFloat(data.amount),
@@ -86,6 +92,36 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
         recurring,
       }),
     )
+
+    const budget = budgets.find((b) => b.category === selectedCategory)
+
+    if (!budget || Number(data.amount) > 0) return
+
+    const totalFromCategory = transactions
+      .filter((t) => t.category === selectedCategory && t.amount < 0)
+      .reduce((acc, t) => acc + Math.abs(t.amount), 0)
+
+    const newTotal = totalFromCategory + Math.abs(Number(data.amount))
+
+    if (newTotal > budget.maximum) {
+      await demoFetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/finance/budgets/edit_budget`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            budget_id: budget.id,
+            budget_name: budget.category,
+            budget_value: totalFromCategory + Number(data.amount),
+            theme: budget.theme,
+          }),
+        },
+      )
+    }
+
     closeModal()
   })
 

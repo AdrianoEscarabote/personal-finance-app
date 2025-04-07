@@ -35,7 +35,7 @@ const AddModal = ({
   const onSubmit = handleSubmit(async (data) => {
     setLoading(true)
     if (title === "pot") {
-      let pot_id = ""
+      let id = ""
 
       if (demoMode !== "true") {
         const response = await demoFetch(
@@ -47,9 +47,9 @@ const AddModal = ({
             },
             credentials: "include",
             body: JSON.stringify({
-              pot_name: data.pot_name,
+              name: data.pot_name,
+              target: Number(data.target),
               theme,
-              target: data.target,
               total: 0,
             }),
           },
@@ -60,9 +60,9 @@ const AddModal = ({
         }
 
         const responseJson = await response.json()
-        pot_id = responseJson.pot_id
+        id = responseJson.pot_id
       } else {
-        pot_id = crypto.randomUUID()
+        id = crypto.randomUUID()
       }
 
       dispatch(
@@ -71,12 +71,12 @@ const AddModal = ({
           total: 0,
           name: data.pot_name,
           target: data.target,
-          pot_id,
+          id,
         }),
       )
     }
     if (title === "budget") {
-      let budget_id = ""
+      let id = ""
 
       if (demoMode !== "true") {
         const response = await demoFetch(
@@ -86,6 +86,7 @@ const AddModal = ({
             headers: {
               "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({
               budget_name: selectedCategory,
               theme,
@@ -100,9 +101,9 @@ const AddModal = ({
         }
 
         const responseJson = await response.json()
-        budget_id = responseJson?.budget_id || ""
+        id = responseJson?.budget_id || ""
       } else {
-        budget_id = crypto.randomUUID()
+        id = crypto.randomUUID()
       }
 
       dispatch(
@@ -110,7 +111,7 @@ const AddModal = ({
           category: selectedCategory,
           theme,
           maximum: Number(data.maximum),
-          budget_id,
+          id,
         }),
       )
     }
@@ -122,7 +123,7 @@ const AddModal = ({
   return (
     <div
       onClick={closeModal}
-      className={`fixed left-0 top-0 z-40 flex h-full min-h-screen w-full items-center justify-center bg-black bg-opacity-50 p-5`}
+      className={`fixed left-0 top-0 z-40 flex h-full min-h-screen w-full items-center justify-center overflow-y-scroll bg-black bg-opacity-50 p-5`}
     >
       <article
         className="w-full max-w-[560px] rounded-xl bg-white p-8 shadow-md"
@@ -183,12 +184,12 @@ const AddModal = ({
                   variant="withPrefix"
                   errors={false}
                   id="maximum"
+                  onInput={(e) => {
+                    const input = e.target as HTMLInputElement
+                    input.value = input.value.replace(/[^0-9.]/g, "")
+                  }}
                   {...register("maximum", {
                     required: "This field is required",
-                    pattern: {
-                      value: /^[0-9]+(\.[0-9]{1,2})?$/,
-                      message: "Only numbers are allowed",
-                    },
                   })}
                 />
               )}

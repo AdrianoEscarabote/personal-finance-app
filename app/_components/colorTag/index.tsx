@@ -8,7 +8,7 @@ import { listColors } from "@/utils/constants"
 
 import { ColorTagProps } from "./colorTagProps"
 
-const ColorTag = ({ label, theme, setTheme }: ColorTagProps) => {
+const ColorTag = ({ label, theme, setTheme, dontFilter }: ColorTagProps) => {
   const { budgets } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
@@ -26,10 +26,13 @@ const ColorTag = ({ label, theme, setTheme }: ColorTagProps) => {
     hex: string
   }>(initialColor)
 
-  const isColorUsed = (hex: string) =>
-    budgets.some((budget) => budget.theme === hex)
+  const isColorUsed = (hex: string) => {
+    if (dontFilter) return false
+    return budgets.some((budget) => budget.theme === hex && hex !== theme)
+  }
 
   const getAvailableColor = () => {
+    if (dontFilter) return filteredColors[0]
     return (
       filteredColors.find(
         (color) => !budgets.some((budget) => budget.theme === color.hex),

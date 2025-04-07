@@ -70,6 +70,7 @@ const EditModal = ({
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({
             budget_id: data_edit_budget?.budget_id,
             budget_name: selectedCategory,
@@ -107,7 +108,7 @@ const EditModal = ({
   return (
     <div
       onClick={closeModal}
-      className={`fixed left-0 top-0 z-40 flex h-full min-h-screen w-full items-center justify-center bg-black bg-opacity-50 p-5`}
+      className={`fixed left-0 top-0 z-40 flex h-full min-h-screen w-full items-center justify-center overflow-y-scroll bg-black bg-opacity-50 p-5`}
     >
       <article
         onClick={(e) => e.stopPropagation()}
@@ -160,6 +161,7 @@ const EditModal = ({
                   setCategory={setSelectedCategory}
                   category={data_edit_budget?.budget_category}
                   label="Budget Category"
+                  dontFilter
                 />
               )}
               <Input
@@ -172,11 +174,7 @@ const EditModal = ({
                   required: "This field is required.",
                 })}
               />
-              <ColorTag
-                theme={data_edit_budget?.theme}
-                setTheme={setTheme}
-                label={"Theme"}
-              />
+              <ColorTag setTheme={setTheme} label={"Theme"} dontFilter />
             </div>
             <Button
               variant="primary"

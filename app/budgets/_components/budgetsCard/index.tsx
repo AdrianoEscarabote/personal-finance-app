@@ -33,7 +33,8 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
     .filter((transaction) => transaction.amount < 0)
     .reduce((acc, transaction) => acc + Math.abs(transaction.amount), 0)
 
-  const progress = (totalSpend / budget.maximum) * 100
+  const progress =
+    budget.maximum > 0 ? Math.min((totalSpend / budget.maximum) * 100, 100) : 0
 
   const handleDeleteBudget = async () => {
     await demoFetch(

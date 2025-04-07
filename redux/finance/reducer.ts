@@ -133,6 +133,9 @@ const financeSlice = createSlice({
 
       if (!name || !date || !amount || !category || !avatar) return
 
+      const budget = state.budgets.find((b) => b.category === category)
+      if (!budget) return
+
       state.transactions.push({
         name,
         date,
@@ -141,6 +144,16 @@ const financeSlice = createSlice({
         category,
         avatar,
       })
+
+      const totalFromCategory = state.transactions
+        .filter((t) => t.category === category && t.amount < 0)
+        .reduce((acc, t) => acc + Math.abs(t.amount), 0)
+
+      const newTotal = totalFromCategory + Math.abs(amount)
+
+      if (newTotal > budget.maximum) {
+        budget.maximum = newTotal
+      }
 
       updateBalance(state)
     },

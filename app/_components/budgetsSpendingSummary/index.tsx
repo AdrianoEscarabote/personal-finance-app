@@ -28,7 +28,9 @@ const BudgetsSpendingSummary = () => {
             {budgets.map((budget, index, arr) => {
               const totalSpent = transactions
                 .filter(
-                  (transaction) => transaction.category === budget.category,
+                  (transaction) =>
+                    transaction.category === budget.category &&
+                    transaction.amount < 0,
                 )
                 .reduce((acc, curr) => acc + Math.abs(curr.amount), 0)
 

@@ -12,6 +12,7 @@ export default {
   decorators: [(Story) => <Provider store={store}>{Story()}</Provider>],
   args: {
     label: "Category",
+    setCategory: () => {},
   },
 } as Meta<SelectCategoryProps>
 

@@ -32,7 +32,7 @@ This repository is dedicated to the backend of my personal finance app project f
 ## Architecture
 
 <div align="center">
- <img src="" />
+ <img src="./diagram.png" />
 </div>
 
 ## Used Concepts

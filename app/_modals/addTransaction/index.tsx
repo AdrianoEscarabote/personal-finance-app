@@ -95,7 +95,7 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
 
     const budget = budgets.find((b) => b.category === selectedCategory)
 
-    if (!budget || Number(data.amount) > 0) return
+    if (!budget || Number(data.amount) > 0) return closeModal()
 
     const totalFromCategory = transactions
       .filter((t) => t.category === selectedCategory && t.amount < 0)

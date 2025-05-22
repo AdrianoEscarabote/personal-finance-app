@@ -2,7 +2,11 @@
 
 This is a solution to the [Personal finance app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/personal-finance-app-JfjtZgyMt1). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-## 📋 Contents
+## Backend Repository
+
+If you want to see the backend you can access this link: [Backend Repository](https://github.com/AdrianoEscarabote/personal-finance-app-backend)
+
+## Contents
 
 - [The challenge](#the-challenge)
 - [Continued development](#continued-development)
@@ -11,7 +15,9 @@ This is a solution to the [Personal finance app challenge on Frontend Mentor](ht
 - [Author](#author)
 - [License](#📝-license)
 
-## ✅  The challenge
+## Overview
+
+### The challenge
 
 Users should be able to:
 
@@ -31,19 +37,7 @@ Users should be able to:
 - **Bonus**: Store details securely in a database by building a full-stack app.
 - **Bonus**: Create an account and log in with user authentication.
 
-## 🧠 Architecture
-
-<div align="center">
- <img src="./backend/architecture.png" />
-</div>
-
-## 🧩 Used Concepts
-
-- SOLID
-- Dependency Injection
-- Repository Pattern
-
-## 🛠️ Setup - Frontend
+## Setup
 
 Follow these steps to set up the project:
 
@@ -56,7 +50,7 @@ git clone https://github.com/AdrianoEscarabote/personal-finance-app
 Navigate to the project's root directory:
 
 ```sh
-cd personal-finance-app/frontend/
+cd personal-finance-app/
 ```
 
 Install project dependencies by running:
@@ -65,7 +59,7 @@ Install project dependencies by running:
 npm install
 ```
 
-### 🚀 Development
+### Development
 
 To start the development server and preview your application, use the following command:
 
@@ -73,15 +67,7 @@ To start the development server and preview your application, use the following 
 npm run dev
 ```
 
-### 📖 Storybook
-
-Explore and visualize components using Storybook with this command:
-
-```sh
-npm run storybook
-```
-
-### 🧪 Testing
+### Testing
 
 Run tests by executing the following command:
 
@@ -89,7 +75,15 @@ Run tests by executing the following command:
 npm run test
 ```
 
-## 🧰 Technologies Used
+### Storybook
+
+Explore and visualize components using Storybook with this command:
+
+```sh
+npm run storybook
+```
+
+## Technologies Used
 
 **Operational System**
 
@@ -115,14 +109,13 @@ npm run test
 
 **Tools**
 
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 
-## 👤 Author
+## Author
 
-**AdrianoEscarabote**
+👤 **AdrianoEscarabote**
 
 - Github: [@AdrianoEscarabote](https://github.com/AdrianoEscarabote)
 - Linkedin: [@AdrianoEscarabote](https://www.linkedin.com/in/AdrianoEscarabote/)

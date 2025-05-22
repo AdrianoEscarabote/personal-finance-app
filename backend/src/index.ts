@@ -1,4 +1,5 @@
-/* import { PrismaClient } from "@prisma/client" */
+import "dotenv/config"
+
 import cors from "cors"
 import express, { NextFunction, Request, Response } from "express"
 

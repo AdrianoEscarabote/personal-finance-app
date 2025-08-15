@@ -1,19 +1,21 @@
 "use client"
 
+import { DialogTrigger } from "@radix-ui/react-dialog"
 import { motion } from "framer-motion"
 import { useState } from "react"
 
-import useDisableScroll from "@/hooks/useDisableScroll"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 import Button from "../_components/button"
 import AddTransactionModal from "../_modals/addTransaction"
 import TransactionsTable from "./_components/transactionsTable"
 
 const Transactions = () => {
+  const [open, setOpen] = useState(false)
   const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
-  useDisableScroll(showAddTransactionModal)
+
   return (
-    <>
+    <Dialog open={open} onOpenChange={setOpen}>
       <motion.main
         initial={{ opacity: 0, x: -3 }}
         animate={{ opacity: 1, x: 0 }}
@@ -25,12 +27,14 @@ const Transactions = () => {
             <h1 className="text-preset-1 mb-6 text-grey-900 md:mb-8">
               Transactions
             </h1>
-            <Button
-              variant="primary"
-              label="+ Add New Transaction"
-              style={{ maxWidth: "185px" }}
-              onClick={() => setShowAddTransactionModal(true)}
-            />
+            <DialogTrigger asChild>
+              <Button
+                variant="primary"
+                label="+ Add New Transaction"
+                style={{ maxWidth: "185px" }}
+                onClick={() => setShowAddTransactionModal(true)}
+              />
+            </DialogTrigger>
           </div>
 
           <div className="flex justify-center">
@@ -39,13 +43,11 @@ const Transactions = () => {
         </div>
       </motion.main>
       {showAddTransactionModal && (
-        <AddTransactionModal
-          closeModal={() =>
-            setShowAddTransactionModal(!showAddTransactionModal)
-          }
-        />
+        <DialogContent>
+          <AddTransactionModal closeModal={() => setOpen(false)} />
+        </DialogContent>
       )}
-    </>
+    </Dialog>
   )
 }
 

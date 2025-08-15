@@ -6,5 +6,4 @@ export interface addModalProps {
   showPotName: boolean
   showTarget: boolean
   showMaximumSpend: boolean
-  closeModal: () => void
 }

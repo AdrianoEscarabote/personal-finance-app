@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { DialogDescription } from "@radix-ui/react-dialog"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
@@ -7,8 +7,8 @@ import Button from "@/app/_components/button"
 import ColorTag from "@/app/_components/colorTag"
 import Input from "@/app/_components/input"
 import SelectCategory from "@/app/_components/selectCategory"
+import { DialogClose, DialogTitle } from "@/components/ui/dialog"
 import useDemoFetch from "@/hooks/useDemoFetch"
-import useEscClose from "@/hooks/useEscClose"
 import { addBudget, addNewPot } from "@/redux/finance/reducer"
 
 import { addModalProps } from "./addModalProps"
@@ -21,10 +21,8 @@ const AddModal = ({
   showPotName,
   showMaximumSpend,
   showTarget,
-  closeModal,
 }: addModalProps) => {
   const dispatch = useDispatch()
-  useEscClose(closeModal)
   const [loading, setLoading] = useState(false)
   const [theme, setTheme] = useState<string>("")
   const [selectedCategory, setSelectedCategory] = useState<string>("")
@@ -115,116 +113,106 @@ const AddModal = ({
         }),
       )
     }
-    closeModal()
   })
 
   const potName = watch("pot_name", "")
 
   return (
-    <div
-      onClick={closeModal}
-      className={`fixed left-0 top-0 z-40 flex h-full min-h-screen w-full items-center justify-center overflow-y-scroll bg-black bg-opacity-50 p-5`}
+    <form
+      onSubmit={onSubmit}
+      className="w-full max-w-[560px] rounded-xl bg-white"
     >
-      <article
-        className="w-full max-w-[560px] rounded-xl bg-white p-8 shadow-md"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <form onSubmit={onSubmit}>
-          <fieldset>
-            <div className="mb-5 flex items-center justify-between">
-              <h3 className="text-preset-1 text-grey-900">
-                Add New {title === "budget" ? " Budget" : "Pot"}
-              </h3>
-              <button onClick={closeModal} className="rounded-full">
-                <Image
-                  src={"/images/icon-close-modal.svg"}
-                  alt=""
-                  width={30}
-                  height={30}
-                />
-              </button>
-            </div>
-            <p className="text-preset-4 mb-5 text-grey-500">
-              {description === "budget" &&
-                "Choose a category to set a spending budget. These categories can help you monitor spending."}
-              {description === "pot" &&
-                "Create a pot to set savings targets. These can help keep you on track as you save for special purchases."}
-            </p>
+      <fieldset>
+        <div className="mb-4 flex items-center justify-between">
+          <DialogTitle asChild>
+            <h3 className="text-preset-1 text-grey-900">
+              Add New {title === "budget" ? " Budget" : "Pot"}
+            </h3>
+          </DialogTitle>
+        </div>
+        <DialogDescription asChild>
+          <p className="text-preset-4 mb-4 text-grey-500">
+            {description === "budget" &&
+              "Choose a category to set a spending budget. These categories can help you monitor spending."}
+            {description === "pot" &&
+              "Create a pot to set savings targets. These can help keep you on track as you save for special purchases."}
+          </p>
+        </DialogDescription>
 
-            <div className="flex w-full flex-col gap-4">
-              {showPotName && (
-                <Input
-                  variant="basic"
-                  errors={false}
-                  id="name"
-                  label="Pot Name"
-                  maxLength={30}
-                  showCaracterLeft
-                  value={potName}
-                  {...register("pot_name", {
-                    required: "This field is required",
-                    maxLength: {
-                      value: 30,
-                      message: "Máximo de 30 caracteres",
-                    },
-                  })}
-                />
-              )}
-
-              {showBudgetCategory && (
-                <SelectCategory
-                  setCategory={setSelectedCategory}
-                  label="Budget Category"
-                />
-              )}
-
-              {showMaximumSpend && (
-                <Input
-                  label="Maximum Spend"
-                  variant="withPrefix"
-                  errors={false}
-                  id="maximum"
-                  onInput={(e) => {
-                    const input = e.target as HTMLInputElement
-                    input.value = input.value.replace(/[^0-9.]/g, "")
-                  }}
-                  {...register("maximum", {
-                    required: "This field is required",
-                  })}
-                />
-              )}
-
-              {showTarget && (
-                <Input
-                  label="Target"
-                  variant="withPrefix"
-                  errors={false}
-                  id="target"
-                  {...register("target", {
-                    required: "This field is required",
-                    pattern: {
-                      value: /^[0-9]+(\.[0-9]{1,2})?$/,
-                      message: "Only numbers are allowed",
-                    },
-                  })}
-                />
-              )}
-
-              <ColorTag label="Theme" setTheme={setTheme} />
-            </div>
-
-            <Button
-              type="submit"
-              variant="primary"
-              label={textButton}
-              loading={loading}
-              disabled={loading}
-              style={{ marginTop: "1.25rem" }}
+        <div className="flex w-full flex-col gap-4">
+          {showPotName && (
+            <Input
+              variant="basic"
+              errors={false}
+              id="name"
+              label="Pot Name"
+              maxLength={30}
+              showCaracterLeft
+              value={potName}
+              {...register("pot_name", {
+                required: "This field is required",
+                maxLength: {
+                  value: 30,
+                  message: "Máximo de 30 caracteres",
+                },
+              })}
             />
-          </fieldset>
-        </form>
-      </article>
-    </div>
+          )}
+
+          {showBudgetCategory && (
+            <SelectCategory
+              setCategory={setSelectedCategory}
+              label="Budget Category"
+            />
+          )}
+
+          {showMaximumSpend && (
+            <Input
+              label="Maximum Spend"
+              variant="withPrefix"
+              errors={false}
+              id="maximum"
+              onInput={(e) => {
+                const input = e.target as HTMLInputElement
+                input.value = input.value.replace(/[^0-9.]/g, "")
+              }}
+              {...register("maximum", {
+                required: "This field is required",
+              })}
+            />
+          )}
+
+          {showTarget && (
+            <Input
+              label="Target"
+              variant="withPrefix"
+              errors={false}
+              id="target"
+              {...register("target", {
+                required: "This field is required",
+                pattern: {
+                  value: /^[0-9]+(\.[0-9]{1,2})?$/,
+                  message: "Only numbers are allowed",
+                },
+              })}
+            />
+          )}
+
+          <ColorTag label="Theme" setTheme={setTheme} />
+        </div>
+
+        <DialogClose asChild>
+          <Button
+            type="submit"
+            variant="primary"
+            label={textButton}
+            loading={loading}
+            disabled={loading}
+            style={{ marginTop: "1.25rem" }}
+          />
+        </DialogClose>
+      </fieldset>
+    </form>
   )
 }
 

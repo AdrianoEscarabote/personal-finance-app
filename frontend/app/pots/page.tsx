@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 
-import useDisableScroll from "@/hooks/useDisableScroll"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { RootState } from "@/redux/reduxTypes"
 
 import Button from "../_components/button"
@@ -14,9 +14,9 @@ import PotsCard from "./_components/potsCard"
 const Pots = () => {
   const { pots } = useSelector((rootState: RootState) => rootState.financeSlice)
   const [showAddPotModal, setShowAddPotModal] = useState(false)
-  useDisableScroll(showAddPotModal)
+
   return (
-    <>
+    <Dialog>
       <motion.main
         initial={{ opacity: 0, x: -3 }}
         animate={{ opacity: 1, x: 0 }}
@@ -26,12 +26,14 @@ const Pots = () => {
         <div className="mx-auto mb-8 flex max-w-[69.375rem] items-center justify-between">
           <h1 className="text-preset-1 text-grey-900">Pots</h1>
 
-          <Button
-            variant="primary"
-            label="+ Add New Pot"
-            style={{ maxWidth: "8.0625rem" }}
-            onClick={() => setShowAddPotModal(true)}
-          />
+          <DialogTrigger asChild>
+            <Button
+              variant="primary"
+              label="+ Add New Pot"
+              style={{ maxWidth: "8.0625rem" }}
+              onClick={() => setShowAddPotModal(true)}
+            />
+          </DialogTrigger>
         </div>
 
         <div className="mx-auto flex w-full max-w-[69.375rem] flex-wrap justify-center gap-6 md:justify-start">
@@ -41,18 +43,19 @@ const Pots = () => {
         </div>
       </motion.main>
       {showAddPotModal && (
-        <AddModal
-          title="pot"
-          description="pot"
-          textButton="Add Pot"
-          closeModal={() => setShowAddPotModal(false)}
-          showPotName
-          showTarget
-          showMaximumSpend={false}
-          showBudgetCategory={false}
-        />
+        <DialogContent>
+          <AddModal
+            title="pot"
+            description="pot"
+            textButton="Add Pot"
+            showPotName
+            showTarget
+            showMaximumSpend={false}
+            showBudgetCategory={false}
+          />
+        </DialogContent>
       )}
-    </>
+    </Dialog>
   )
 }
 

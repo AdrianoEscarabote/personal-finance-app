@@ -13,13 +13,14 @@ import AddModal from "../_modals/addModal"
 import BudgetsCard from "./_components/budgetsCard"
 
 const BudgetsPage = () => {
+  const [open, setOpen] = useState(false)
   const [showAddBugetModal, setShowAddBugetModal] = useState(false)
   const { budgets } = useSelector(
     (rootState: RootState) => rootState.financeSlice,
   )
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <motion.main
         initial={{ opacity: 0, x: -3 }}
         animate={{ opacity: 1, x: 0 }}
@@ -64,6 +65,7 @@ const BudgetsPage = () => {
               showMaximumSpend={true}
               showTarget={false}
               showPotName={false}
+              closeModal={() => setOpen(false)}
             />
           </DialogContent>
         )}

@@ -7,7 +7,7 @@ import Button from "@/app/_components/button"
 import ColorTag from "@/app/_components/colorTag"
 import Input from "@/app/_components/input"
 import SelectCategory from "@/app/_components/selectCategory"
-import { DialogClose, DialogTitle } from "@/components/ui/dialog"
+import { DialogTitle } from "@/components/ui/dialog"
 import useDemoFetch from "@/hooks/useDemoFetch"
 import { addBudget, addNewPot } from "@/redux/finance/reducer"
 
@@ -21,6 +21,7 @@ const AddModal = ({
   showPotName,
   showMaximumSpend,
   showTarget,
+  closeModal,
 }: addModalProps) => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -113,6 +114,7 @@ const AddModal = ({
         }),
       )
     }
+    closeModal()
   })
 
   const potName = watch("pot_name", "")
@@ -201,16 +203,14 @@ const AddModal = ({
           <ColorTag label="Theme" setTheme={setTheme} />
         </div>
 
-        <DialogClose asChild>
-          <Button
-            type="submit"
-            variant="primary"
-            label={textButton}
-            loading={loading}
-            disabled={loading}
-            style={{ marginTop: "1.25rem" }}
-          />
-        </DialogClose>
+        <Button
+          type="submit"
+          variant="primary"
+          label={textButton}
+          loading={loading}
+          disabled={loading}
+          style={{ marginTop: "1.25rem" }}
+        />
       </fieldset>
     </form>
   )

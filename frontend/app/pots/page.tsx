@@ -12,11 +12,12 @@ import AddModal from "../_modals/addModal"
 import PotsCard from "./_components/potsCard"
 
 const Pots = () => {
+  const [open, setOpen] = useState(false)
   const { pots } = useSelector((rootState: RootState) => rootState.financeSlice)
   const [showAddPotModal, setShowAddPotModal] = useState(false)
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <motion.main
         initial={{ opacity: 0, x: -3 }}
         animate={{ opacity: 1, x: 0 }}
@@ -52,6 +53,7 @@ const Pots = () => {
             showTarget
             showMaximumSpend={false}
             showBudgetCategory={false}
+            closeModal={() => setOpen(false)}
           />
         </DialogContent>
       )}

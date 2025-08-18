@@ -1,9 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Moon, Sun } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 
 import IconMinimizeMenu from "@/app/_icons/icon-minimize-menu"
@@ -12,6 +14,7 @@ import IconNavOverview from "@/app/_icons/icon-nav-overview"
 import IconNavPots from "@/app/_icons/icon-nav-pots"
 import IconNavRecurringBills from "@/app/_icons/icon-nav-recurring-bills"
 import IconNavTransactions from "@/app/_icons/icon-nav-transactions"
+import { Button } from "@/components/ui/button"
 import { useIsMobile } from "@/hooks/useIsMobile"
 
 const icons = {
@@ -47,6 +50,7 @@ const routes: { name: RouteName; path: string; title: string }[] = [
 const Sidebar = () => {
   const isMobile = useIsMobile()
   const [isMinimized, setIsMinimized] = useState(false)
+  const { setTheme, theme } = useTheme()
 
   const pathName = usePathname()
 
@@ -69,7 +73,7 @@ const Sidebar = () => {
       className={`${!isMobile ? (isMinimized ? "w-full max-w-[5.5rem]" : "w-full max-w-[18.75rem]") : ""} z-30 min-h-screen transition-all`}
     >
       <div
-        className={`fixed ${isMobile ? "bottom-0 left-0 rounded-se-2xl rounded-ss-2xl pt-2" : "h-full min-h-screen rounded-e-2xl py-6"} flex w-full flex-col justify-between bg-grey-900 ${isMinimized && ""} transition-all ${!isMobile ? (isMinimized ? "max-w-[5.5rem]" : "max-w-[18.75rem]") : ""} `}
+        className={`fixed ${isMobile ? "bottom-0 left-0 rounded-se-2xl rounded-ss-2xl pt-2" : "h-full min-h-screen rounded-e-2xl py-6"} flex w-full flex-col justify-between bg-grey-900 dark:bg-grey-950 ${isMinimized && ""} transition-all ${!isMobile ? (isMinimized ? "max-w-[5.5rem]" : "max-w-[18.75rem]") : ""} `}
       >
         <div>
           {!isMobile &&
@@ -133,20 +137,42 @@ const Sidebar = () => {
             </ul>
           </nav>
         </div>
-        {!isMobile && (
-          <button
-            className={`${isMinimized ? "justify-center" : "justify-start pl-8"} flex w-full items-center gap-3 p-4 text-grey-300 hover:text-white`}
-            onClick={() => setIsMinimized(!isMinimized)}
-          >
-            <IconMinimizeMenu
-              width={24}
-              height={24}
-              className={`${isMinimized && "rotate-180 transform"}`}
-            />
 
-            {!isMinimized && <span>Minimize Menu</span>}
-          </button>
-        )}
+        <div>
+          <div
+            className={`${isMinimized ? "mx-auto flex items-center justify-center" : "ml-8 flex items-center"} my-4`}
+          >
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Toggle theme"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              className="text-grey-300 dark:border dark:border-border"
+            >
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
+            {!isMinimized && (
+              <span className="text-preset-4 ml-3 text-grey-300">
+                Toggle theme
+              </span>
+            )}
+          </div>
+          {!isMobile && (
+            <button
+              className={`${isMinimized ? "justify-center" : "justify-start pl-8"} flex w-full items-center gap-3 p-4 text-grey-300 hover:text-white`}
+              onClick={() => setIsMinimized(!isMinimized)}
+            >
+              <IconMinimizeMenu
+                width={24}
+                height={24}
+                className={`${isMinimized && "rotate-180 transform"}`}
+              />
+
+              {!isMinimized && <span>Minimize Menu</span>}
+            </button>
+          )}
+        </div>
       </div>
     </motion.header>
   )

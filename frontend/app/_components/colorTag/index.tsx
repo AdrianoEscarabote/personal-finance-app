@@ -49,12 +49,14 @@ const ColorTag = ({ label, theme, setTheme, dontFilter }: ColorTagProps) => {
 
   return (
     <div className="relative max-w-[31rem]">
-      <p className="text-preset-5-bold pb-1 text-grey-500">{label}</p>
+      <p className="text-preset-5-bold pb-1 text-grey-500 dark:text-gray-300">
+        {label}
+      </p>
 
       <button
         type="button"
         onClick={() => setShowColors(!showColors)}
-        className={`flex h-[2.8125rem] w-full items-center justify-between rounded-lg border border-beige-500 px-5 transition-all ${showColors && "border-grey-900"}`}
+        className={`flex h-[2.8125rem] w-full items-center justify-between rounded-lg border border-beige-500 px-5 transition-all dark:border-border dark:bg-[#171717] ${showColors && "border-grey-900"}`}
         data-testid="color-tag-button"
       >
         <div className="flex items-center gap-3">
@@ -65,14 +67,14 @@ const ColorTag = ({ label, theme, setTheme, dontFilter }: ColorTagProps) => {
           {selectedColor.name}
         </div>
         <IconCaretDown
-          className={`text-grey-900 ${showColors && "rotate-180"} transition-all`}
+          className={`text-grey-900 dark:text-white ${showColors && "rotate-180"} transition-all`}
         />
       </button>
 
       <div
-        className={`absolute right-0 top-[5rem] z-10 w-full max-w-[31rem] overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 ${
+        className={`dark:bg-grey-950 absolute right-0 top-[5rem] z-10 w-full max-w-[31rem] overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-300 ${
           showColors
-            ? "max-h-[18.625rem] overflow-y-scroll opacity-100 scrollbar-thin scrollbar-track-grey-100 scrollbar-thumb-grey-300"
+            ? "dark:scrollbar-track-grey-950 max-h-[18.625rem] overflow-y-scroll opacity-100 scrollbar-thin scrollbar-track-grey-100 scrollbar-thumb-grey-300 dark:scrollbar-thumb-[#333]"
             : "max-h-0 opacity-0"
         }`}
         style={{
@@ -87,8 +89,8 @@ const ColorTag = ({ label, theme, setTheme, dontFilter }: ColorTagProps) => {
               className={`${
                 index === arr.length - 1
                   ? "pb-0 pt-3"
-                  : "border-b border-grey-100 py-3"
-              } text-preset-4 relative flex w-full items-center gap-3 text-grey-900 ${isColorUsed(color.hex) ? "cursor-not-allowed opacity-50" : "hover:bg-grey-100"}`}
+                  : "border-b border-grey-100 py-3 dark:border-border"
+              } text-preset-4 relative flex w-full items-center gap-3 text-grey-900 dark:text-white ${isColorUsed(color.hex) ? "cursor-not-allowed opacity-50" : "hover:bg-grey-100 dark:hover:bg-[#1b1b1b]"}`}
               tabIndex={!showColors ? -1 : undefined}
               onClick={() => {
                 setShowColors(false)
@@ -102,12 +104,14 @@ const ColorTag = ({ label, theme, setTheme, dontFilter }: ColorTagProps) => {
                 className="h-4 w-4 rounded-full"
                 style={{ backgroundColor: color.hex }}
               ></div>
-              <span className="text-preset-4 text-grey-900">{color.name}</span>
+              <span className="text-preset-4 text-grey-900 dark:text-white">
+                {color.name}
+              </span>
               {selectedColor.name === color.name && (
                 <IconBillPaid className="absolute right-0 text-green" />
               )}
               {isColorUsed(color.hex) && (
-                <span className="text-preset-5 absolute right-0 text-grey-900">
+                <span className="text-preset-5 absolute right-0 text-grey-900 dark:text-white">
                   Already used
                 </span>
               )}

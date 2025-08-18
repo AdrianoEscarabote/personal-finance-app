@@ -11,9 +11,11 @@ const Budgets = () => {
   )
   return (
     <article>
-      <div className="w-full rounded-xl bg-white px-5 py-6 md:max-w-[26.75rem] md:p-8">
+      <div className="dark:bg-grey-950 w-full rounded-xl bg-white px-5 py-6 dark:border dark:border-border md:max-w-[26.75rem] md:p-8">
         <div className="mb-5 flex w-full items-center justify-between">
-          <h3 className="text-preset-2 text-grey-900">Budgets</h3>
+          <h3 className="text-preset-2 text-grey-900 dark:text-grey-100">
+            Budgets
+          </h3>
           <Button
             variant="tertiary"
             style={{ maxWidth: "6.125rem", maxHeight: "1.3125rem" }}
@@ -35,7 +37,7 @@ const Budgets = () => {
                       className={`flex w-full items-center gap-3 ${
                         index === arr.length - 1
                           ? "pb-0 pt-3"
-                          : "border-grey-100 py-3 md:border-b"
+                          : "border-grey-100 py-3 dark:border-border md:border-b"
                       }`}
                     >
                       <div
@@ -44,10 +46,10 @@ const Budgets = () => {
                       ></div>
 
                       <div className="flex w-full flex-col items-start justify-between gap-1 pl-4">
-                        <p className="text-preset-5 text-grey-500">
+                        <p className="text-preset-5 text-grey-500 dark:text-grey-300">
                           {budget.category}
                         </p>
-                        <p className="text-preset-4-bold text-grey-900">
+                        <p className="text-preset-4-bold text-grey-900 dark:text-grey-100">
                           ${budget.maximum.toFixed(2)}
                         </p>
                       </div>

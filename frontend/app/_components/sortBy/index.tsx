@@ -16,29 +16,33 @@ const SortBy = ({
   return (
     <div className="relative flex max-w-[170px] items-center gap-2">
       {!isMobile && (
-        <span className="text-preset-4 w-12 text-grey-500">Sort by</span>
+        <span className="text-preset-4 w-12 text-grey-500 dark:text-grey-300">
+          Sort by
+        </span>
       )}
       {isMobile ? (
         <button
           onClick={() => setShowSortBy(!showSortBy)}
-          className="text-preset-4 flex h-[2.8125rem] items-center justify-center gap-4 rounded-lg px-4 text-grey-900"
+          className="text-preset-4 flex h-[2.8125rem] items-center justify-center gap-4 rounded-lg px-4 text-grey-900 dark:bg-grey-975 dark:text-grey-100"
         >
-          <IconSortMobile className={`text-grey-900 transition-all`} />
+          <IconSortMobile
+            className={`text-grey-900 transition-all dark:text-grey-100`}
+          />
         </button>
       ) : (
         <button
           onClick={() => setShowSortBy(!showSortBy)}
-          className="text-preset-4 flex h-[2.8125rem] min-w-[7.125rem] items-center justify-center gap-4 rounded-lg border border-beige-500 px-4 text-grey-900"
+          className="text-preset-4 flex h-[2.8125rem] min-w-[7.125rem] items-center justify-center gap-4 rounded-lg border border-beige-500 px-4 text-grey-900 dark:border-border dark:bg-grey-975 dark:text-grey-100"
         >
           {sortBy}
           <IconCaretDown
-            className={`text-grey-900 ${showSortBy && "rotate-180"} transition-all`}
+            className={`text-grey-900 ${showSortBy && "rotate-180"} transition-all dark:text-grey-300`}
           />
         </button>
       )}
 
       <div
-        className={`absolute right-0 top-14 w-[7.125rem] overflow-hidden rounded-lg bg-white px-5 pb-3 shadow-xl transition-all duration-300 ${
+        className={`absolute right-0 top-14 w-[7.125rem] overflow-hidden rounded-lg bg-white px-5 pb-3 shadow-xl transition-all duration-300 dark:border dark:border-border dark:bg-grey-975 ${
           showSortBy
             ? "z-0 max-h-[17.1875rem] opacity-100"
             : "-z-50 max-h-0 opacity-0"
@@ -54,8 +58,8 @@ const SortBy = ({
                 className={`${
                   index === arr.length - 1
                     ? "pb-0 pt-3"
-                    : "border-b border-grey-100 py-3"
-                } flex w-full items-center gap-3 text-grey-900 ${sort === sortBy ? "text-preset-4-bold" : "text-preset-4"}`}
+                    : "border-b border-grey-100 py-3 dark:border-border"
+                } flex w-full items-center gap-3 text-grey-900 dark:text-grey-100 ${sort === sortBy ? "text-preset-4-bold" : "text-preset-4"}`}
                 tabIndex={!showSortBy ? -1 : undefined}
                 onClick={() => {
                   setShowSortBy(false)

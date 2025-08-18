@@ -1,6 +1,6 @@
 "use client"
-import { FocusTrap } from "focus-trap-react"
-import { useState } from "react"
+
+import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 
 import Button from "@/app/_components/button"
@@ -9,8 +9,8 @@ import AddMoney from "@/app/_modals/addMoney"
 import DeleteModal from "@/app/_modals/deleteModal"
 import EditModal from "@/app/_modals/editModal"
 import WithdrawMoney from "@/app/_modals/withdrawMoney"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import useDemoFetch from "@/hooks/useDemoFetch"
-import useDisableScroll from "@/hooks/useDisableScroll"
 import { deletePot } from "@/redux/finance/reducer"
 
 import { PotsCardProps } from "./potsCardProps"
@@ -18,9 +18,27 @@ import { PotsCardProps } from "./potsCardProps"
 const PotsCard = ({ pot }: PotsCardProps) => {
   const dispatch = useDispatch()
   const { demoFetch } = useDemoFetch()
-  const [activeModal, setActiveModal] = useState<string | null>(null)
-  useDisableScroll(activeModal !== null)
-  const closeModal = () => setActiveModal(null)
+
+  const [activeModal, setActiveModal] = useState<
+    null | "addMoney" | "withdraw" | "edit" | "delete"
+  >(null)
+  const closeModal = () => setDialogOpen(false)
+
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const closeTimeout = useRef<NodeJS.Timeout | null>(null)
+
+  const openModal = (modal: typeof activeModal) => {
+    if (closeTimeout.current) clearTimeout(closeTimeout.current)
+    setActiveModal(modal)
+    setDialogOpen(true)
+  }
+
+  const handleDialogChange = (open: boolean) => {
+    setDialogOpen(open)
+    if (!open) {
+      closeTimeout.current = setTimeout(() => setActiveModal(null), 400)
+    }
+  }
 
   const [showOptions, setShowOptions] = useState(false)
   const progress = (pot.total / pot.target) * 100
@@ -78,7 +96,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                   tabIndex={!showOptions ? -1 : undefined}
                   onClick={() => {
                     setShowOptions(false)
-                    setActiveModal("edit")
+                    openModal("edit")
                   }}
                   disabled={!showOptions && true}
                 >
@@ -90,7 +108,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                   tabIndex={!showOptions ? -1 : undefined}
                   onClick={() => {
                     setShowOptions(false)
-                    setActiveModal("delete")
+                    openModal("delete")
                   }}
                   disabled={!showOptions && true}
                 >
@@ -128,14 +146,14 @@ const PotsCard = ({ pot }: PotsCardProps) => {
               <Button
                 variant="secondary"
                 label="+ Add Money"
-                onClick={() => setActiveModal("addMoney")}
+                onClick={() => openModal("addMoney")}
                 disabled={pot.total >= pot.target}
                 style={{ opacity: pot.total >= pot.target ? 0.5 : 1 }}
               />
               <Button
                 variant="secondary"
                 label="Withdraw"
-                onClick={() => setActiveModal("withdraw")}
+                onClick={() => openModal("withdraw")}
                 disabled={pot.total === 0}
                 style={{ opacity: pot.total === 0 ? 0.5 : 1 }}
               />
@@ -143,25 +161,16 @@ const PotsCard = ({ pot }: PotsCardProps) => {
           </div>
         </div>
       </article>
-      {activeModal === "addMoney" && (
-        <FocusTrap active={activeModal === "addMoney"}>
-          <div>
-            <AddMoney closeModal={closeModal} {...pot} />
-          </div>
-        </FocusTrap>
-      )}
 
-      {activeModal === "withdraw" && (
-        <FocusTrap active={activeModal === "withdraw"}>
-          <div>
-            <WithdrawMoney closeModal={closeModal} {...pot} />
-          </div>
-        </FocusTrap>
-      )}
-
-      {activeModal === "edit" && (
-        <FocusTrap active={activeModal === "edit"}>
-          <div>
+      <Dialog open={dialogOpen} onOpenChange={handleDialogChange}>
+        <DialogContent>
+          {activeModal === "addMoney" && (
+            <AddMoney closeModal={() => setDialogOpen(false)} {...pot} />
+          )}
+          {activeModal === "withdraw" && (
+            <WithdrawMoney closeModal={() => setDialogOpen(false)} {...pot} />
+          )}
+          {activeModal === "edit" && (
             <EditModal
               data_edit_pot={{
                 pot_id: pot.id,
@@ -172,24 +181,19 @@ const PotsCard = ({ pot }: PotsCardProps) => {
               content="pot"
               showPotName
               showbudgetCategory={false}
-              closeModal={closeModal}
+              closeModal={() => setDialogOpen(false)}
             />
-          </div>
-        </FocusTrap>
-      )}
-
-      {activeModal === "delete" && (
-        <FocusTrap active={activeModal === "delete"}>
-          <div>
+          )}
+          {activeModal === "delete" && (
             <DeleteModal
               title={pot.name}
               description="Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will be removed forever."
-              onCancel={closeModal}
+              onCancel={() => setDialogOpen(false)}
               onConfirm={handleDelete}
             />
-          </div>
-        </FocusTrap>
-      )}
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

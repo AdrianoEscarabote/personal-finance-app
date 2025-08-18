@@ -12,12 +12,11 @@ import AddModal from "../_modals/addModal"
 import PotsCard from "./_components/potsCard"
 
 const Pots = () => {
-  const [open, setOpen] = useState(false)
+  const [addPotOpen, setAddPotOpen] = useState(false)
   const { pots } = useSelector((rootState: RootState) => rootState.financeSlice)
-  const [showAddPotModal, setShowAddPotModal] = useState(false)
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={addPotOpen} onOpenChange={setAddPotOpen}>
       <motion.main
         initial={{ opacity: 0, x: -3 }}
         animate={{ opacity: 1, x: 0 }}
@@ -32,7 +31,7 @@ const Pots = () => {
               variant="primary"
               label="+ Add New Pot"
               style={{ maxWidth: "8.0625rem" }}
-              onClick={() => setShowAddPotModal(true)}
+              onClick={() => setAddPotOpen(true)}
             />
           </DialogTrigger>
         </div>
@@ -43,20 +42,19 @@ const Pots = () => {
           ))}
         </div>
       </motion.main>
-      {showAddPotModal && (
-        <DialogContent>
-          <AddModal
-            title="pot"
-            description="pot"
-            textButton="Add Pot"
-            showPotName
-            showTarget
-            showMaximumSpend={false}
-            showBudgetCategory={false}
-            closeModal={() => setOpen(false)}
-          />
-        </DialogContent>
-      )}
+
+      <DialogContent>
+        <AddModal
+          title="pot"
+          description="pot"
+          textButton="Add Pot"
+          showPotName
+          showTarget
+          showMaximumSpend={false}
+          showBudgetCategory={false}
+          closeModal={() => setAddPotOpen(false)}
+        />
+      </DialogContent>
     </Dialog>
   )
 }

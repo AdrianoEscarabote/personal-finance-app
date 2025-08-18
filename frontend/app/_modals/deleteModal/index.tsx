@@ -23,14 +23,18 @@ const DeleteModal = ({
   }
 
   return (
-    <article className="max-w-[35rem] rounded-xl bg-white">
+    <article className="max-w-[35rem] rounded-xl bg-white dark:bg-grey-975">
       <div className="mb-4 flex items-center justify-between">
         <DialogTitle asChild>
-          <h3 className="text-preset-1 text-grey-900">Delete ‘{title}’?</h3>
+          <h3 className="text-preset-1 text-grey-900 dark:text-grey-100">
+            Delete ‘{title}’?
+          </h3>
         </DialogTitle>
       </div>
       <DialogDescription asChild>
-        <p className="text-preset-4 mb-4 text-grey-500">{description}</p>
+        <p className="text-preset-4 mb-4 text-grey-500 dark:text-grey-300">
+          {description}
+        </p>
       </DialogDescription>
 
       <div className="mt-5 flex flex-col gap-5">

@@ -122,14 +122,16 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
   })
 
   return (
-    <article className="w-full max-w-[35rem] rounded-xl bg-white">
+    <article className="w-full max-w-[35rem] rounded-xl bg-white dark:bg-grey-975">
       <div className="mb-4 flex items-center justify-between">
         <DialogTitle asChild>
-          <h3 className="text-preset-1 text-grey-900">Add New Transaction</h3>
+          <h3 className="text-preset-1 text-grey-900 dark:text-grey-100">
+            Add New Transaction
+          </h3>
         </DialogTitle>
       </div>
       <DialogDescription asChild>
-        <p className="text-preset-4 mb-4 text-grey-500">
+        <p className="text-preset-4 mb-4 text-grey-500 dark:text-grey-300">
           Enter the details to add a new transaction and keep your finances up
           to date
         </p>
@@ -162,14 +164,14 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
           />
 
           <Popover>
-            <p className="text-preset-5-bold relative -bottom-2 text-grey-500">
+            <p className="text-preset-5-bold relative -bottom-2 text-grey-500 dark:text-gray-300">
               Transaction Date
             </p>
             <PopoverTrigger asChild>
               <ButtonShadCn
                 variant={"outline"}
                 className={cn(
-                  "h-[45px] w-full justify-start border border-beige-500 bg-transparent text-left font-normal",
+                  "h-[45px] w-full justify-start border border-beige-500 bg-transparent text-left font-normal dark:border-border dark:bg-grey-950",
                   !date && "text-muted-foreground",
                 )}
               >

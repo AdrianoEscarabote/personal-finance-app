@@ -56,14 +56,16 @@ const AddMoney = ({
   })
 
   return (
-    <article className="max-w-[35rem] rounded-xl bg-white">
+    <article className="max-w-[35rem] rounded-xl bg-white dark:bg-grey-975">
       <div className="mb-5 flex items-center justify-between">
         <DialogTitle asChild>
-          <h3 className="text-preset-1 text-grey-900">Add to ‘{name}’</h3>
+          <h3 className="text-preset-1 text-grey-900 dark:text-grey-100">
+            Add to ‘{name}’
+          </h3>
         </DialogTitle>
       </div>
       <DialogDescription asChild>
-        <p className="text-preset-4 mb-5 text-grey-500">
+        <p className="text-preset-4 mb-5 text-grey-500 dark:text-grey-300">
           Add money to your pot to keep it separate from your main balance. As
           soon as you add this money, it will be deducted from your current
           balance.
@@ -71,14 +73,14 @@ const AddMoney = ({
       </DialogDescription>
 
       <div className="mt-5">
-        <p className="text-preset-4 flex w-full items-center justify-between text-grey-500">
+        <p className="text-preset-4 flex w-full items-center justify-between text-grey-500 dark:text-grey-300">
           New Amount
-          <span className="text-preset-1 text-grey-900">
+          <span className="text-preset-1 text-grey-900 dark:text-grey-100">
             ${total.toFixed(2)}
           </span>
         </p>
 
-        <div className="relative mb-5 mt-2 h-2 w-full bg-beige-100">
+        <div className="relative mb-5 mt-2 h-2 w-full rounded-full bg-beige-100 dark:bg-grey-900">
           <div
             className="absolute z-10 h-2 w-8 rounded-s-full border-r-2 border-grey-100 bg-black"
             style={{ width: `${progress}%` }}
@@ -96,7 +98,9 @@ const AddMoney = ({
           <p className="text-preset-5-bold text-green">
             {newProgress.toFixed(2)}%
           </p>
-          <p className="text-preset-5 text-grey-500">Target of ${target}</p>
+          <p className="text-preset-5 text-grey-500 dark:text-grey-300">
+            Target of ${target}
+          </p>
         </div>
       </div>
 

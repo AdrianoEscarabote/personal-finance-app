@@ -120,20 +120,17 @@ const AddModal = ({
   const potName = watch("pot_name", "")
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="w-full max-w-[560px] rounded-xl bg-white"
-    >
+    <form onSubmit={onSubmit} className="w-full max-w-[560px] rounded-xl">
       <fieldset>
         <div className="mb-4 flex items-center justify-between">
           <DialogTitle asChild>
-            <h3 className="text-preset-1 text-grey-900">
+            <h3 className="text-preset-1 text-grey-900 dark:text-grey-100">
               Add New {title === "budget" ? " Budget" : "Pot"}
             </h3>
           </DialogTitle>
         </div>
         <DialogDescription asChild>
-          <p className="text-preset-4 mb-4 text-grey-500">
+          <p className="text-preset-4 mb-4 text-grey-500 dark:text-grey-300">
             {description === "budget" &&
               "Choose a category to set a spending budget. These categories can help you monitor spending."}
             {description === "pot" &&

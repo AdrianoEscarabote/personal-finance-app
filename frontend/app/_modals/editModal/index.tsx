@@ -105,16 +105,18 @@ const EditModal = ({
   }, [])
 
   return (
-    <article className={`w-full max-w-[35rem] rounded-xl bg-white`}>
+    <article
+      className={`w-full max-w-[35rem] rounded-xl bg-white dark:bg-grey-975`}
+    >
       <div className="mb-4 flex items-center justify-between">
         <DialogTitle asChild>
-          <h3 className="text-preset-1 text-grey-900">
+          <h3 className="text-preset-1 text-grey-900 dark:text-grey-100">
             Edit {content === "pot" ? "Pot" : "Budget"}
           </h3>
         </DialogTitle>
       </div>
       <DialogDescription asChild>
-        <p className="text-preset-4 mb-4 text-grey-500">
+        <p className="text-preset-4 mb-4 text-grey-500 dark:text-grey-300">
           {content === "pot" &&
             "If your saving targets change, feel free to update your pots."}
           {content === "budget" &&

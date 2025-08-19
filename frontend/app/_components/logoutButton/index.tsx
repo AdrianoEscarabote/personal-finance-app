@@ -48,7 +48,7 @@ const LogoutButton = () => {
 
   return (
     <button
-      className="text-preset-3 relative flex h-11 w-[130px] items-center gap-3 rounded-md bg-grey-900 px-5 py-2 text-grey-100 transition-all duration-300 hover:bg-grey-500"
+      className="text-preset-3 relative flex h-11 w-[130px] items-center gap-3 rounded-md bg-grey-900 px-5 py-2 text-grey-100 transition-all duration-300 hover:bg-grey-500 dark:border dark:border-border dark:bg-grey-950 dark:text-grey-100"
       onClick={() => setLogout(true)}
     >
       {!loading ? (

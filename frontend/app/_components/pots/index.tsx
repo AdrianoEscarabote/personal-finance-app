@@ -13,9 +13,11 @@ const Pots = () => {
   const totalSaved = pots.reduce((acc, pot) => acc + pot.total, 0)
   return (
     <article>
-      <div className="w-full rounded-xl bg-white px-5 py-6 md:p-8 lg:max-w-[38rem]">
+      <div className="w-full rounded-xl bg-white px-5 py-6 dark:border dark:border-border dark:bg-grey-950 md:p-8 lg:max-w-[38rem]">
         <div className="items-cener flex justify-between">
-          <h3 className="text-preset-2 mb-5 text-grey-900">Pots</h3>
+          <h3 className="text-preset-2 mb-5 text-grey-900 dark:text-grey-100">
+            Pots
+          </h3>
           <Button
             variant="tertiary"
             style={{ maxWidth: "6.125rem", maxHeight: "1.3125rem" }}
@@ -26,11 +28,13 @@ const Pots = () => {
         </div>
 
         <div className="flex w-full flex-col gap-5 sm:max-h-[6.875rem] sm:flex-row">
-          <div className="flex w-full items-center gap-4 rounded-xl bg-beige-100 p-4 sm:max-w-[15.4375rem]">
+          <div className="flex w-full items-center gap-4 rounded-xl bg-beige-100 p-4 dark:bg-grey-975 sm:max-w-[15.4375rem]">
             <IconPot className="text-green" />
-            <p className="text-preset-4 flex flex-col gap-2 text-grey-500">
+            <p className="text-preset-4 flex flex-col gap-2 text-grey-500 dark:text-grey-300">
               Total Saved
-              <span className="text-preset-1 text-grey-900">${totalSaved}</span>
+              <span className="text-preset-1 text-grey-900 dark:text-grey-100">
+                ${totalSaved}
+              </span>
             </p>
           </div>
 
@@ -44,9 +48,9 @@ const Pots = () => {
                   style={{ backgroundColor: pot.theme }}
                   className={`h-[2.6875rem] w-1 rounded-lg`}
                 ></div>
-                <p className="text-preset-5 flex flex-col gap-1 text-grey-500">
+                <p className="text-preset-5 flex flex-col gap-1 text-grey-500 dark:text-grey-300">
                   {pot.name}
-                  <span className="text-preset-4-bold text-grey-900">
+                  <span className="text-preset-4-bold text-grey-900 dark:text-grey-100">
                     ${pot.total}
                   </span>
                 </p>

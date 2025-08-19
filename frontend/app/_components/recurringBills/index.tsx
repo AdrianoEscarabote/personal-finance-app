@@ -8,9 +8,11 @@ const RecurringBills = () => {
   const { paidBills, dueSoon, totalUpcoming } = useSelector(selectFinanceStats)
 
   return (
-    <article className="w-full rounded-xl bg-white px-5 py-6 md:max-w-[26.75rem] md:p-8">
+    <article className="w-full rounded-xl bg-white px-5 py-6 dark:border dark:border-border dark:bg-grey-950 md:max-w-[26.75rem] md:p-8">
       <div className="mb-8 flex items-center justify-between">
-        <h3 className="text-preset-2 text-grey-900">Recurring Bills</h3>
+        <h3 className="text-preset-2 text-grey-900 dark:text-grey-100">
+          Recurring Bills
+        </h3>
         <Button
           variant="tertiary"
           style={{ maxWidth: "6.125rem", maxHeight: "1.3125rem" }}
@@ -21,21 +23,21 @@ const RecurringBills = () => {
       </div>
 
       <ul className="flex flex-col gap-3">
-        <li className="text-preset-4 flex items-center justify-between rounded-lg border-l-4 border-green bg-beige-100 px-4 py-5 text-grey-500">
+        <li className="text-preset-4 flex items-center justify-between rounded-lg border-l-4 border-green bg-beige-100 px-4 py-5 text-grey-500 dark:bg-grey-975 dark:text-grey-100">
           Paid Bills
-          <span className="text-preset-4-bold text-grey-900">
+          <span className="text-preset-4-bold text-grey-900 dark:text-grey-100">
             ${paidBills.amount}
           </span>
         </li>
-        <li className="text-preset-4 flex items-center justify-between rounded-lg border-l-4 border-yellow bg-beige-100 px-4 py-5 text-grey-500">
+        <li className="text-preset-4 flex items-center justify-between rounded-lg border-l-4 border-yellow bg-beige-100 px-4 py-5 text-grey-500 dark:bg-grey-975 dark:text-grey-100">
           Total Upcoming
-          <span className="text-preset-4-bold text-grey-900">
+          <span className="text-preset-4-bold text-grey-900 dark:text-grey-100">
             ${totalUpcoming.amount}
           </span>
         </li>
-        <li className="text-preset-4 flex items-center justify-between rounded-lg border-l-4 border-cyan bg-beige-100 px-4 py-5 text-grey-500">
+        <li className="text-preset-4 flex items-center justify-between rounded-lg border-l-4 border-cyan bg-beige-100 px-4 py-5 text-grey-500 dark:bg-grey-975 dark:text-grey-100">
           Due Soon
-          <span className="text-preset-4-bold text-grey-900">
+          <span className="text-preset-4-bold text-grey-900 dark:text-grey-100">
             ${dueSoon.amount}
           </span>
         </li>

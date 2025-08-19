@@ -17,6 +17,8 @@ export default {
         white: "var(--white)",
         "beige-500": "var(--beige-500)",
         "beige-100": "var(--beige-100)",
+        "grey-975": "var(--grey-975)",
+        "grey-950": "var(--grey-950)",
         "grey-900": "var(--grey-900)",
         "grey-500": "var(--grey-500)",
         "grey-300": "var(--grey-300)",

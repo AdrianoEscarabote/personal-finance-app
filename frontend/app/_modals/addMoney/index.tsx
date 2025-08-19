@@ -90,7 +90,7 @@ const AddMoney = ({
               width: `${Math.min(newProgress, 100)}%`,
               backgroundColor: theme,
             }}
-            className="absolute z-0 h-full rounded-full transition-all duration-300"
+            className="absolute top-0 z-0 h-full rounded-full transition-all duration-300"
           ></div>
         </div>
 

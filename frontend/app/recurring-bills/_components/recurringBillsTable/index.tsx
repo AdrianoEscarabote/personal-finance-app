@@ -66,7 +66,7 @@ const RecurringBillsTable = () => {
   }
 
   return (
-    <article className="w-full max-w-[43.6875rem] rounded-xl bg-white px-5 py-6 md:p-8">
+    <article className="w-full max-w-[43.6875rem] rounded-xl bg-white px-5 py-6 dark:border dark:border-border dark:bg-grey-950 md:p-8">
       <div className="mb-6 flex w-full items-center justify-between">
         <div className="w-full max-w-[20rem]">
           <Input
@@ -93,13 +93,13 @@ const RecurringBillsTable = () => {
       <div className="grid w-full grid-cols-[2fr_1fr] gap-y-4 md:grid-cols-[20.375rem_11.0625rem_8.1875rem]">
         {!isMobile && (
           <>
-            <div className="text-preset-5 mb-1 border-b border-grey-100 pb-6 text-grey-500">
+            <div className="text-preset-5 mb-1 border-b border-grey-100 pb-6 text-grey-500 dark:border-border dark:text-grey-300">
               Bill Title
             </div>
-            <div className="text-preset-5 mb-1 border-b border-grey-100 pb-6 text-grey-500">
+            <div className="text-preset-5 mb-1 border-b border-grey-100 pb-6 text-grey-500 dark:border-border dark:text-grey-300">
               Due Date
             </div>
-            <div className="text-preset-5 mb-1 border-b border-grey-100 pb-6 text-right text-grey-500">
+            <div className="text-preset-5 mb-1 border-b border-grey-100 pb-6 text-right text-grey-500 dark:border-border dark:text-grey-300">
               Amount
             </div>
           </>
@@ -120,7 +120,7 @@ const RecurringBillsTable = () => {
                   className={`flex flex-col items-start gap-2 ${
                     index === arr.length - 1
                       ? "pb-0 pt-3"
-                      : "border-b border-grey-100 py-3"
+                      : "border-b border-grey-100 py-3 dark:border-border"
                   }`}
                 >
                   <div className="flex flex-row items-center gap-4">
@@ -131,7 +131,7 @@ const RecurringBillsTable = () => {
                       alt=""
                       className="rounded-full"
                     />
-                    <span className="text-preset-4-bold text-grey-900">
+                    <span className="text-preset-4-bold text-grey-900 dark:text-grey-100">
                       {transaction.name}
                     </span>
                   </div>
@@ -149,7 +149,7 @@ const RecurringBillsTable = () => {
                     className={`text-preset-5 flex items-center gap-2 text-green ${
                       index === arr.length - 1
                         ? "pb-0 pt-3"
-                        : "border-b border-grey-100 py-3"
+                        : "border-b border-grey-100 py-3 dark:border-border"
                     }`}
                   >
                     {`Monthly - ${new Date(transaction.date).getDate()}${getOrdinalSuffix(new Date(transaction.date).getDate())}`}
@@ -158,10 +158,10 @@ const RecurringBillsTable = () => {
                 )}
 
                 <div
-                  className={`text-preset-4-bold ${daysUntilPayment <= 7 && daysUntilPayment > 0 ? "text-red" : "text-grey-900"} text-right text-grey-900 ${isMobile && "self-end pb-4"} ${
+                  className={`text-preset-4-bold ${daysUntilPayment <= 7 && daysUntilPayment > 0 ? "text-red" : "text-grey-900 dark:text-grey-100"} text-right text-grey-900 ${isMobile && "self-end pb-4"} ${
                     index === arr.length - 1
                       ? "pb-0 pt-3"
-                      : "border-b border-grey-100 py-3"
+                      : "border-b border-grey-100 py-3 dark:border-border"
                   }`}
                 >
                   ${Math.abs(transaction.amount).toFixed(2)}
@@ -170,7 +170,7 @@ const RecurringBillsTable = () => {
             )
           })
         ) : (
-          <p className="col-span-3 text-center text-grey-500">
+          <p className="col-span-3 text-center text-grey-500 dark:text-grey-300">
             No results found
           </p>
         )}

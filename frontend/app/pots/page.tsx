@@ -21,10 +21,12 @@ const Pots = () => {
         initial={{ opacity: 0, x: -3 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="mb-20 w-full bg-beige-100 px-5 py-6 md:mb-0 md:px-10 md:py-8"
+        className="mb-20 w-full bg-beige-100 px-5 py-6 dark:bg-grey-975 md:mb-0 md:px-10 md:py-8"
       >
         <div className="mx-auto mb-8 flex max-w-[69.375rem] items-center justify-between">
-          <h1 className="text-preset-1 text-grey-900">Pots</h1>
+          <h1 className="text-preset-1 text-grey-900 dark:text-grey-100">
+            Pots
+          </h1>
 
           <DialogTrigger asChild>
             <Button

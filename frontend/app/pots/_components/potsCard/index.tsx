@@ -68,7 +68,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
         <div className="flex w-full flex-wrap gap-6">
           <div
             key={pot.name}
-            className="w-full rounded-xl bg-white p-6 sm:max-w-[32.375rem]"
+            className="w-full rounded-xl bg-white p-6 dark:border dark:border-border dark:bg-grey-950 sm:max-w-[32.375rem]"
           >
             <div className="relative mb-8 flex items-center justify-between">
               <div className="flex max-h-6 items-center gap-3">
@@ -76,23 +76,25 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                   style={{ backgroundColor: pot.theme }}
                   className="h-4 w-4 rounded-full"
                 ></div>
-                <p className="text-preset-2 text-grey-900">{pot.name}</p>
+                <p className="text-preset-2 text-grey-900 dark:text-grey-100">
+                  {pot.name}
+                </p>
               </div>
               <button
-                className="relative grid h-6 w-6 place-content-center text-grey-900 transition hover:text-grey-300"
+                className="relative grid h-6 w-6 place-content-center text-grey-900 transition hover:text-grey-300 dark:text-grey-100"
                 onClick={() => setShowOptions(!showOptions)}
                 data-testid="ellipsis_button"
               >
                 <IconEllipsis className="text-inherit" />
               </button>
               <div
-                className={`absolute right-0 top-10 z-20 w-[8.25rem] rounded-lg bg-white px-5 py-3 shadow-xl transition-all duration-300 ${showOptions ? "max-h-[6.0625rem] opacity-100" : "max-h-0 opacity-0"}`}
+                className={`absolute right-0 top-10 z-20 w-[8.25rem] rounded-lg bg-white px-5 py-3 shadow-xl transition-all duration-300 dark:border dark:border-border dark:bg-grey-950 ${showOptions ? "max-h-[6.0625rem] opacity-100" : "max-h-0 opacity-0"}`}
                 style={{
                   transition: "max-height 0.3s ease, opacity 0.3s ease",
                 }}
               >
                 <button
-                  className="mb-3 text-grey-900"
+                  className="mb-3 text-grey-900 dark:text-grey-100"
                   tabIndex={!showOptions ? -1 : undefined}
                   onClick={() => {
                     setShowOptions(false)
@@ -102,7 +104,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                 >
                   Edit Pot
                 </button>
-                <div className="h-[0.0625rem] w-full bg-grey-100"></div>
+                <div className="h-[0.0625rem] w-full bg-grey-100 dark:bg-border"></div>
                 <button
                   className="mt-3 text-red"
                   tabIndex={!showOptions ? -1 : undefined}
@@ -118,15 +120,15 @@ const PotsCard = ({ pot }: PotsCardProps) => {
             </div>
 
             <div className="mb-4">
-              <p className="text-preset-4 flex items-center justify-between text-grey-500">
+              <p className="text-preset-4 flex items-center justify-between text-grey-500 dark:text-grey-300">
                 Total Saved:{" "}
-                <span className="text-preset-1 text-grey-900">
+                <span className="text-preset-1 text-grey-900 dark:text-grey-100">
                   ${pot.total.toFixed(2)}
                 </span>
               </p>
             </div>
 
-            <div className="relative mt-2 h-2 w-full rounded-full bg-grey-100">
+            <div className="relative mt-2 h-2 w-full rounded-full bg-grey-100 dark:bg-grey-975">
               <div
                 style={{ width: `${progress}%`, backgroundColor: pot.theme }}
                 className="absolute h-full rounded-full transition-all duration-300"
@@ -134,10 +136,10 @@ const PotsCard = ({ pot }: PotsCardProps) => {
             </div>
 
             <div className="mt-3 flex items-center justify-between">
-              <p className="text-preset-5-bold text-grey-500">
+              <p className="text-preset-5-bold text-grey-500 dark:text-grey-300">
                 {progress.toFixed(2)}%
               </p>
-              <p className="text-preset-5 text-grey-500">
+              <p className="text-preset-5 text-grey-500 dark:text-grey-300">
                 Target of ${pot.target}
               </p>
             </div>

@@ -9,7 +9,7 @@ const TotalBills = () => {
   const totalBills = useSelector(selectTotalBills)
 
   return (
-    <article className="w-full rounded-xl bg-grey-900 p-6 sm:max-w-[21.0625rem]">
+    <article className="w-full rounded-xl bg-grey-900 p-6 dark:border dark:border-border dark:bg-grey-950 sm:max-w-[21.0625rem]">
       <div className="flex items-center gap-5 xs:flex-col xs:items-start xs:gap-8">
         <IconRecurringBills className="text-white" />
         <div className="text-white">

@@ -91,7 +91,7 @@ const Table = () => {
   }
 
   return (
-    <article className="mx:px-0 w-full max-w-[66.25rem] rounded-xl bg-white px-5 py-6 md:p-8 md:py-8">
+    <article className="mx:px-0 w-full max-w-[66.25rem] rounded-xl bg-white px-5 py-6 dark:border dark:border-border dark:bg-grey-950 md:p-8 md:py-8">
       <div className="mb-6 flex w-full items-center justify-between">
         <div className="w-full max-w-[10.0625rem] md:max-w-[20rem]">
           <Input
@@ -119,7 +119,7 @@ const Table = () => {
       <div className="mb-6 grid grid-cols-[2fr_1fr] gap-0 md:grid-cols-[3fr_1fr_1fr_1fr]">
         <div>
           {!isMobile && (
-            <p className="text-preset-5 mb-3 border-b border-grey-100 pb-3 text-grey-500">
+            <p className="text-preset-5 mb-3 border-b border-grey-100 pb-3 text-grey-500 dark:border-border dark:text-grey-300">
               Recipient / Sender
             </p>
           )}
@@ -129,7 +129,7 @@ const Table = () => {
               className={`flex flex-col items-start justify-center gap-3 ${
                 index === arr.length - 1
                   ? "pb-0 pt-3"
-                  : "relative border-b border-grey-100 py-3"
+                  : "relative border-b border-grey-100 py-3 dark:border-border"
               }`}
             >
               <div className="flex items-center gap-3">
@@ -140,10 +140,10 @@ const Table = () => {
                   height={40}
                   className="self-center rounded-full"
                 />
-                <p className="text-preset-4-bold flex flex-col gap-2 text-grey-900">
+                <p className="text-preset-4-bold flex flex-col gap-2 text-grey-900 dark:text-grey-100">
                   {transaction.name}
                   {isMobile && (
-                    <span className="text-preset-5 text-grey-500">
+                    <span className="text-preset-5 text-grey-500 dark:text-grey-300">
                       {transaction.category}
                     </span>
                   )}
@@ -154,16 +154,16 @@ const Table = () => {
         </div>
         {!isMobile && (
           <div>
-            <p className="text-preset-5 mb-3 border-b border-grey-100 pb-3 text-grey-500">
+            <p className="text-preset-5 mb-3 border-b border-grey-100 pb-3 text-grey-500 dark:border-border dark:text-grey-300">
               Category
             </p>
             {paginatedTransactions.map((transaction, index, arr) => (
               <div key={`Category-${transaction.category}-${index}`}>
                 <p
-                  className={`text-preset-5 justfiy-start flex h-[4.0625rem] items-center text-grey-500 ${
+                  className={`text-preset-5 justfiy-start flex h-[4.0625rem] items-center text-grey-500 dark:text-grey-300 ${
                     index === arr.length - 1
                       ? "pb-0 pt-3"
-                      : "relative border-b border-grey-100 py-3"
+                      : "relative border-b border-grey-100 py-3 dark:border-border"
                   }`}
                 >
                   {transaction.category}
@@ -174,7 +174,7 @@ const Table = () => {
         )}
         {!isMobile && (
           <div>
-            <p className="text-preset-5 mb-3 border-b border-grey-100 pb-3 text-grey-500">
+            <p className="text-preset-5 mb-3 border-b border-grey-100 pb-3 text-grey-500 dark:border-border dark:text-grey-300">
               Transaction Date
             </p>
             {paginatedTransactions.map((transaction, index, arr) => (
@@ -182,10 +182,10 @@ const Table = () => {
                 key={`paginatedTransactions-${transaction.category}-${index}`}
               >
                 <p
-                  className={`text-preset-5 justfiy-start flex h-[4.0625rem] items-center text-grey-500 ${
+                  className={`text-preset-5 justfiy-start flex h-[4.0625rem] items-center text-grey-500 dark:text-grey-300 ${
                     index === arr.length - 1
                       ? "pb-0 pt-3"
-                      : "relative border-b border-grey-100 py-3"
+                      : "relative border-b border-grey-100 py-3 dark:border-border"
                   }`}
                 >
                   {formatDate(transaction.date)}
@@ -196,24 +196,24 @@ const Table = () => {
         )}
         <div className="flex flex-col items-end">
           {!isMobile && (
-            <p className="text-preset-5 mb-3 border-b border-grey-100 pb-3 text-grey-500">
+            <p className="text-preset-5 mb-3 border-b border-grey-100 pb-3 text-grey-500 dark:border-border dark:text-grey-300">
               Amount Date
             </p>
           )}
           {paginatedTransactions.map((transaction, index, arr) => (
             <div key={`Date-${transaction.category}-${index}`}>
               <p
-                className={`text-preset-4-bold ${isMobile && `items-end`} flex h-[4.0625rem] flex-col items-start justify-center gap-1 ${transaction.amount > 0 ? "text-green" : "text-grey-900"} ${
+                className={`text-preset-4-bold ${isMobile && `items-end`} flex h-[4.0625rem] flex-col items-start justify-center gap-1 ${transaction.amount > 0 ? "text-green" : "text-grey-900 dark:text-grey-100"} ${
                   index === arr.length - 1
                     ? "pb-0 pt-3"
-                    : "relative border-b border-grey-100 py-3"
+                    : "relative border-b border-grey-100 py-3 dark:border-border"
                 }`}
               >
                 {transaction.amount > 0
                   ? `+$${transaction.amount.toFixed(2)}`
                   : `-$${Math.abs(transaction.amount).toFixed(2)}`}
                 {isMobile && (
-                  <span className="text-preset-5 self-end text-grey-500">
+                  <span className="text-preset-5 self-end text-grey-500 dark:text-grey-300">
                     {formatDate(transaction.date)}
                   </span>
                 )}
@@ -226,7 +226,7 @@ const Table = () => {
       {/* controle de paginação */}
       <div className="flex w-full items-center justify-between">
         <button
-          className={`text-preset-4 flex h-10 w-[3rem] items-center justify-center gap-4 rounded-lg border border-beige-500 bg-white text-grey-900 transition-all md:w-full md:max-w-[5.875rem] md:hover:bg-beige-500 md:hover:text-white ${currentPage === 1 && "pointer-events-none opacity-50"}`}
+          className={`text-preset-4 flex h-10 w-[3rem] items-center justify-center gap-4 rounded-lg border border-beige-500 bg-white text-grey-900 transition-all dark:border-border dark:bg-grey-975 dark:text-grey-100 md:w-full md:max-w-[5.875rem] md:hover:bg-grey-900 md:hover:text-white ${currentPage === 1 && "pointer-events-none opacity-50"}`}
           onClick={goToPrevPage}
           disabled={currentPage === 1}
         >
@@ -241,15 +241,15 @@ const Table = () => {
                 onClick={() => setCurrentPage(1)}
                 className={`text-preset-4 flex h-10 w-10 items-center justify-center rounded-lg transition duration-300 ${
                   currentPage === 1
-                    ? "bg-black text-white"
-                    : "border border-gray-300 bg-white text-grey-900"
+                    ? "bg-black text-white dark:bg-white dark:text-black"
+                    : "border border-gray-300 bg-white text-black dark:border-border dark:bg-grey-975 dark:text-grey-100"
                 }`}
               >
                 1
               </button>
 
               {currentPage > 1 && currentPage < totalPages && (
-                <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-black text-white">
+                <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-black text-white dark:bg-white dark:text-black">
                   {currentPage}
                 </button>
               )}
@@ -264,8 +264,8 @@ const Table = () => {
                 onClick={() => setCurrentPage(totalPages)}
                 className={`text-preset-4 flex h-10 w-10 items-center justify-center rounded-lg transition duration-300 ${
                   currentPage === totalPages
-                    ? "bg-black text-white"
-                    : "border border-gray-300 bg-white text-grey-900"
+                    ? "border border-border bg-black text-white dark:bg-white dark:text-black"
+                    : "border border-gray-300 bg-white text-grey-900 dark:border-border dark:bg-grey-975 dark:text-grey-100"
                 }`}
               >
                 {totalPages}
@@ -276,10 +276,10 @@ const Table = () => {
               <button
                 key={index}
                 onClick={() => setCurrentPage(index + 1)}
-                className={`text-preset-4 flex h-10 w-10 items-center justify-center rounded-lg transition duration-300 md:hover:bg-beige-500 md:hover:text-white ${
+                className={`text-preset-4 flex h-10 w-10 items-center justify-center rounded-lg transition duration-300 ${
                   currentPage === index + 1
-                    ? "bg-black text-white"
-                    : "border border-gray-300 bg-white text-grey-900"
+                    ? "bg-black text-white dark:bg-black dark:text-white"
+                    : "border border-gray-300 bg-white text-grey-900 dark:border-border dark:bg-grey-975 dark:text-grey-100 md:hover:bg-grey-900 md:hover:text-white md:dark:hover:bg-grey-900"
                 }`}
               >
                 {index + 1}
@@ -291,7 +291,7 @@ const Table = () => {
         <button
           onClick={goToNextPage}
           disabled={currentPage === totalPages}
-          className={`text-preset-4 flex h-10 w-[3rem] items-center justify-center gap-4 rounded-lg border border-beige-500 bg-white text-grey-900 transition-all md:w-full md:max-w-[5.875rem] md:hover:bg-beige-500 md:hover:text-white ${currentPage === totalPages && "pointer-events-none opacity-50"}`}
+          className={`text-preset-4 flex h-10 w-[3rem] items-center justify-center gap-4 rounded-lg border border-beige-500 bg-white text-grey-900 transition-all dark:border-border dark:bg-grey-975 dark:text-grey-100 md:w-full md:max-w-[5.875rem] md:hover:bg-grey-900 md:hover:text-white ${currentPage === totalPages && "pointer-events-none opacity-50"}`}
         >
           {!isMobile && <span>Next</span>}
           <IconCaretRight className="text-inherit" />

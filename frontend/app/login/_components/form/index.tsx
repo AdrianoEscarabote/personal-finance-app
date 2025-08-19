@@ -81,9 +81,11 @@ const Form = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="mt-16 w-full max-w-[35rem] rounded-xl bg-white p-8 shadow-md lg:mt-0"
+      className="mt-16 w-full max-w-[35rem] rounded-xl bg-white p-8 shadow-md dark:border dark:border-border dark:bg-grey-950 lg:mt-0"
     >
-      <h2 className="text-preset-1 mb-8 text-grey-900">Login</h2>
+      <h2 className="text-preset-1 mb-8 text-grey-900 dark:text-grey-100">
+        Login
+      </h2>
       <form onSubmit={onSubmit} className="w-full">
         <fieldset className="flex w-full flex-col gap-4">
           <legend className="sr-only">enter your login information</legend>
@@ -133,11 +135,11 @@ const Form = () => {
         </fieldset>
       </form>
       <div className="mt-8 flex items-center justify-center gap-3">
-        <p className="text-preset-4 text-grey-500">
+        <p className="text-preset-4 text-grey-500 dark:text-grey-300">
           Need to create an account?{" "}
         </p>
         <Link
-          className="text-preset-4-bold text-grey-900 underline"
+          className="text-preset-4-bold text-grey-900 underline dark:text-grey-100"
           href={"/signup"}
         >
           Sign Up

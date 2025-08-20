@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { legacy_configureStore as configureStore } from "redux-mock-store"
 
@@ -43,6 +44,7 @@ describe("AddModal", () => {
       </Dialog>,
     )
   })
+
   it("should display the Pot Name input when showPotName is true", () => {
     render(
       <Dialog>
@@ -125,5 +127,71 @@ describe("AddModal", () => {
     )
 
     expect(screen.getByText("Theme")).toBeTruthy()
+  })
+
+  it("should dispatch addNewPot when submitting with pot_name and target", async () => {
+    render(
+      <Dialog>
+        <Provider store={store}>
+          <AddModal
+            title="pot"
+            description="pot"
+            textButton="Add Pot"
+            showPotName
+            showMaximumSpend={false}
+            showBudgetCategory={false}
+            showTarget
+            closeModal={jest.fn()}
+          />
+        </Provider>
+      </Dialog>,
+    )
+
+    await userEvent.type(screen.getByTestId("pot-name-input"), "My Pot")
+    await userEvent.type(screen.getByTestId("target-input"), "1000")
+    await userEvent.click(screen.getByRole("button", { name: /add pot/i }))
+
+    expect(store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "financeSlice/addNewPot",
+        payload: expect.objectContaining({ name: "My Pot", target: "1000" }),
+      }),
+    )
+  })
+
+  it("should dispatch addBudget when submitting with category and maximum", async () => {
+    render(
+      <Dialog>
+        <Provider store={store}>
+          <AddModal
+            title="budget"
+            description="budget"
+            textButton="Add Budget"
+            showPotName={false}
+            showMaximumSpend={true}
+            showBudgetCategory={true}
+            showTarget={false}
+            closeModal={jest.fn()}
+          />
+        </Provider>
+      </Dialog>,
+    )
+
+    await userEvent.click(screen.getByTestId("select-category-btn"))
+    await userEvent.click(screen.getByText("Lifestyle"))
+
+    await userEvent.type(screen.getByTestId("maximum-input"), "1000")
+
+    await userEvent.click(screen.getByRole("button", { name: /add budget/i }))
+
+    expect(store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "financeSlice/addBudget",
+        payload: expect.objectContaining({
+          category: "Lifestyle",
+          maximum: 1000,
+        }),
+      }),
+    )
   })
 })

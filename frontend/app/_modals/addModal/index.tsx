@@ -145,6 +145,7 @@ const AddModal = ({
               errors={false}
               id="name"
               label="Pot Name"
+              data-testid="pot-name-input"
               maxLength={30}
               showCaracterLeft
               value={potName}
@@ -169,6 +170,7 @@ const AddModal = ({
             <Input
               label="Maximum Spend"
               variant="withPrefix"
+              data-testid="maximum-input"
               errors={false}
               id="maximum"
               onInput={(e) => {
@@ -187,6 +189,7 @@ const AddModal = ({
               variant="withPrefix"
               errors={false}
               id="target"
+              data-testid="target-input"
               {...register("target", {
                 required: "This field is required",
                 pattern: {

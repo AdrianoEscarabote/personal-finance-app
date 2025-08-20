@@ -2,6 +2,16 @@ import "@testing-library/jest-dom"
 
 const lib = jest.requireActual("tabbable")
 
+if (!global.crypto) {
+  global.crypto = {}
+}
+global.crypto.randomUUID = () => "mocked-uuid"
+
+jest.mock("@/hooks/useDemoFetch", () => () => ({
+  demoFetch: jest.fn(),
+  isDemoMode: "true",
+}))
+
 jest.mock("tabbable", () => ({
   ...lib,
   tabbable: (node, options) =>

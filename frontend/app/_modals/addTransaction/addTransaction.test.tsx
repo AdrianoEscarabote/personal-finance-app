@@ -5,6 +5,8 @@ import { legacy_configureStore as configureStore } from "redux-mock-store"
 import getMockState from "@/utils/getMockState"
 
 const mockStore = configureStore([])
+import { Dialog } from "@/components/ui/dialog"
+
 import AddTransactionModal from "."
 
 describe("Add Transaction Modal", () => {
@@ -25,18 +27,22 @@ describe("Add Transaction Modal", () => {
 
   it("should render correctly", () => {
     render(
-      <Provider store={store}>
-        <AddTransactionModal closeModal={() => {}} />
-      </Provider>,
+      <Dialog>
+        <Provider store={store}>
+          <AddTransactionModal closeModal={() => {}} />
+        </Provider>
+      </Dialog>,
     )
   })
 
   it("should close modal when clicking outside", () => {
     const closeModal = jest.fn()
     render(
-      <Provider store={store}>
-        <AddTransactionModal closeModal={closeModal} />
-      </Provider>,
+      <Dialog>
+        <Provider store={store}>
+          <AddTransactionModal closeModal={closeModal} />
+        </Provider>
+      </Dialog>,
     )
 
     fireEvent.click(screen.getByTestId("modal-overlay"))

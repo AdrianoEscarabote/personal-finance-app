@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react"
 import { Provider } from "react-redux"
 import { legacy_configureStore as configureStore } from "redux-mock-store"
 
+import { Dialog } from "@/components/ui/dialog"
 import getMockState from "@/utils/getMockState"
 
 import WithdrawMoney from "."
@@ -25,29 +26,33 @@ describe("WithdrawMoney", () => {
   })
   it("should render correctly", () => {
     render(
-      <Provider store={store}>
-        <WithdrawMoney
-          name="Savings"
-          target={2000.0}
-          total={159.0}
-          closeModal={() => {}}
-        />
-        ,
-      </Provider>,
+      <Dialog>
+        <Provider store={store}>
+          <WithdrawMoney
+            id="withdraw-1"
+            name="Savings"
+            target={2000.0}
+            total={159.0}
+            closeModal={() => {}}
+          />
+        </Provider>
+      </Dialog>,
     )
   })
 
   it("should update new amount and progress when amount is entered", () => {
     render(
-      <Provider store={store}>
-        <WithdrawMoney
-          name="Savings"
-          target={2000.0}
-          total={159.0}
-          closeModal={() => {}}
-        />
-        ,
-      </Provider>,
+      <Dialog>
+        <Provider store={store}>
+          <WithdrawMoney
+            id="withdraw-1"
+            name="Savings"
+            target={2000.0}
+            total={159.0}
+            closeModal={() => {}}
+          />
+        </Provider>
+      </Dialog>,
     )
 
     const input = screen.getByTestId("input") as HTMLInputElement

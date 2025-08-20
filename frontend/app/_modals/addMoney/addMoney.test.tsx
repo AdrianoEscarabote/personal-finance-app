@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react"
 import { Provider } from "react-redux"
 import { legacy_configureStore as configureStore } from "redux-mock-store"
 
+import { Dialog } from "@/components/ui/dialog"
 import getMockState from "@/utils/getMockState"
 
 import AddMoney from "."
@@ -26,29 +27,35 @@ describe("AddMoney", () => {
 
   it("should render correctly", () => {
     render(
-      <Provider store={store}>
-        <AddMoney
-          name="Savings"
-          target={2000.0}
-          total={159.0}
-          theme="#277C78"
-          closeModal={() => {}}
-        />
-      </Provider>,
+      <Dialog>
+        <Provider store={store}>
+          <AddMoney
+            id="add-money-modal"
+            name="Savings"
+            target={2000.0}
+            total={159.0}
+            theme="#277C78"
+            closeModal={() => {}}
+          />
+        </Provider>
+      </Dialog>,
     )
   })
 
   it("should allow inputting a valid amount", () => {
     render(
-      <Provider store={store}>
-        <AddMoney
-          name="Savings"
-          target={2000.0}
-          total={159.0}
-          theme="#277C78"
-          closeModal={() => {}}
-        />
-      </Provider>,
+      <Dialog>
+        <Provider store={store}>
+          <AddMoney
+            name="Savings"
+            target={2000.0}
+            total={159.0}
+            theme="#277C78"
+            id="add-money-modal"
+            closeModal={() => {}}
+          />
+        </Provider>
+      </Dialog>,
     )
 
     const input = screen.getByLabelText("Amount to Add") as HTMLInputElement
@@ -59,15 +66,18 @@ describe("AddMoney", () => {
 
   it("should not allow inputting a value greater than the remaining target", () => {
     render(
-      <Provider store={store}>
-        <AddMoney
-          name="Savings"
-          target={2000.0}
-          total={159.0}
-          theme="#277C78"
-          closeModal={() => {}}
-        />
-      </Provider>,
+      <Dialog>
+        <Provider store={store}>
+          <AddMoney
+            id="add-money-modal"
+            name="Savings"
+            target={2000.0}
+            total={159.0}
+            theme="#277C78"
+            closeModal={() => {}}
+          />
+        </Provider>
+      </Dialog>,
     )
 
     const input = screen.getByTestId("amount_input") as HTMLInputElement

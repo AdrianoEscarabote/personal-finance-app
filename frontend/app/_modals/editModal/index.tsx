@@ -134,6 +134,7 @@ const EditModal = ({
                 variant="basic"
                 id="name"
                 label="Pot Name"
+                data-testid="input-pot-name"
                 showCaracterLeft
                 errors={errors.name?.message ? true : false}
                 errorMessage={errors.name?.message as string}
@@ -154,6 +155,7 @@ const EditModal = ({
               label="Maximum Spend"
               variant="withPrefix"
               id="maximum"
+              data-testid="input-maximum"
               errors={errors.maximum?.message ? true : false}
               errorMessage={errors.maximum?.message as string}
               {...register("maximum", {

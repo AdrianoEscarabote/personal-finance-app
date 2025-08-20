@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { legacy_configureStore as configureStore } from "redux-mock-store"
 
@@ -53,7 +54,7 @@ describe("EditModal", () => {
       <Dialog>
         <Provider store={store}>
           <EditModal
-            content="budget"
+            content="pot"
             showPotName={true}
             showbudgetCategory={false}
             closeModal={() => {}}
@@ -99,22 +100,89 @@ describe("EditModal", () => {
     expect(screen.getByText("Theme")).toBeTruthy()
   })
 
-  it("should render the close button", () => {
+  it("should dispatch editPot when submitting valid data", async () => {
+    render(
+      <Dialog>
+        <Provider store={store}>
+          <EditModal
+            content="pot"
+            showPotName={true}
+            data_edit_pot={{
+              pot_id: "1",
+              pot_name: "Pot Name",
+              target: 1000,
+              theme: "#277C78",
+            }}
+            showbudgetCategory={false}
+            closeModal={() => {}}
+          />
+        </Provider>
+      </Dialog>,
+    )
+
+    const potNameInput = screen.getByTestId("input-pot-name")
+    const maximumInput = screen.getByTestId("input-maximum")
+
+    await userEvent.clear(potNameInput)
+    await userEvent.type(potNameInput, "New Pot Name")
+
+    await userEvent.clear(maximumInput)
+    await userEvent.type(maximumInput, "1000")
+
+    await userEvent.click(screen.getByRole("button", { name: "Save Changes" }))
+
+    expect(store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "financeSlice/editPot",
+        payload: {
+          pot_name: "Pot Name",
+          new_pot_name: "New Pot Name",
+          maximum_spend: "1000",
+          theme: "#277C78",
+        },
+      }),
+    )
+  })
+
+  it("should dispatch editBudget when submitting valid data", async () => {
     render(
       <Dialog>
         <Provider store={store}>
           <EditModal
             content="budget"
             showPotName={false}
+            data_edit_budget={{
+              budget_id: "1",
+              budget_category: "Entertainment",
+              target: 1000,
+              theme: "#277C78",
+            }}
             showbudgetCategory={true}
             closeModal={() => {}}
           />
         </Provider>
-        ,
       </Dialog>,
     )
 
-    const closeButton = screen.getByRole("button", { name: "" })
-    expect(closeButton).toBeTruthy()
+    await userEvent.click(screen.getByTestId("select-category-btn"))
+    await userEvent.click(screen.getByText("Bills"))
+
+    const maximumInput = screen.getByTestId("input-maximum")
+    await userEvent.clear(maximumInput)
+    await userEvent.type(maximumInput, "1000")
+
+    await userEvent.click(screen.getByRole("button", { name: "Save Changes" }))
+
+    expect(store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "financeSlice/editBudget",
+        payload: {
+          category: "Entertainment",
+          new_category: "Bills",
+          maximum: 1000,
+          theme: "#277C78",
+        },
+      }),
+    )
   })
 })

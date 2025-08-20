@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { legacy_configureStore as configureStore } from "redux-mock-store"
 
@@ -86,5 +87,37 @@ describe("AddMoney", () => {
     setTimeout(() => {
       expect(input.value).toBe("1841")
     }, 1000)
+  })
+
+  it("should dispatch addMoney when submitting with valid data", async () => {
+    render(
+      <Dialog>
+        <Provider store={store}>
+          <AddMoney
+            id="add-money-modal"
+            name="Savings"
+            target={2000.0}
+            total={159.0}
+            theme="#277C78"
+            closeModal={() => {}}
+          />
+        </Provider>
+      </Dialog>,
+    )
+
+    await userEvent.type(screen.getByTestId("amount_input"), "100")
+    await userEvent.click(
+      screen.getByRole("button", { name: /confirm addition/i }),
+    )
+
+    expect(store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "financeSlice/addMoney",
+        payload: expect.objectContaining({
+          pot_name: "Savings",
+          new_amount: 100,
+        }),
+      }),
+    )
   })
 })

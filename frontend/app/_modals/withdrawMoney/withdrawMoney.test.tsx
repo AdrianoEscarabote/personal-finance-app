@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import { Provider } from "react-redux"
 import { legacy_configureStore as configureStore } from "redux-mock-store"
 
@@ -24,6 +25,7 @@ describe("WithdrawMoney", () => {
   afterAll(() => {
     jest.clearAllMocks()
   })
+
   it("should render correctly", () => {
     render(
       <Dialog>
@@ -59,5 +61,36 @@ describe("WithdrawMoney", () => {
     fireEvent.change(input, { target: { value: "50" } })
 
     expect(screen.getByText("$109.00")).toBeTruthy()
+  })
+
+  it("should dispatch withdrawMoney when submitting valid data", async () => {
+    render(
+      <Dialog>
+        <Provider store={store}>
+          <WithdrawMoney
+            id="withdraw-1"
+            name="Savings"
+            target={2000.0}
+            total={159.0}
+            closeModal={() => {}}
+          />
+        </Provider>
+      </Dialog>,
+    )
+
+    await userEvent.type(screen.getByTestId("input"), "50")
+    await userEvent.click(
+      screen.getByRole("button", { name: /Confirm Withdrawal/i }),
+    )
+
+    expect(store.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "financeSlice/withdrawMoney",
+        payload: {
+          pot_name: "Savings",
+          withdraw_amount: 50,
+        },
+      }),
+    )
   })
 })

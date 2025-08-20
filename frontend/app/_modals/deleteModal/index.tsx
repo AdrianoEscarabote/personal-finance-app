@@ -41,12 +41,18 @@ const DeleteModal = ({
         <Button
           variant="destroy"
           label="Yes, Confirm Deletion"
+          data-testid="confirm-modal-delete-button"
           loading={loading}
           disabled={loading}
           onClick={handleDelete}
         />
         <DialogClose asChild>
-          <Button variant="tertiary" label="No, Go Back" onClick={onCancel} />
+          <Button
+            variant="tertiary"
+            data-testid="delete-modal-cancel-button"
+            label="No, Go Back"
+            onClick={onCancel}
+          />
         </DialogClose>
       </div>
     </article>

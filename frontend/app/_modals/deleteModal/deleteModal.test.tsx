@@ -1,4 +1,5 @@
-import { render } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 
 import { Dialog } from "@/components/ui/dialog"
 
@@ -16,5 +17,38 @@ describe("DeleteModal", () => {
         />
       </Dialog>,
     )
+  })
+
+  it("should call onCancel when cancel button is clicked", async () => {
+    const onCancel = jest.fn()
+    render(
+      <Dialog>
+        <DeleteModal
+          title="Savings"
+          description="Are you sure?"
+          onCancel={onCancel}
+          onConfirm={() => {}}
+        />
+      </Dialog>,
+    )
+    await userEvent.click(screen.getByTestId("delete-modal-cancel-button"))
+    expect(onCancel).toHaveBeenCalled()
+  })
+
+  it("should call onConfirm when confirm button is clicked", async () => {
+    const onConfirm = jest.fn()
+    render(
+      <Dialog>
+        <DeleteModal
+          title="Savings"
+          description="Are you sure?"
+          onCancel={() => {}}
+          onConfirm={onConfirm}
+        />
+      </Dialog>,
+    )
+
+    await userEvent.click(screen.getByTestId("confirm-modal-delete-button"))
+    expect(onConfirm).toHaveBeenCalled()
   })
 })

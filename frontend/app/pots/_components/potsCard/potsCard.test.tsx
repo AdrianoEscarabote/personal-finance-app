@@ -29,6 +29,7 @@ describe("PotsCard component", () => {
       <Provider store={store}>
         <PotsCard
           pot={{
+            id: "1",
             name: "Savings",
             target: 2000.0,
             total: 159.0,
@@ -48,6 +49,7 @@ describe("PotsCard component", () => {
       <Provider store={store}>
         <PotsCard
           pot={{
+            id: "1",
             name: "Savings",
             target: 2000.0,
             total: 159.0,
@@ -67,7 +69,7 @@ describe("PotsCard component", () => {
       ),
     ).toBeTruthy()
 
-    fireEvent.click(screen.getByTestId("close_modal_button"))
+    fireEvent.keyDown(document, { key: "Escape", code: "Escape" })
 
     expect(
       screen.queryByText(
@@ -81,6 +83,7 @@ describe("PotsCard component", () => {
       <Provider store={store}>
         <PotsCard
           pot={{
+            id: "1",
             name: "Savings",
             target: 2000.0,
             total: 159.0,

@@ -151,6 +151,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                 onClick={() => openModal("addMoney")}
                 disabled={pot.total >= pot.target}
                 style={{ opacity: pot.total >= pot.target ? 0.5 : 1 }}
+                data-testid="add-money-btn"
               />
               <Button
                 variant="secondary"
@@ -158,6 +159,7 @@ const PotsCard = ({ pot }: PotsCardProps) => {
                 onClick={() => openModal("withdraw")}
                 disabled={pot.total === 0}
                 style={{ opacity: pot.total === 0 ? 0.5 : 1 }}
+                data-testid="withdraw-btn"
               />
             </div>
           </div>

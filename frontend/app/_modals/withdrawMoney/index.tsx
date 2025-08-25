@@ -128,7 +128,7 @@ const WithdrawMoney = ({
                 message: "Amount must be less than the total",
               },
             })}
-            data-testid="input"
+            data-testid="withdraw-amount-input"
             inputMode="numeric"
             max={total}
             onInput={(e) => {

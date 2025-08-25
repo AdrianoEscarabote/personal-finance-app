@@ -95,6 +95,7 @@ const Form = () => {
             label="Email"
             errors={errors.email?.message ? true : false}
             errorMessage={errors.email?.message}
+            data-testid="email-input"
             id="email"
             {...register("email", {
               required: "This field is required",
@@ -112,6 +113,7 @@ const Form = () => {
             errorMessage={errors.password?.message}
             id="password"
             type="password"
+            data-testid="password-input"
             {...register("password", { required: "Password is required" })}
           />
 

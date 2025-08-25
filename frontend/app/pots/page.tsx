@@ -34,6 +34,7 @@ const Pots = () => {
               label="+ Add New Pot"
               style={{ maxWidth: "8.0625rem" }}
               onClick={() => setAddPotOpen(true)}
+              data-testid="add-new-pot-btn"
             />
           </DialogTrigger>
         </div>

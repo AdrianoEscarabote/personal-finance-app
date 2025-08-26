@@ -11,7 +11,7 @@ This is a solution to the [Personal finance app challenge on Frontend Mentor](ht
 - [Author](#author)
 - [License](#📝-license)
 
-## ✅  The challenge
+## ✅ The challenge
 
 Users should be able to:
 
@@ -89,6 +89,16 @@ Run tests by executing the following command:
 npm run test
 ```
 
+### 🧪 E2E Testing
+
+To run end-to-end (E2E) tests with Playwright, make sure your **backend server is running** before executing the command below:
+
+```sh
+npm run e2e:ui
+```
+
+This will open the Playwright Test UI for interactive E2E testing.
+
 ## 🧰 Technologies Used
 
 **Operational System**
@@ -105,6 +115,7 @@ npm run test
 ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![React-hook-form](https://img.shields.io/badge/React%20Hook%20Form-61DAFB?style=for-the-badge&logo=react&logoColor=white)
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)
 
 **Back-end**
 

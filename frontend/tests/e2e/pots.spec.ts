@@ -1,5 +1,4 @@
-// tests/e2e/add-modal.spec.ts
-import { /* expect, */ expect, test } from "@playwright/test"
+import { expect, test } from "@playwright/test"
 
 test("user can add a new Pot from AddModal", async ({ page }) => {
   await page.goto("/login")
@@ -74,4 +73,51 @@ test("user can withdraw money from pot with withdrawMoneyModal", async ({
   await page.click("button:has-text('Confirm Withdrawal')")
 
   await expect(page.getByText("Total Saved: $60.00")).toBeVisible()
+})
+
+test("user can edit pot with EditModal", async ({ page }) => {
+  await page.goto("/login")
+
+  await page.click("button:has-text('Demo Mode')")
+
+  await page.waitForURL("/")
+
+  await page.getByRole("link", { name: /pots/i }).click()
+
+  await page.locator('[data-testid="ellipsis_button"]').first().click()
+
+  await page.click('button:has-text("Edit Pot")')
+
+  await expect(
+    page.getByText(
+      "If your saving targets change, feel free to update your pots.",
+    ),
+  ).toBeVisible()
+
+  await page.fill('[data-testid="input-pot-name"]', "Viagem 2025")
+  await page.fill('[data-testid="input-maximum-spend"]', "2000")
+
+  await page.click("button:has-text('Save Changes')")
+
+  await expect(page.getByText("Viagem 2025")).toBeVisible()
+})
+
+test("user can delete pot with DeleteModal", async ({ page }) => {
+  await page.goto("/login")
+
+  await page.click("button:has-text('Demo Mode')")
+
+  await page.waitForURL("/")
+
+  await page.getByRole("link", { name: /pots/i }).click()
+
+  await page.locator('[data-testid="ellipsis_button"]').first().click()
+
+  await page.click('button:has-text("Delete Pot")')
+
+  await expect(page.getByText("Delete ‘Savings’?")).toBeVisible()
+
+  await page.click('button:has-text("Yes, Confirm Deletion")')
+
+  await expect(page.getByText("Savings")).not.toBeVisible()
 })

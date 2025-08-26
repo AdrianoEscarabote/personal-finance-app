@@ -7,7 +7,7 @@ export default defineConfig({
   reporter: [["list"], ["html", { outputFolder: "playwright-report" }]],
   use: {
     baseURL: "http://localhost:3000",
-    headless: true,
+    headless: false,
     trace: "on-first-retry",
   },
   webServer: {

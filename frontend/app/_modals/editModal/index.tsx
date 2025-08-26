@@ -155,7 +155,7 @@ const EditModal = ({
               label="Maximum Spend"
               variant="withPrefix"
               id="maximum"
-              data-testid="input-maximum"
+              data-testid="input-maximum-spend"
               errors={errors.maximum?.message ? true : false}
               errorMessage={errors.maximum?.message as string}
               {...register("maximum", {

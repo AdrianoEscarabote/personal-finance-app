@@ -33,6 +33,7 @@ const Transactions = () => {
                 label="+ Add New Transaction"
                 style={{ maxWidth: "185px" }}
                 onClick={() => setShowAddTransactionModal(true)}
+                data-testid="add-transaction-button"
               />
             </DialogTrigger>
           </div>

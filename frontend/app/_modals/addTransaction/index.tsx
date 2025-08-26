@@ -93,7 +93,15 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
 
     const budget = budgets.find((b) => b.category === selectedCategory)
 
-    if (!budget || Number(data.amount) > 0) return closeModal()
+    if (!budget) {
+      setLoading(false)
+      return closeModal()
+    }
+
+    if (Number(data.amount) > 0) {
+      setLoading(false)
+      return closeModal()
+    }
 
     const totalFromCategory = transactions
       .filter((t) => t.category === selectedCategory && t.amount < 0)
@@ -113,12 +121,15 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
           body: JSON.stringify({
             budget_id: budget.id,
             budget_name: budget.category,
-            budget_value: totalFromCategory + Number(data.amount),
+            budget_value: newTotal,
             theme: budget.theme,
           }),
         },
       )
     }
+
+    setLoading(false)
+    closeModal()
   })
 
   return (
@@ -147,6 +158,7 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
             label="Name"
             value={name}
             maxLength={30}
+            data-testid="name-input"
             showCaracterLeft
             {...register("name", {
               required: "This field is required",
@@ -196,6 +208,7 @@ const AddTransactionModal = ({ closeModal }: AddTransactionProps) => {
             inputMode="numeric"
             errors={errors.amount?.message ? true : false}
             errorMessage={errors.amount?.message as string}
+            data-testid="amount-input"
             onInput={(e) => {
               const input = e.target as HTMLInputElement
               input.value = input.value.replace(/(?!^-)[^0-9.]/g, "")

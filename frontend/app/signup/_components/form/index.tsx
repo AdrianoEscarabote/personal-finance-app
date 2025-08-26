@@ -88,6 +88,7 @@ const Form = () => {
             label="Name"
             errors={errors.name?.message ? true : false}
             errorMessage={errors.name?.message}
+            data-testid="name-input"
             id="name"
             {...register("name", { required: "Name is required" })}
           />
@@ -97,6 +98,7 @@ const Form = () => {
             label="Email"
             errors={errors.email?.message ? true : false}
             errorMessage={errors.email?.message}
+            data-testid="email-input"
             id="email"
             {...register("email", {
               required: "This field is required",
@@ -111,6 +113,7 @@ const Form = () => {
             <Input
               variant="basic"
               label="Create Password"
+              data-testid="password-input"
               errors={errors.password?.message ? true : false}
               errorMessage={errors.password?.message}
               id="password"

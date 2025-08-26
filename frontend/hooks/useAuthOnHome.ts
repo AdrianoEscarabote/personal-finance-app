@@ -1,15 +1,22 @@
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import useGetData from "./useGetData"
 
-// Hook for home page
 const useAuthOnHome = () => {
   const router = useRouter()
+  const pathName = usePathname()
   const { handleGetData } = useGetData()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    const publicRoutes = ["/login", "/signup"]
+
+    if (publicRoutes.includes(pathName)) {
+      setIsLoading(false)
+      return
+    }
+
     const checkAuth = async () => {
       try {
         const response = await fetch(
@@ -33,7 +40,7 @@ const useAuthOnHome = () => {
       }
     }
     checkAuth()
-  }, [router])
+  }, [router, pathName, handleGetData])
 
   return { isLoading }
 }

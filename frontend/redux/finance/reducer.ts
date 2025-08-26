@@ -131,10 +131,26 @@ const financeSlice = createSlice({
     ) => {
       const { name, date, amount, recurring, category, avatar } = action.payload
 
-      if (!name || !date || !amount || !category || !avatar) return
+      if (
+        !name ||
+        !date ||
+        amount === undefined ||
+        amount === null ||
+        !category ||
+        !avatar
+      )
+        return
 
       const budget = state.budgets.find((b) => b.category === category)
-      if (!budget) return
+      if (budget) {
+        const totalFromCategory = state.transactions
+          .filter((t) => t.category === category && t.amount < 0)
+          .reduce((acc, t) => acc + Math.abs(t.amount), 0)
+        const newTotal = totalFromCategory + Math.abs(amount)
+        if (newTotal > budget.maximum) {
+          budget.maximum = newTotal
+        }
+      }
 
       state.transactions.push({
         name,
@@ -144,16 +160,6 @@ const financeSlice = createSlice({
         category,
         avatar,
       })
-
-      const totalFromCategory = state.transactions
-        .filter((t) => t.category === category && t.amount < 0)
-        .reduce((acc, t) => acc + Math.abs(t.amount), 0)
-
-      const newTotal = totalFromCategory + Math.abs(amount)
-
-      if (newTotal > budget.maximum) {
-        budget.maximum = newTotal
-      }
 
       updateBalance(state)
     },

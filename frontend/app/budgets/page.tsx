@@ -36,6 +36,7 @@ const BudgetsPage = () => {
             label="+ Add New Budget"
             style={{ maxWidth: "9.6875rem" }}
             onClick={() => setAddBudgetOpen(true)}
+            data-testid="add-new-budget-btn"
           />
         </div>
 

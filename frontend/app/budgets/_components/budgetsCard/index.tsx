@@ -77,7 +77,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
       <article className="w-full md:max-w-[38rem]">
         <div
           key={budget.category}
-          className="dark:bg-grey-950 rounded-xl bg-white px-5 py-6 dark:border dark:border-border md:p-8"
+          className="rounded-xl bg-white px-5 py-6 dark:border dark:border-border dark:bg-grey-950 md:p-8"
         >
           <div className="relative mb-5 flex w-full items-center justify-between">
             <h2 className="text-preset-2 flex items-center gap-3 text-grey-900 dark:text-grey-100">
@@ -90,11 +90,12 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
             <button
               className="relative grid h-6 w-6 place-content-center text-grey-900 transition hover:text-grey-300 dark:text-grey-100 dark:hover:text-grey-300"
               onClick={() => setShowOptions(!showOptions)}
+              data-testid="budget-options-button"
             >
               <IconEllipsis className="text-inherit" />
             </button>
             <div
-              className={`dark:bg-grey-950 absolute right-0 top-10 z-20 w-[9.5rem] rounded-lg bg-white px-5 py-3 shadow-xl transition-all duration-300 dark:border dark:border-border ${showOptions ? "max-h-[7.9375rem] opacity-100" : "max-h-0 opacity-0"}`}
+              className={`absolute right-0 top-10 z-20 w-[9.5rem] rounded-lg bg-white px-5 py-3 shadow-xl transition-all duration-300 dark:border dark:border-border dark:bg-grey-950 ${showOptions ? "max-h-[7.9375rem] opacity-100" : "max-h-0 opacity-0"}`}
               style={{
                 transition: "max-height 0.3s ease, opacity 0.3s ease",
               }}
@@ -130,7 +131,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
               Maximum of ${budget.maximum.toFixed(2)}
             </p>
 
-            <div className="dark:bg-grey-975 relative mt-2 w-full overflow-hidden rounded-[0.25rem] bg-grey-100 p-1">
+            <div className="relative mt-2 w-full overflow-hidden rounded-[0.25rem] bg-grey-100 p-1 dark:bg-grey-975">
               <div
                 style={{
                   width: `${progress}%`,
@@ -166,7 +167,7 @@ const BudgetsCard = ({ budget }: BudgetsCardProps) => {
             </div>
           </div>
 
-          <div className="dark:bg-grey-975 mt-5 rounded-xl bg-beige-100 p-5">
+          <div className="mt-5 rounded-xl bg-beige-100 p-5 dark:bg-grey-975">
             <div className="mb-3 flex w-full items-center justify-between">
               <h3 className="text-preset-3 text-grey-900 dark:text-grey-100">
                 Latest Spending

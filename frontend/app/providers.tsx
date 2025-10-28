@@ -7,7 +7,6 @@ import { Provider } from "react-redux"
 import { ThemeProvider } from "@/components/theme-provider"
 import store from "@/redux/store"
 
-import PWARegister from "./_components/PWARegister"
 import Sidebar from "./_components/sidebar"
 import AppProvider from "./AppProvider"
 
@@ -25,7 +24,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           <AppProvider>{children}</AppProvider>
         </Provider>
       </div>
-      <PWARegister />
     </ThemeProvider>
   )
 }

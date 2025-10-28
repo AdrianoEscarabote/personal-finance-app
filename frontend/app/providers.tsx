@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import store from "@/redux/store"
 
 import Sidebar from "./_components/sidebar"
+import ThemeFab from "./_components/theme-toggle/Fab"
 import AppProvider from "./AppProvider"
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -24,6 +25,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           <AppProvider>{children}</AppProvider>
         </Provider>
       </div>
+      <ThemeFab />
     </ThemeProvider>
   )
 }

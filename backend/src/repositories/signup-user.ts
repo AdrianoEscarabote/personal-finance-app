@@ -1,10 +1,11 @@
+import { genSalt, hash } from "bcrypt"
+
 import {
   ISignupUserRepository,
   ReturnSignupUser,
   SignupUserParams,
 } from "@/controllers/signup-user/protocols"
 import prisma from "@/database/prisma"
-import { genSalt, hash } from "bcrypt"
 
 export class SignupUserRepository implements ISignupUserRepository {
   async signupUser(params: SignupUserParams): Promise<ReturnSignupUser> {

@@ -1,10 +1,11 @@
+import { compare } from "bcrypt"
+
 import {
   AuthDemoParams,
   IAuthDemoRepository,
   ReturnAuthDemo,
 } from "@/controllers/auth-demo/protocols"
 import prisma from "@/database/prisma"
-import { compare } from "bcrypt"
 
 export class AuthDemoRepository implements IAuthDemoRepository {
   async authDemo(params: AuthDemoParams): Promise<ReturnAuthDemo> {

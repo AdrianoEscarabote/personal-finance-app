@@ -1,14 +1,13 @@
+import { Secret, verify } from "jsonwebtoken"
+
 import {
   IUserAuthenticatedRepository,
   UserAuthenticatedParams,
   UserAuthenticatedReturn,
 } from "@/controllers/user-authenticated/protocols"
 import prisma from "@/database/prisma"
-import { Secret, verify } from "jsonwebtoken"
 
-export class UserAuthenticatedRepository
-  implements IUserAuthenticatedRepository
-{
+export class UserAuthenticatedRepository implements IUserAuthenticatedRepository {
   async authenticateUser(
     params: UserAuthenticatedParams,
   ): Promise<UserAuthenticatedReturn> {

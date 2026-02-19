@@ -1,10 +1,11 @@
+import { compare } from "bcrypt"
+
 import {
   ILoginUserRepository,
   LoginUserParams,
   LoginUserReturnTypes,
 } from "@/controllers/login-user/protocols"
 import prisma from "@/database/prisma"
-import { compare } from "bcrypt"
 
 export class LoginUserRepository implements ILoginUserRepository {
   async loginUser(params: LoginUserParams): Promise<LoginUserReturnTypes> {

@@ -1,10 +1,12 @@
 import { Response } from "express"
+import { Secret, sign } from "jsonwebtoken"
+import validator from "validator"
+
+import { UserTypes } from "@/models/user"
+
+import { badRequest, logged, notFound } from "../helpers"
 import { HttpRequest, HttpResponse, IController } from "../protocols"
 import { ILoginUserRepository, LoginUserParams } from "./protocols"
-import { badRequest, logged, notFound } from "../helpers"
-import { Secret, sign } from "jsonwebtoken"
-import { UserTypes } from "@/models/user"
-import validator from "validator"
 
 export class LoginUserController implements IController {
   constructor(private readonly loginUserRepository: ILoginUserRepository) {}

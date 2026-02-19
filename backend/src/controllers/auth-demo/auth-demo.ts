@@ -1,9 +1,9 @@
 import { Response } from "express"
-import { HttpRequest, HttpResponse, IController } from "../protocols"
-import { ok, serverError } from "../helpers"
-import { IAuthDemoRepository, ReturnAuthDemo } from "./protocols"
 import { Secret, sign } from "jsonwebtoken"
-import { User } from "@prisma/client"
+
+import { ok, serverError } from "../helpers"
+import { HttpRequest, HttpResponse, IController } from "../protocols"
+import { IAuthDemoRepository, ReturnAuthDemo } from "./protocols"
 
 export class AuthDemoController implements IController {
   constructor(private readonly authDemoRepository: IAuthDemoRepository) {}

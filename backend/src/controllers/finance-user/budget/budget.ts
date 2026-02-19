@@ -1,8 +1,10 @@
+import { badRequest, ok, serverError } from "@/controllers/helpers"
 import {
   HttpRequest,
   HttpResponse,
   IControllerBudgets,
 } from "@/controllers/protocols"
+
 import {
   BudgetParams,
   budgetsReturnTypes,
@@ -10,7 +12,6 @@ import {
   EditBudgetParams,
   IBudgetsRepository,
 } from "./protocols"
-import { badRequest, ok, serverError } from "@/controllers/helpers"
 
 export class BudgetController implements IControllerBudgets {
   constructor(private readonly budgetsRepository: IBudgetsRepository) {}
@@ -74,7 +75,7 @@ export class BudgetController implements IControllerBudgets {
       })
 
       return ok<budgetsReturnTypes>(result)
-    } catch (error) {
+    } catch {
       return serverError()
     }
   }
@@ -95,7 +96,7 @@ export class BudgetController implements IControllerBudgets {
       })
 
       return ok<budgetsReturnTypes>(result)
-    } catch (error) {
+    } catch {
       return serverError()
     }
   }

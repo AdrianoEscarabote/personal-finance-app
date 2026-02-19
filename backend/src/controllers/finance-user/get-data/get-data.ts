@@ -1,6 +1,6 @@
 import { badRequest, ok, serverError } from "@/controllers/helpers"
 import { HttpRequest, HttpResponse, IController } from "@/controllers/protocols"
-import { Response } from "express"
+
 import {
   GetDataParams,
   GetDataReturnTypes,
@@ -12,7 +12,6 @@ export class GetDataController implements IController {
 
   async handle(
     HttpRequest: HttpRequest<GetDataParams>,
-    res: Response<unknown>,
   ): Promise<HttpResponse<GetDataReturnTypes | string>> {
     try {
       if (!HttpRequest.body?.id) {

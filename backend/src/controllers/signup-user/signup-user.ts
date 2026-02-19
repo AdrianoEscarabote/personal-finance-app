@@ -1,10 +1,12 @@
 import { Response } from "express"
-import { HttpRequest, HttpResponse, IController } from "../protocols"
-import validator from "validator"
-import { badRequest, Conflict, registered } from "../helpers"
-import { UserTypes } from "@/models/user"
-import { ISignupUserRepository, SignupUserParams } from "./protocols"
 import { Secret, sign } from "jsonwebtoken"
+import validator from "validator"
+
+import { UserTypes } from "@/models/user"
+
+import { badRequest, Conflict, registered } from "../helpers"
+import { HttpRequest, HttpResponse, IController } from "../protocols"
+import { ISignupUserRepository, SignupUserParams } from "./protocols"
 
 export class SignupUserController implements IController {
   constructor(private readonly signupUserRepository: ISignupUserRepository) {}
@@ -56,7 +58,7 @@ export class SignupUserController implements IController {
       })
 
       return registered<UserTypes>(user)
-    } catch (error) {
+    } catch {
       return Conflict()
     }
   }

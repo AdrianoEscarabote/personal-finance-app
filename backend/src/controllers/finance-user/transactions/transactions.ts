@@ -1,18 +1,18 @@
+/* eslint-disable no-constant-binary-expression */
+import { badRequest, ok, serverError } from "@/controllers/helpers"
 import { HttpRequest, HttpResponse, IController } from "@/controllers/protocols"
-import { Response } from "express"
+
 import {
   ITransactionRepository,
   TransactionParams,
   TransactionReturnTypes,
 } from "./protocols"
-import { badRequest, ok, serverError } from "@/controllers/helpers"
 
 export class TransactionController implements IController {
   constructor(private readonly transactionRepository: ITransactionRepository) {}
 
   async handle(
     HttpRequest: HttpRequest<TransactionParams>,
-    res: Response<unknown>,
   ): Promise<HttpResponse<TransactionReturnTypes | string>> {
     try {
       if (

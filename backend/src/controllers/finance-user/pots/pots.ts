@@ -1,8 +1,10 @@
+import { badRequest, ok, serverError } from "@/controllers/helpers"
 import {
   HttpRequest,
   HttpResponse,
   IControllerPots,
 } from "@/controllers/protocols"
+
 import {
   DeletePotParams,
   IPotRepository,
@@ -11,7 +13,6 @@ import {
   PotReturnTypes,
   withdrawMoneyParams,
 } from "./protocols"
-import { badRequest, ok, serverError } from "@/controllers/helpers"
 
 export class PotsController implements IControllerPots {
   constructor(private readonly potsRepository: IPotRepository) {}
@@ -33,7 +34,7 @@ export class PotsController implements IControllerPots {
       const success = await this.potsRepository.addPot(HttpRequest.body)
 
       return ok<PotReturnTypes>(success)
-    } catch (error) {
+    } catch {
       return serverError()
     }
   }
@@ -75,7 +76,7 @@ export class PotsController implements IControllerPots {
       const { success } = await this.potsRepository.deletePot(HttpRequest.body)
 
       return ok<PotReturnTypes>(success)
-    } catch (error) {
+    } catch {
       return serverError()
     }
   }
@@ -95,7 +96,7 @@ export class PotsController implements IControllerPots {
       const { success } = await this.potsRepository.addMoney(HttpRequest.body)
 
       return ok<PotReturnTypes>(success)
-    } catch (error) {
+    } catch {
       return serverError()
     }
   }
@@ -117,7 +118,7 @@ export class PotsController implements IControllerPots {
       )
 
       return ok<PotReturnTypes>(success)
-    } catch (error) {
+    } catch {
       return serverError()
     }
   }

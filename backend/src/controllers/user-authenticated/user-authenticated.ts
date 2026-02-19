@@ -1,10 +1,10 @@
+import { badRequest, ok } from "../helpers"
 import { HttpRequest, HttpResponse, IController } from "../protocols"
 import {
   IUserAuthenticatedRepository,
   UserAuthenticatedParams,
   UserAuthenticatedReturn,
 } from "./protocols"
-import { badRequest, ok } from "../helpers"
 
 export class UserAuthenticatedController implements IController {
   constructor(

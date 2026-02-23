@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   GetDataParams,
   GetDataReturnTypes,
@@ -51,7 +52,7 @@ export class GetDataRepository implements IGetDataRepository {
           financeId,
         },
       })
-    ).map((transaction) => ({
+    ).map((transaction: any) => ({
       ...transaction,
       date: transaction.date.toISOString(),
     }))
@@ -68,12 +69,10 @@ export class GetDataRepository implements IGetDataRepository {
       },
     })
 
-    let current,
-      income,
-      expenses = 0
+    let expenses = 0
 
-    current = finance.balance?.current ? finance.balance.current : 0
-    income = finance.balance?.income ? finance.balance.income : 0
+    const current = finance.balance?.current ? finance.balance.current : 0
+    const income = finance.balance?.income ? finance.balance.income : 0
     expenses = finance.balance?.expenses ? finance.balance.expenses : 0
 
     return {

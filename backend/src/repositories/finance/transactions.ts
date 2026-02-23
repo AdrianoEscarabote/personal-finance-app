@@ -3,8 +3,8 @@ import {
   TransactionParams,
   TransactionReturnTypes,
 } from "@/controllers/finance-user/transactions/protocols"
-import { badRequest } from "@/controllers/helpers"
 import prisma from "@/database/prisma"
+import { Transactions } from "@/models/user"
 import { validateParams } from "@/utils/validateParams"
 
 export class TransactionRepository implements ITransactionRepository {
@@ -58,12 +58,12 @@ export class TransactionRepository implements ITransactionRepository {
     })
 
     const income = transactions
-      .filter((t) => t.amount > 0)
-      .reduce((acc, t) => acc + t.amount, 0)
+      .filter((t: Transactions) => t.amount > 0)
+      .reduce((acc: number, t: Transactions) => acc + t.amount, 0)
 
     const expenses = transactions
-      .filter((t) => t.amount < 0)
-      .reduce((acc, t) => acc + Math.abs(t.amount), 0)
+      .filter((t: Transactions) => t.amount < 0)
+      .reduce((acc: number, t: Transactions) => acc + Math.abs(t.amount), 0)
 
     const current = income - expenses
 

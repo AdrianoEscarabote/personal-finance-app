@@ -4,13 +4,16 @@ import Providers from "./providers"
 
 export const metadata = {
   title: "Personal finance app - Overview",
-  themeColor: "#277C78",
   manifest: "/manifest.json",
   icons: {
     icon: "/images/icon-192x192.png",
     apple: "/images/icon-192x192.png",
     shortcut: "/favicon.ico",
   },
+}
+
+export const viewport = {
+  themeColor: "#277C78",
 }
 
 const PublicSans = Public_Sans({ subsets: ["latin"] })
